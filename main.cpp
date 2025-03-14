@@ -1,5 +1,5 @@
 #include "read_files.cpp"
-
+#include "algorithms.cpp"
 Graph<Location>* map = new Graph<Location>();
 
 unordered_map<string, Location> location_map; // maps the codes on the csv files
@@ -32,9 +32,19 @@ int main(){
         cout << endl;
     }
 
-    const InputData inputData = read_input_file("input.txt");
+    string filename = "input.txt";
+    const InputData inputData = read_input_file(filename);
+
+    if (inputData.mode.empty()) {
+        cerr << "Invalid Input File. Ignoring" << endl;
+        return 1;
+    }
 
     displayInputData(inputData);
+
+
+
+
 
     delete map;
     return 0;
