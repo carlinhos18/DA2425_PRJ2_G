@@ -104,11 +104,20 @@ void read_distances(const string& filename, unordered_map<string, Location>& loc
     infile.close();
 }
 
-void read_input_file(const string& filename, InputData& inputData) {
+bool is_valid_integer(const string& str) {
+    return !str.empty() && all_of(str.begin(), str.end(), ::isdigit);
+}
+
+InputData read_input_file(const string& filename) {
+    InputData inputData;
+
     ifstream infile(filename);
     if (!infile.is_open()) {
         cerr << "Error: Could not open file " << filename << endl;
+        return {};
     }
+
+    bool hasMode = false, hasSource = false, hasDestination = false;
 
     string line;
     while (getline(infile, line)) {
@@ -119,26 +128,51 @@ void read_input_file(const string& filename, InputData& inputData) {
         getline(ss, value);
 
         if (key == "Mode") {
+            if (value != "driving" && value != "driving-walking" && value != "walking") {
+                cerr << "Invalid mode: " << value << endl;
+                return {};
+            }
             inputData.mode = value;
+            hasMode = true;
         }
         else if (key == "Source") {
+            if (!is_valid_integer(value)) {
+                cerr << "Invalid Source: " << value << endl;
+                return {};
+            }
             inputData.source = stoi(value);
+            hasSource = true;
         }
         else if (key == "Destination") {
+            if (!is_valid_integer(value)) {
+                cerr << "Invalid Destination: " << value << endl;
+                return {};
+            }
             inputData.destination = stoi(value);
+            hasDestination = true;
         }
-        else if (key == "AvoidNodes" && !value.empty()) {
+        else if (key == "AvoidNodes"){
             // TODO
         }
-        else if (key == "AvoidSegments" && !value.empty()) {
+        else if (key == "AvoidSegments") {
             // TODO
         }
-        else if (key == "IncludeNode" && !value.empty()) {
+        else if (key == "IncludeNode") {
             //TODO
+        }
+        else {
+            cerr << "Invalid key: " << key << endl;
         }
     }
 
+    if (!hasMode || !hasSource || !hasDestination) {
+        cerr << "Missing required fields in input file." << endl;
+        return {};
+    }
+
     infile.close();
+
+    return inputData;
 }
 
 void displayInputData(const InputData& inputData) {

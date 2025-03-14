@@ -32,11 +32,10 @@ int main(){
         cout << endl;
     }
 
-    InputData inputData;
-
-    read_input_file("input.txt", inputData);
+    const InputData inputData = read_input_file("input.txt");
 
     displayInputData(inputData);
+
     delete map;
     return 0;
 }
