@@ -43,9 +43,23 @@ int main(){
 
         if (choice == 'f'){
             string filename = "input.txt";
-            inputData =  read_input_file(filename);
+            inputData = read_input_file(filename);
 
-            break;
+            if (!inputData.mode.empty()) {
+                break;
+            }
+
+            cerr << "File is not valid. Please confirm the structure and path of the file.\n";
+            cout << "Correct Structure:\n";
+            cout << "Mode:<walking/driving/driving-walking>\n";
+            cout << "Source:<integer>\n";
+            cout << "Destination:<integer>\n";
+
+            cout << "Please enter 'f' or 'c'." << endl;
+
+            cin.clear();
+            cin.ignore();
+
         }else if (choice == 'c') {
             cin.clear();
             cin.ignore();
@@ -82,7 +96,7 @@ int main(){
 
 
     if (inputData.mode.empty()) {
-        cerr << "Invalid Input File. Ignoring" << endl;
+        cerr << "Invalid Input Data. Ignoring" << endl;
         return 1;
     }
 

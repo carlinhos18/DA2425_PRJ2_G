@@ -187,6 +187,7 @@ InputData read_input_file(const string& filename) {
         }
         else {
             cerr << "Invalid key: " << key << endl;
+            return {};
         }
     }
 
