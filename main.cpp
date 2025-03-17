@@ -32,8 +32,54 @@ int main(){
         cout << endl;
     }
 
-    string filename = "input.txt";
-    const InputData inputData = read_input_file(filename);
+    char choice;
+
+    InputData inputData;
+
+    cout << "Choose an input type:\n'f' for input.txt file; 'c' for manual write on the console" << endl;
+
+    while (true) {
+        cin >> choice;
+
+        if (choice == 'f'){
+            string filename = "input.txt";
+            inputData =  read_input_file(filename);
+
+            break;
+        }else if (choice == 'c') {
+            cin.clear();
+            cin.ignore();
+
+            string mode;
+
+            while (true) {
+                cout << "Mode (walking, driving, driving-walking): ";
+                getline(cin, mode);
+
+                if (mode == "walking" || mode == "driving" || mode == "driving-walking") {
+                    break;
+                } else {
+                    cout << "Invalid mode! Please enter 'walking', 'driving', or 'driving-walking'." << endl;
+                }
+            }
+
+            int source = getValidInteger("Source: ");
+            int destination = getValidInteger("Destination: ");
+
+            inputData.source = source;
+            inputData.destination = destination;
+            inputData.mode = mode;
+
+            break;
+        }
+        else {
+            cout << "Invalid choice! Please enter 'f' or 'c'." << endl;
+
+            cin.clear();
+            cin.ignore();
+        }
+    }
+
 
     if (inputData.mode.empty()) {
         cerr << "Invalid Input File. Ignoring" << endl;

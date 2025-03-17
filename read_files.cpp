@@ -41,7 +41,7 @@ void read_locations(const string& filename, unordered_map<string, Location>& loc
     string line;
 
     if (!infile.is_open()) {
-        cerr << "Could not open file " << filename << std::endl;
+        cerr << "Could not open file " << filename << endl;
         exit(1);
     }
 
@@ -85,7 +85,7 @@ void read_distances(const string& filename, unordered_map<string, Location>& loc
     ifstream infile(filename);
     string line;
     if (!infile.is_open()) {
-        cerr << "Could not open file " << filename << std::endl;
+        cerr << "Could not open file " << filename << endl;
         exit(1);
     }
     getline(infile, line);
@@ -106,6 +106,31 @@ void read_distances(const string& filename, unordered_map<string, Location>& loc
 
 bool is_valid_integer(const string& str) {
     return !str.empty() && all_of(str.begin(), str.end(), ::isdigit);
+}
+
+int getValidInteger(const string &prompt) {
+    string input;
+    int value;
+
+    while (true) {
+        cout << prompt;
+        getline(std::cin, input);
+
+        try {
+            size_t pos;
+            value = stoi(input, &pos);
+
+            if (pos == input.size() && is_valid_integer(input)) {
+                break;
+            }
+        } catch (...) {
+
+        }
+
+        cout << "Invalid input. Please enter a valid integer.\n";
+    }
+
+    return value;
 }
 
 InputData read_input_file(const string& filename) {
