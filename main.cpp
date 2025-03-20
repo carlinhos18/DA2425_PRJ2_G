@@ -6,31 +6,8 @@ unordered_map<string, Location> location_map; // maps the codes on the csv files
 
 int main(){
     read_locations("./For Students/Locations.csv", location_map, map);
-
-    /*if (!map->getVertexSet().empty()) {
-        for (Vertex<Location>* v : map->getVertexSet()) {
-            cout << "Location: " << v->getInfo().name << ", ID: " << v->getInfo().id
-                 << ", Code: " << v->getInfo().code << ", Parking: "
-                 << (v->getInfo().parking ? "Yes" : "No") << endl;
-        }
-    } else {
-        cerr << "No locations were loaded." << endl;
-    }*/
-
     read_distances("./For Students/Distances.csv", location_map, map);
 
-    for (auto vertex : map->getVertexSet()) {
-        cout << "Location: " << vertex->getInfo().code << " -> ";
-
-        for (auto edge : vertex->getAdj()) {
-            auto v = edge->getDest();
-            cout << v->getInfo().code
-                 << " (Drive: " << edge->getDriveWeight()
-                 << ", Walk: " << edge->getWalkWeight()
-                 << "), ";
-        }
-        cout << endl;
-    }
 
     char choice;
 
@@ -49,7 +26,7 @@ int main(){
                 break;
             }
 
-            cerr << "File is not valid. Please confirm the structure and path of the file.\n";
+            cout << "File is not valid. Please confirm the structure and path of the file.\n";
             cout << "Correct Structure:\n";
             cout << "Mode:<walking/driving/driving-walking>\n";
             cout << "Source:<integer>\n";
@@ -72,9 +49,8 @@ int main(){
 
                 if (mode == "walking" || mode == "driving" || mode == "driving-walking") {
                     break;
-                } else {
-                    cout << "Invalid mode! Please enter 'walking', 'driving', or 'driving-walking'." << endl;
                 }
+                cout << "Invalid mode! Please enter 'walking', 'driving', or 'driving-walking'." << endl;
             }
 
             int source = getValidInteger("Source: ");
@@ -101,6 +77,11 @@ int main(){
     }
 
     displayInputData(inputData);
+
+    OutputData outputData;
+    //aplicar as funçoes ao grafo e adicionar a output data
+    //saber que funçoes aplicar ao grafo conforme o input.
+
 
 
 

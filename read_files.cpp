@@ -32,7 +32,29 @@ struct InputData {
     int destination;
     unordered_set<int> avoidNodes;
     vector<pair<int, int>> avoidSegments;
-    int includeNode;
+    int includeNode = 0;
+    int MaxWalkTime = 0;
+};
+
+struct OutputData {
+    // FOR DRIVING MODE //
+    vector<int> BestDrivingRoute;
+    int time_best = 0;
+    vector<int> AlternativeDrivingRoute;
+    int time_alternative = 0;
+    vector<int> RestrictedDrivingRoute;
+    int time_restricted = 0;
+
+    // FOR DRIVE-WALKING MODE //
+    vector<int> DrivingRoute;
+    int time_DrivingRoute = 0;
+    int ParkingNode;
+    vector<int> WalkingRoute;
+    int time_WalkingRoute = 0;
+    int total_time = time_DrivingRoute + time_WalkingRoute;
+    string message;
+
+
 };
 
 
@@ -176,14 +198,53 @@ InputData read_input_file(const string& filename) {
             inputData.destination = stoi(value);
             hasDestination = true;
         }
+        else if (key == "MaxWalkTime") {
+            if (!is_valid_integer(value)) {
+                cerr << "Invalid MaxWalkTime: " << value << endl;
+                continue;
+            }
+            inputData.MaxWalkTime = stoi(value);
+        }
         else if (key == "AvoidNodes"){
             // TODO
+            stringstream nodes(value);
+            string node;
+            while (getline(nodes, node, ',')) {
+                if (is_valid_integer(node)) {
+                    inputData.avoidNodes.insert(stoi(node));
+                } else {
+                    cerr << "Invalid AvoidNode: " << node << endl;
+                }
+            }
         }
         else if (key == "AvoidSegments") {
             // TODO
+            stringstream segments(value);
+            string segment;
+            while (getline(segments, segment, ')')) {
+                segment.erase(remove(segment.begin(), segment.end(), '('), segment.end());
+                segment.erase(remove(segment.begin(), segment.end(), ' '), segment.end());
+
+                if (segment.empty()) continue;
+
+                stringstream pairStream(segment);
+                string first, second;
+                if (getline(pairStream, first, ',') && getline(pairStream, second, ',')) {
+                    if (is_valid_integer(first) && is_valid_integer(second)) {
+                        inputData.avoidSegments.emplace_back(stoi(first), stoi(second));
+                    } else {
+                        cerr << "Invalid AvoidSegment: " << segment << endl;
+                    }
+                }
+            }
         }
         else if (key == "IncludeNode") {
             //TODO
+            if (!is_valid_integer(value)) {
+                cerr << "Invalid IncludeNode: " << value << endl;
+                continue;
+            }
+            inputData.includeNode = stoi(value);
         }
         else {
             cerr << "Invalid key: " << key << endl;
@@ -206,4 +267,57 @@ void displayInputData(const InputData& inputData) {
     cout << "Source: " << inputData.source << endl;
     cout << "Destination: " << inputData.destination << endl;
 }
+
+void writeOutput(const InputData& inputData, const OutputData& outputData) {
+    ofstream outfile("output.txt");
+
+    outfile << "Source: " << inputData.source << endl;
+    outfile << "Destination: " << inputData.destination << endl;
+
+    if (inputData.mode == "driving") {
+        if (!inputData.includeNode == 0 && !inputData.avoidNodes.empty() && !inputData.avoidSegments.empty()) {
+            outfile << "BestDrivingRoute: ";
+            for (int node : outputData.BestDrivingRoute) {
+                outfile << node << " ";
+            }
+            outfile << outputData.time_best;
+            outfile << endl;
+
+            outfile << "AlternativeDrivingRoute: ";
+            for (int node : outputData.AlternativeDrivingRoute) {
+                outfile << node << " ";
+            }
+            outfile << outputData.time_alternative;
+            outfile << endl;
+        }
+        else {
+            outfile << "AlternativeDrivingRoute: ";
+            for (int node : outputData.RestrictedDrivingRoute) {
+                outfile << node << " ";
+            }
+            outfile << outputData.time_restricted;
+            outfile << endl;
+        }
+    }
+    else if (inputData.mode == "driving-walking") {
+        //se houver solução:
+        outfile << "DrivingRoute: ";
+        for (int node : outputData.DrivingRoute) {
+            outfile << node << " ";
+        }
+        outfile << outputData.time_DrivingRoute << endl;
+        outfile << "ParkingNode: " << outputData.ParkingNode << endl;
+        outfile << "Walking Route: ";
+        for (int node : outputData.WalkingRoute) {
+            outfile << node << " ";
+        }
+        outfile << endl;
+        outfile << "TotalTime: " << outputData.total_time << endl;
+        // se nao houver soluçao colocar tudo a none com a message a dizer
+        // uma sugestao para que haja soluçao
+        // ou entao dar possiveis rotas que se aproximem com o que
+        // o utilizador pediu
+    }
+}
+
 
