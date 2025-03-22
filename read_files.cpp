@@ -4,12 +4,6 @@
 #include <unordered_map>
 #include <iostream>
 
-
-
-
-
-
-
 void read_locations(const string& filename, unordered_map<string, Location>& location_map, Graph<Location>* map) {
     ifstream infile(filename);
     string line;
@@ -52,7 +46,7 @@ void add_edge(const Distance& info, unordered_map<string, Location>& location_ma
     }
     Location loc1 = it1->second;
     Location loc2 = it2->second;
-    map->addEdge(loc1, loc2, info.drive_dist, info.walk_dist);
+    map->addBidirectionalEdge(loc1, loc2, info.drive_dist, info.walk_dist);
 }
 
 void read_distances(const string& filename, unordered_map<string, Location>& location_map, Graph<Location>* map) {
@@ -236,10 +230,10 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
                 for (size_t i = 0; i < outputData.BestDrivingRoute.size(); i++) {
                     outfile << outputData.BestDrivingRoute[i];
                     if (i < outputData.BestDrivingRoute.size() - 1) {
-                        outfile << "->";
+                        outfile << ",";
                     }
                 }
-                outfile<<" (" << outputData.best_time << ")";
+                outfile<<"(" << outputData.best_time << ")";
                 outfile << endl;
             }
 
@@ -248,15 +242,18 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
                 outfile << "none" << endl;
             }
             else {
-                for (int node : outputData.AlternativeDrivingRoute) {
-                    outfile << node << " ";
+                for (size_t i = 0; i < outputData.AlternativeDrivingRoute.size(); i++) {
+                    outfile << outputData.AlternativeDrivingRoute[i];
+                    if (i < outputData.AlternativeDrivingRoute.size() - 1) {
+                        outfile << ",";
+                    }
                 }
-                outfile<<" (" << outputData.time_alternative << ")";
+                outfile<<"(" << outputData.time_alternative << ")";
                 outfile << endl;
             }
         }
         else {
-            outfile << "AlternativeDrivingRoute: ";
+            outfile << "RestrictedDrivingRoute: ";
             for (int node : outputData.RestrictedDrivingRoute) {
                 outfile << node << " ";
             }

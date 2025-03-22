@@ -10,6 +10,8 @@ bool relax(Edge<T> *edge) {
     Vertex<T> *v = edge->getDest();
     double weight = edge->getDriveWeight();
 
+    if (weight < 0) return false;
+
     if (v->getDist() > u->getDist() + weight) {
         v->setDist(u->getDist() + weight);
         v->setPath(edge);
@@ -23,7 +25,7 @@ void dijkstra(Graph<T> * g, const Location &origin) {
     MutablePriorityQueue<Vertex<T>> pqueue;
 
     for (Vertex<T>* v : g -> getVertexSet()) {
-        v -> setDist(INT_MAX);
+        v -> setDist(numeric_limits<double>::infinity());
         v -> setPath(nullptr);
         v-> setVisited(false);
     }
@@ -31,6 +33,11 @@ void dijkstra(Graph<T> * g, const Location &origin) {
     Vertex<T> *s = g->findVertex(origin);
     s -> setDist(0);
     pqueue.insert(s);
+
+    if (!s) {
+        std::cerr << "Error: Origin vertex not found in graph!" << std::endl;
+        return;
+    }
 
     while (!pqueue.empty()) {
         Vertex<T> *v = pqueue.extractMin();
@@ -50,7 +57,12 @@ pair<vector<Vertex<T>*>, double> getShortestPath(Graph<T>* g, const Location& de
     vector<Vertex<T>*> path;
     Vertex<T>* v = g->findVertex(destination);
 
-    if (!v || v->getDist() == INT_MAX)
+    if (!v) {
+        std::cerr << "Error: Destination vertex not found in graph!" << std::endl;
+        return {path, -1};
+    }
+
+    if (!v || v->getDist() == numeric_limits<double>::infinity())
         return {path, -1};
 
     double totalWeight = v->getDist();

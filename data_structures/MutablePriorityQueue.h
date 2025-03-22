@@ -22,6 +22,8 @@ class MutablePriorityQueue {
     void heapifyDown(unsigned i);
     inline void set(unsigned i, T * x);
 public:
+    bool contains(T * x);
+
     MutablePriorityQueue();
     void insert(T * x);
     T * extractMin();
@@ -98,5 +100,11 @@ void MutablePriorityQueue<T>::set(unsigned i, T * x) {
     H[i] = x;
     x->queueIndex = i;
 }
+
+template <class T>
+bool MutablePriorityQueue<T>::contains(T *x) {
+    return x->queueIndex > 0 && x->queueIndex < H.size() && H[x->queueIndex] == x;
+}
+
 
 #endif /* DA_TP_CLASSES_MUTABLEPRIORITYQUEUE */
