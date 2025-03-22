@@ -83,6 +83,7 @@ int main(){
     //aplicar as funçoes ao grafo e adicionar a output data
     //saber que funçoes aplicar ao grafo conforme o input.
     apply_func(map, inputData, outputData);
+    writeOutput(inputData, outputData);
 
 
 

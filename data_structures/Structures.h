@@ -43,7 +43,7 @@ struct InputData {
 struct OutputData {
     // FOR DRIVING MODE //
     vector<int> BestDrivingRoute;
-    int time_best = 0;
+    int best_time = 0;
     vector<int> AlternativeDrivingRoute;
     int time_alternative = 0;
     vector<int> RestrictedDrivingRoute;

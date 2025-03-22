@@ -227,12 +227,15 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
     outfile << "Destination: " << inputData.destination << endl;
 
     if (inputData.mode == "driving") {
-        if (!inputData.includeNode == 0 && !inputData.avoidNodes.empty() && !inputData.avoidSegments.empty()) {
+        if (inputData.includeNode == 0 && inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
             outfile << "BestDrivingRoute: ";
-            for (int node : outputData.BestDrivingRoute) {
-                outfile << node << " ";
+            for (size_t i = 0; i < outputData.BestDrivingRoute.size(); i++) {
+                outfile << outputData.BestDrivingRoute[i];
+                if (i < outputData.BestDrivingRoute.size() - 1) {
+                    outfile << "->";
+                }
             }
-            outfile << outputData.time_best;
+            outfile<<" (" << outputData.best_time << ")";
             outfile << endl;
 
             outfile << "AlternativeDrivingRoute: ";

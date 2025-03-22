@@ -44,3 +44,25 @@ void dijkstra(Graph<T> * g, const Location &origin) {
         }
     }
 }
+
+template <class T>
+pair<vector<Vertex<T>*>, double> getShortestPath(Graph<T>* g, const Location& destination) {
+    vector<Vertex<T>*> path;
+    Vertex<T>* v = g->findVertex(destination);
+
+    if (!v || v->getDist() == INT_MAX)
+        return {path, -1};
+
+    double totalWeight = v->getDist();
+
+    while (v != nullptr) {
+        path.push_back(v);
+        if (v->getPath() == nullptr) break;
+        v = v->getPath()->getOrig();
+    }
+
+    reverse(path.begin(), path.end());
+
+    return {path, totalWeight};
+}
+

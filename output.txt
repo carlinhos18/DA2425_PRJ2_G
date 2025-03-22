@@ -1,4 +1,4 @@
-Source: 3
-Destination: 8
-BestDrivingRoute: best time
-AlternativeDrivingRoute: alternative time
+Source: 1
+Destination: 9
+BestDrivingRoute: 1->1219->1097->7->87->481->9 (38)
+AlternativeDrivingRoute: 0
