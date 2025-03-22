@@ -229,21 +229,31 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
     if (inputData.mode == "driving") {
         if (inputData.includeNode == 0 && inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
             outfile << "BestDrivingRoute: ";
-            for (size_t i = 0; i < outputData.BestDrivingRoute.size(); i++) {
-                outfile << outputData.BestDrivingRoute[i];
-                if (i < outputData.BestDrivingRoute.size() - 1) {
-                    outfile << "->";
-                }
+            if (outputData.BestDrivingRoute.empty()) {
+                outfile << "none" << endl;
             }
-            outfile<<" (" << outputData.best_time << ")";
-            outfile << endl;
+            else {
+                for (size_t i = 0; i < outputData.BestDrivingRoute.size(); i++) {
+                    outfile << outputData.BestDrivingRoute[i];
+                    if (i < outputData.BestDrivingRoute.size() - 1) {
+                        outfile << "->";
+                    }
+                }
+                outfile<<" (" << outputData.best_time << ")";
+                outfile << endl;
+            }
 
             outfile << "AlternativeDrivingRoute: ";
-            for (int node : outputData.AlternativeDrivingRoute) {
-                outfile << node << " ";
+            if (outputData.AlternativeDrivingRoute.empty()) {
+                outfile << "none" << endl;
             }
-            outfile << outputData.time_alternative;
-            outfile << endl;
+            else {
+                for (int node : outputData.AlternativeDrivingRoute) {
+                    outfile << node << " ";
+                }
+                outfile<<" (" << outputData.time_alternative << ")";
+                outfile << endl;
+            }
         }
         else {
             outfile << "AlternativeDrivingRoute: ";
@@ -273,6 +283,16 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
         // ou entao dar possiveis rotas que se aproximem com o que
         // o utilizador pediu
     }
+
+    ifstream infile("output.txt");
+    if (infile) {
+        cout << "\nOutput File Content:\n";
+        string line;
+        while (getline(infile, line)) {
+            cout << line << endl;
+        }
+    }
+    infile.close();
 }
 
 
