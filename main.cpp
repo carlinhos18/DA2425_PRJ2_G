@@ -1,5 +1,6 @@
 #include "read_files.cpp"
-#include "algorithms.cpp"
+#include "apply.cpp"
+
 Graph<Location>* map = new Graph<Location>();
 
 unordered_map<string, Location> location_map; // maps the codes on the csv files
@@ -81,6 +82,9 @@ int main(){
     OutputData outputData;
     //aplicar as funçoes ao grafo e adicionar a output data
     //saber que funçoes aplicar ao grafo conforme o input.
+    apply_func(map, inputData, outputData);
+
+
 
 
 

@@ -1,11 +1,14 @@
-#include "data_structures/Graph.h"
+#include "data_structures/Structures.h"
+
 #include <climits>
+
+
 
 template <class T>
 bool relax(Edge<T> *edge) {
     Vertex<T> *u = edge->getOrig();
     Vertex<T> *v = edge->getDest();
-    double weight = edge->getWeight();
+    double weight = edge->getDriveWeight();
 
     if (v->getDist() > u->getDist() + weight) {
         v->setDist(u->getDist() + weight);
@@ -16,7 +19,7 @@ bool relax(Edge<T> *edge) {
 }
 
 template <class T>
-void dijkstra(Graph<T> * g, const int &origin) {
+void dijkstra(Graph<T> * g, const Location &origin) {
     MutablePriorityQueue<Vertex<T>> pqueue;
 
     for (Vertex<T>* v : g -> getVertexSet()) {
@@ -25,7 +28,7 @@ void dijkstra(Graph<T> * g, const int &origin) {
         v-> setVisited(false);
     }
 
-    Vertex<T> *s = g -> findVertex(origin);
+    Vertex<T> *s = g->findVertex(origin);
     s -> setDist(0);
     pqueue.insert(s);
 

@@ -79,7 +79,6 @@ public:
     double getDriveWeight() const;
     double getWalkWeight() const;
     Vertex<T> * getDest() const;
-    double getWeight() const;
     bool isSelected() const;
     Vertex<T> * getOrig() const;
     Edge<T> *getReverse() const;
