@@ -1,5 +1,2 @@
 Changes on graph.h:
 Added 2 weights for each edge - a walking and driving weight
-
-Changes on MutablePriorityQueue.h:
-Added contains method

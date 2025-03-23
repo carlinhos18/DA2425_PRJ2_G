@@ -222,24 +222,27 @@ void displayInputData(const InputData& inputData) {
     cout << "Destination: " << inputData.destination << endl;
     if (inputData.MaxWalkTime > 0)    cout << "MaxWalkTime: " << inputData.MaxWalkTime << endl;
 
-    cout << "AvoidNodes: ";
-    bool first = true;
-    for (auto an : inputData.avoidNodes) {
-        if (!first) cout << ", ";
-        cout << an;
-        first = false;
+    if (!inputData.avoidNodes.empty()) {
+        cout << "AvoidNodes: ";
+        bool first = true;
+        for (auto an : inputData.avoidNodes) {
+            if (!first) cout << ", ";
+            cout << an;
+            first = false;
+        }
+        cout << endl;
     }
-    cout << endl;
 
-    cout << "AvoidSegments: ";
-    first = true;
-    for (auto as : inputData.avoidSegments) {
-        if (!first) cout << ", ";
-        cout << "(" << as.first << ", " << as.second << ")";
-        first = false;
+    if (!inputData.avoidSegments.empty()) {
+        cout << "AvoidSegments: ";
+        bool first = true;
+        for (auto as : inputData.avoidSegments) {
+            if (!first) cout << ", ";
+            cout << "(" << as.first << ", " << as.second << ")";
+            first = false;
+        }
+        cout << endl;
     }
-    cout << endl;
-
     if (inputData.includeNode > 0)    cout << "IncludeNode: " << inputData.includeNode << endl;
 
 }
@@ -251,7 +254,7 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
     outfile << "Destination: " << inputData.destination << endl;
 
     if (inputData.mode == "driving") {
-        if (inputData.includeNode == 0 && inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
+        if (inputData.includeNode == -1 && inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
             outfile << "BestDrivingRoute: ";
             if (outputData.BestDrivingRoute.empty()) {
                 outfile << "none" << endl;
@@ -284,11 +287,20 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
         }
         else {
             outfile << "RestrictedDrivingRoute: ";
-            for (int node : outputData.RestrictedDrivingRoute) {
-                outfile << node << " ";
+
+            if (outputData.RestrictedDrivingRoute.empty()) {
+                outfile << "none" << endl;
             }
-            outfile << outputData.time_restricted;
-            outfile << endl;
+            else {
+                for (size_t i = 0; i < outputData.RestrictedDrivingRoute.size(); i++) {
+                    outfile << outputData.RestrictedDrivingRoute[i];
+                    if (i < outputData.RestrictedDrivingRoute.size() - 1) {
+                        outfile << ",";
+                    }
+                }
+                outfile<<" (" << outputData.time_restricted << ")";
+                outfile << endl;
+            }
         }
     }
     else if (inputData.mode == "driving-walking") {
