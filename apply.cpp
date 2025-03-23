@@ -15,7 +15,13 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
               output.BestDrivingRoute.push_back(v->getInfo().id);
           }
           output.best_time = weight;
+          //dijkstra already done so we set the distance of the nodes we just used to infinity and then perform dijsktra again
+          auto[alt_path, alt_weight] = getAlternativeRoute(g, temp1, temp2,path);
 
+          for (auto v : alt_path) {
+              output.AlternativeDrivingRoute.push_back(v->getInfo().id);
+          }
+          output.time_alternative = alt_weight;
 
       }
   }

@@ -1,6 +1,5 @@
 #include "data_structures/Structures.h"
 
-#include <climits>
 
 
 
@@ -43,6 +42,7 @@ void dijkstra(Graph<T> * g, const Location &origin) {
         Vertex<T> *v = pqueue.extractMin();
         v -> setVisited(true);
         for (Edge<T> *e : v -> getAdj()) {
+            if (e->getDriveWeight() == -1) continue; // as arestas com -1 sao ignoradas
             if (!e->getDest() -> isVisited()) {
                 if (relax(e)) {
                     pqueue.insert(e -> getDest());
@@ -62,7 +62,7 @@ pair<vector<Vertex<T>*>, double> getShortestPath(Graph<T>* g, const Location& de
         return {path, -1};
     }
 
-    if (!v || v->getDist() == numeric_limits<double>::infinity())
+    if (v->getDist() == numeric_limits<double>::infinity())
         return {path, -1};
 
     double totalWeight = v->getDist();
@@ -77,4 +77,25 @@ pair<vector<Vertex<T>*>, double> getShortestPath(Graph<T>* g, const Location& de
 
     return {path, totalWeight};
 }
+
+template <class T>
+pair<vector<Vertex<T>*>, double> getAlternativeRoute(Graph<T>* g, const Location& orig, const Location& dest, vector<Vertex<T>*> Best_path) {
+    if (Best_path.size() < 2) return {{}, -1}; // Se o caminho ótimo não for válido
+
+    // remover edges do best_path
+    for (size_t i = 0; i < Best_path.size() - 1; i++) {
+        g->removeEdge(Best_path[i]->getInfo(), Best_path[i + 1]->getInfo());
+    }
+
+    // correr dijkstra outra vez e obter o segundo melhor caminho
+    dijkstra(g, orig);
+    pair<vector<Vertex<T>*>, double> alternativePath = getShortestPath(g, dest);
+
+    // Retornar o caminho alternativo ou {} se não existir
+    return alternativePath.first.size() >= 2 ? alternativePath : make_pair(vector<Vertex<T>*>(), -1.0);
+}
+
+
+
+
 

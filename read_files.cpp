@@ -233,7 +233,7 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
                         outfile << ",";
                     }
                 }
-                outfile<<"(" << outputData.best_time << ")";
+                outfile<<" (" << outputData.best_time << ")";
                 outfile << endl;
             }
 
@@ -248,7 +248,7 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
                         outfile << ",";
                     }
                 }
-                outfile<<"(" << outputData.time_alternative << ")";
+                outfile<<" (" << outputData.time_alternative << ")";
                 outfile << endl;
             }
         }
