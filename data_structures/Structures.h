@@ -36,8 +36,8 @@ struct InputData {
     int destination;
     unordered_set<int> avoidNodes;
     vector<pair<int, int>> avoidSegments;
-    int includeNode = 0;
-    int MaxWalkTime = 0;
+    int includeNode = -1;
+    int MaxWalkTime = -1;
 };
 
 struct OutputData {

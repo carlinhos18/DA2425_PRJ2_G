@@ -129,7 +129,7 @@ InputData read_input_file(const string& filename) {
             hasMode = true;
         }
         else if (key == "Source") {
-            if (!is_valid_integer(value)) {
+            if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid Source: " << value << endl;
                 return {};
             }
@@ -137,22 +137,24 @@ InputData read_input_file(const string& filename) {
             hasSource = true;
         }
         else if (key == "Destination") {
-            if (!is_valid_integer(value)) {
+            if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid Destination: " << value << endl;
                 return {};
             }
             inputData.destination = stoi(value);
             hasDestination = true;
         }
-        else if (key == "MaxWalkTime") {
-            if (!is_valid_integer(value)) {
+        else if (key == "MaxWalkTime" && (inputData.mode == "walking" || inputData.mode == "driving-walking")) {
+            if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid MaxWalkTime: " << value << endl;
                 continue;
             }
             inputData.MaxWalkTime = stoi(value);
         }
         else if (key == "AvoidNodes"){
-            // TODO
+            if (value.empty()) {
+                continue;
+            }
             stringstream nodes(value);
             string node;
             while (getline(nodes, node, ',')) {
@@ -164,7 +166,9 @@ InputData read_input_file(const string& filename) {
             }
         }
         else if (key == "AvoidSegments") {
-            // TODO
+            if (value.empty()) {
+                continue;
+            }
             stringstream segments(value);
             string segment;
             while (getline(segments, segment, ')')) {
@@ -176,7 +180,7 @@ InputData read_input_file(const string& filename) {
                 stringstream pairStream(segment);
                 string first, second;
                 if (getline(pairStream, first, ',') && getline(pairStream, second, ',')) {
-                    if (is_valid_integer(first) && is_valid_integer(second)) {
+                    if (is_valid_integer(first) && is_valid_integer(second) && stoi(first) > 0 && stoi(second) > 0) {
                         inputData.avoidSegments.emplace_back(stoi(first), stoi(second));
                     } else {
                         cerr << "Invalid AvoidSegment: " << segment << endl;
@@ -186,7 +190,11 @@ InputData read_input_file(const string& filename) {
         }
         else if (key == "IncludeNode") {
             //TODO
-            if (!is_valid_integer(value)) {
+            if (value.empty()) {
+               continue;
+            }
+
+            if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid IncludeNode: " << value << endl;
                 continue;
             }
@@ -212,6 +220,28 @@ void displayInputData(const InputData& inputData) {
     cout << "Mode: " << inputData.mode << endl;
     cout << "Source: " << inputData.source << endl;
     cout << "Destination: " << inputData.destination << endl;
+    if (inputData.MaxWalkTime > 0)    cout << "MaxWalkTime: " << inputData.MaxWalkTime << endl;
+
+    cout << "AvoidNodes: ";
+    bool first = true;
+    for (auto an : inputData.avoidNodes) {
+        if (!first) cout << ", ";
+        cout << an;
+        first = false;
+    }
+    cout << endl;
+
+    cout << "AvoidSegments: ";
+    first = true;
+    for (auto as : inputData.avoidSegments) {
+        if (!first) cout << ", ";
+        cout << "(" << as.first << ", " << as.second << ")";
+        first = false;
+    }
+    cout << endl;
+
+    if (inputData.includeNode > 0)    cout << "IncludeNode: " << inputData.includeNode << endl;
+
 }
 
 void writeOutput(const InputData& inputData, const OutputData& outputData) {
