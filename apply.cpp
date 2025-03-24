@@ -46,47 +46,34 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
           auto [path,weight] = getShortestPath(g, dest);
 
           if (inputData.includeNode != -1) {
-              InputData inputData2;
-              inputData2.source = inputData.source;
-              inputData2.destination = inputData.includeNode;
-              inputData2.mode = inputData.mode;
-
-              inputData2.avoidNodes = {inputData.destination};
-
-              Location temp;
-              temp.id = inputData.destination;
-
-              auto dest_vertex = g -> findVertex(temp);
-              g -> removeVertex(temp);
-
-              dijkstra(g,source);
-              auto [path1,weight1] = getShortestPath(g, dest);
-
-              g -> addExistingVertex(*dest_vertex);
-
               Location includeNode;
               includeNode.id = inputData.includeNode;
-              dijkstra(g,includeNode);
 
-              for (int i = 1; i< path1.size();i++) {
-                  inputData2.avoidSegments.push_back({path[i - 1]->getInfo().id, path[i]->getInfo().id});
+              Location sourceLoc;
+              sourceLoc.id = inputData.source;
+
+              Location destLoc;
+              destLoc.id = inputData.destination;
+
+              dijkstra(g, sourceLoc);
+              auto [path1, weight1] = getShortestPath(g, includeNode);
+
+              dijkstra(g, includeNode);
+              auto [path2, weight2] = getShortestPath(g, destLoc);
+
+              if (!path1.empty() && !path2.empty() && path1.back() == path2.front()) {
+                  path2.erase(path2.begin());  // Remove o includeNode duplicado
               }
-
-              for (auto [first, second] : inputData2.avoidSegments) {
-                  Location temp1;
-                  Location temp2;
-                  temp1.id = first;
-                  temp2.id = second;
-                  g -> removeEdge(temp1, temp2);
-                  g -> removeEdge(temp2, temp1);
-              }
-
-              auto [path2,weight2] = getShortestPath(g, dest);
 
               path1.insert(path1.end(), path2.begin(), path2.end());
-              weight = weight1 + weight2;
               path = path1;
+              weight = weight1 + weight2;
           }
+
+
+
+
+
 
           for (auto v : path) {
               output.RestrictedDrivingRoute.push_back(v->getInfo().id);
