@@ -117,6 +117,9 @@ public:
      *  Returns true if successful, and false if a vertex with that content already exists.
      */
     bool addVertex(const T &in);
+
+    bool addExistingVertex(const Vertex<T> &v);
+
     bool removeVertex(const T &in);
 
     /*
@@ -415,6 +418,14 @@ bool Graph<T>::addVertex(const T &in) {
     if (findVertex(in) != nullptr)
         return false;
     vertexSet.push_back(new Vertex<T>(in));
+    return true;
+}
+
+template <class T>
+bool Graph<T>::addExistingVertex(const Vertex<T>& v) {
+    if (findVertex(v . getInfo()) != nullptr)
+        return false;
+    vertexSet.push_back(v);
     return true;
 }
 
