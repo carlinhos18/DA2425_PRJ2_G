@@ -118,7 +118,7 @@ public:
      */
     bool addVertex(const T &in);
 
-    bool addExistingVertex(const Vertex<T> &v);
+    bool addExistingVertex(Vertex<T> v);
 
     bool removeVertex(const T &in);
 
@@ -421,13 +421,13 @@ bool Graph<T>::addVertex(const T &in) {
     return true;
 }
 
-template <class T>
-bool Graph<T>::addExistingVertex(const Vertex<T>& v) {
+/*template <class T>
+bool Graph<T>::addExistingVertex(const Vertex<T> v) {
     if (findVertex(v . getInfo()) != nullptr)
         return false;
-    vertexSet.push_back(v);
+    addVertex(new Vertex<T>(v));
     return true;
-}
+}*/
 
 /*
  *  Removes a vertex with a given content (in) from a graph (this), and
