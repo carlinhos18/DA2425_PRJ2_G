@@ -22,7 +22,7 @@ void read_locations(const string& filename, unordered_map<string, Location>& loc
 
         getline(ss, loc.name, ',');
         ss >> loc.id;
-        ss.ignore(); // Ignore comma
+        ss.ignore();
         getline(ss, loc.code, ',');
         getline(ss, parkingStr, ',');
 
@@ -169,25 +169,42 @@ InputData read_input_file(const string& filename) {
             if (value.empty()) {
                 continue;
             }
-            stringstream segments(value);
-            string segment;
-            while (getline(segments, segment, ')')) {
-                segment.erase(remove(segment.begin(), segment.end(), '('), segment.end());
-                segment.erase(remove(segment.begin(), segment.end(), ' '), segment.end());
 
-                if (segment.empty()) continue;
+            size_t pos = 0;
+            while ((pos = value.find('(')) != string::npos) {
+                size_t endPos = value.find(')', pos);
+                if (endPos == string::npos) {
+                    cerr << "Invalid AvoidSegment format: " << value << endl;
+                    break;
+                }
+
+                string segment = value.substr(pos + 1, endPos - pos - 1);
+                value = value.substr(endPos + 1);
 
                 stringstream pairStream(segment);
                 string first, second;
+
                 if (getline(pairStream, first, ',') && getline(pairStream, second, ',')) {
-                    if (is_valid_integer(first) && is_valid_integer(second) && stoi(first) > 0 && stoi(second) > 0) {
-                        inputData.avoidSegments.emplace_back(stoi(first), stoi(second));
+                    first.erase(remove(first.begin(), first.end(), ' '), first.end());
+                    second.erase(remove(second.begin(), second.end(), ' '), second.end());
+
+                    if (is_valid_integer(first) && is_valid_integer(second)) {
+                        int firstInt = stoi(first);
+                        int secondInt = stoi(second);
+                        if (firstInt > 0 && secondInt > 0) {
+                            inputData.avoidSegments.emplace_back(firstInt, secondInt);
+                        } else {
+                            cerr << "Invalid AvoidSegment values: " << segment << endl;
+                        }
                     } else {
-                        cerr << "Invalid AvoidSegment: " << segment << endl;
+                        cerr << "Invalid AvoidSegment format: " << segment << endl;
                     }
+                } else {
+                    cerr << "Malformed AvoidSegment pair: " << segment << endl;
                 }
             }
         }
+
         else if (key == "IncludeNode") {
             //TODO
             if (value.empty()) {
