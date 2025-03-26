@@ -1,6 +1,6 @@
 Source: 8
 Destination: 5
-DrivingRoute: 8,4,2,3,(19)
+DrivingRoute: 8,4,2,3(19)
 ParkingNode: 3
-Walking Route: 8,4,2,3,(10)
+Walking Route: 3,5(10)
 TotalTime: 29
