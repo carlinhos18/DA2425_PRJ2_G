@@ -86,7 +86,7 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
             }
             output.time_DrivingRoute = time_d;
             output.ParkingNode = parkingNode.id;
-            for (auto v : BestDriveRoute) {
+            for (auto v : BestWalkRoute) {
                 output.WalkingRoute.push_back(v->getInfo().id);
             }
             output.time_WalkingRoute= time_w;

@@ -328,14 +328,20 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
     else if (inputData.mode == "driving-walking") {
         //se houver solução:
         outfile << "DrivingRoute: ";
-        for (int node : outputData.DrivingRoute) {
-            outfile << node << ",";
+        for (size_t i = 0; i < outputData.DrivingRoute.size(); i++) {
+            outfile << outputData.DrivingRoute[i];
+            if (i < outputData.DrivingRoute.size() - 1) {
+                outfile << ",";
+            }
         }
         outfile << "(" << outputData.time_DrivingRoute << ")" << endl;
         outfile << "ParkingNode: " << outputData.ParkingNode << endl;
         outfile << "Walking Route: ";
-        for (int node : outputData.WalkingRoute) {
-            outfile << node << ",";
+        for (size_t i = 0; i < outputData.WalkingRoute.size(); i++) {
+            outfile << outputData.WalkingRoute[i];
+            if (i < outputData.WalkingRoute.size() - 1) {
+                outfile << ",";
+            }
         }
         outfile << "(" << outputData.time_WalkingRoute << ")" << endl;
         outfile << "TotalTime: " << outputData.total_time << endl;
