@@ -1,7 +1,4 @@
-#include "data_structures/Structures.h"
-
-
-
+#include "algorithms.h"
 
 template <class T>
 bool relax(Edge<T> *edge) {

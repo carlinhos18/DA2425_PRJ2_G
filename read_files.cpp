@@ -1,7 +1,6 @@
-#include "data_structures/Structures.h"
+#include "read_files.h"
 #include <sstream>
 #include <fstream>
-#include <unordered_map>
 #include <iostream>
 
 void read_locations(const string& filename, unordered_map<string, Location>& location_map, Graph<Location>* map) {
@@ -121,7 +120,7 @@ InputData read_input_file(const string& filename) {
         getline(ss, value);
 
         if (key == "Mode") {
-            if (value != "driving" && value != "driving-walking" && value != "walking") {
+            if (value != "driving" && value != "driving-walking") {
                 cerr << "Invalid mode: " << value << endl;
                 return {};
             }
@@ -144,7 +143,7 @@ InputData read_input_file(const string& filename) {
             inputData.destination = stoi(value);
             hasDestination = true;
         }
-        else if (key == "MaxWalkTime" && (inputData.mode == "walking" || inputData.mode == "driving-walking")) {
+        else if (key == "MaxWalkTime" && inputData.mode == "driving-walking") {
             if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid MaxWalkTime: " << value << endl;
                 continue;
@@ -233,7 +232,7 @@ InputData read_input_file(const string& filename) {
     return inputData;
 }
 
-void displayInputData(const InputData& inputData) {
+/*void displayInputData(const InputData& inputData) {
     cout << "Mode: " << inputData.mode << endl;
     cout << "Source: " << inputData.source << endl;
     cout << "Destination: " << inputData.destination << endl;
@@ -262,7 +261,7 @@ void displayInputData(const InputData& inputData) {
     }
     if (inputData.includeNode > 0)    cout << "IncludeNode: " << inputData.includeNode << endl;
 
-}
+}*/
 
 void writeOutput(const InputData& inputData, const OutputData& outputData) {
     ofstream outfile("output.txt");
