@@ -130,7 +130,7 @@ InputData read_input_file(const string& filename) {
         else if (key == "Source") {
             if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid Source: " << value << endl;
-                return {};
+                exit(EXIT_FAILURE);
             }
             inputData.source = stoi(value);
             hasSource = true;
@@ -138,7 +138,7 @@ InputData read_input_file(const string& filename) {
         else if (key == "Destination") {
             if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid Destination: " << value << endl;
-                return {};
+                exit(EXIT_FAILURE);
             }
             inputData.destination = stoi(value);
             hasDestination = true;
@@ -146,7 +146,7 @@ InputData read_input_file(const string& filename) {
         else if (key == "MaxWalkTime" && inputData.mode == "driving-walking") {
             if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid MaxWalkTime: " << value << endl;
-                continue;
+                exit(EXIT_FAILURE);
             }
             inputData.MaxWalkTime = stoi(value);
         }

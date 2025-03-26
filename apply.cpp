@@ -70,11 +70,6 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
               weight = weight1 + weight2;
           }
 
-
-
-
-
-
           for (auto v : path) {
               output.RestrictedDrivingRoute.push_back(v->getInfo().id);
           }
@@ -82,4 +77,11 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
           output.time_restricted = weight;
       }
   }
+    if (inputData.mode == "driving-walking") {
+        //Existe sempre a restriçao de MaxWalkDist
+        if (inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
+
+        }
+        //retirar nodes ou arestas e aplicar a mesma funçao de cima;
+    }
 }
