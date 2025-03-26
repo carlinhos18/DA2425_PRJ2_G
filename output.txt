@@ -1,6 +1,6 @@
-Source: 5
-Destination: 3
-DrivingRoute: 0
-ParkingNode: 6619254
-Walking Route: 
-TotalTime: 0
+Source: 8
+Destination: 5
+DrivingRoute: 8,4,2,3,(19)
+ParkingNode: 3
+Walking Route: 8,4,2,3,(10)
+TotalTime: 29

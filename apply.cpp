@@ -10,7 +10,7 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
   if(inputData.mode == "driving"){
 
       if (inputData.includeNode == -1 && inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
-         dijkstra(g,source);
+         dijkstra(g,source, false);
           auto [path, weight] = getShortestPath(g, dest);
           for (auto v : path) {
               output.BestDrivingRoute.push_back(v->getInfo().id);
@@ -42,7 +42,7 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
               g -> removeEdge(temp2, temp1);
         }
 
-          dijkstra(g,source);
+          dijkstra(g,source, false);
           auto [path,weight] = getShortestPath(g, dest);
 
           if (inputData.includeNode != -1) {
@@ -55,10 +55,10 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
               Location destLoc;
               destLoc.id = inputData.destination;
 
-              dijkstra(g, sourceLoc);
+              dijkstra(g, sourceLoc, false);
               auto [path1, weight1] = getShortestPath(g, includeNode);
 
-              dijkstra(g, includeNode);
+              dijkstra(g, includeNode, false);
               auto [path2, weight2] = getShortestPath(g, destLoc);
 
               if (!path1.empty() && !path2.empty() && path1.back() == path2.front()) {
@@ -80,7 +80,17 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
     if (inputData.mode == "driving-walking") {
         //Existe sempre a restriçao de MaxWalkDist
         if (inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
-
+            auto[BestDriveRoute, time_d, parkingNode, BestWalkRoute, time_w, total_time] = eco_friendly_route(g, source, dest,inputData.MaxWalkTime);
+            for (auto v : BestDriveRoute) {
+                output.DrivingRoute.push_back(v->getInfo().id);
+            }
+            output.time_DrivingRoute = time_d;
+            output.ParkingNode = parkingNode.id;
+            for (auto v : BestDriveRoute) {
+                output.WalkingRoute.push_back(v->getInfo().id);
+            }
+            output.time_WalkingRoute= time_w;
+            output.total_time = total_time;
         }
         //retirar nodes ou arestas e aplicar a mesma funçao de cima;
     }

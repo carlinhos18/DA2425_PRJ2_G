@@ -1,10 +1,10 @@
 #include "algorithms.h"
 
 template <class T>
-bool relax(Edge<T> *edge) {
+bool relax(Edge<T> *edge, bool walkingMode) {
     Vertex<T> *u = edge->getOrig();
     Vertex<T> *v = edge->getDest();
-    double weight = edge->getDriveWeight();
+    double weight = walkingMode ? edge->getWalkWeight() : edge->getDriveWeight();
 
     if (weight < 0) return false;
 
@@ -17,37 +17,39 @@ bool relax(Edge<T> *edge) {
 }
 
 template <class T>
-void dijkstra(Graph<T> * g, const Location &origin) {
+void dijkstra(Graph<T> * g, const Location &origin, bool walkingMode) {
     MutablePriorityQueue<Vertex<T>> pqueue;
 
     for (Vertex<T>* v : g -> getVertexSet()) {
-        v -> setDist(numeric_limits<double>::infinity());
-        v -> setPath(nullptr);
-        v-> setVisited(false);
+        v->setDist(numeric_limits<double>::infinity());
+        v->setPath(nullptr);
+        v->setVisited(false);
     }
 
     Vertex<T> *s = g->findVertex(origin);
-    s -> setDist(0);
-    pqueue.insert(s);
-
     if (!s) {
         std::cerr << "Error: Origin vertex not found in graph!" << std::endl;
         return;
     }
 
+    s->setDist(0);
+    pqueue.insert(s);
+
     while (!pqueue.empty()) {
         Vertex<T> *v = pqueue.extractMin();
-        v -> setVisited(true);
-        for (Edge<T> *e : v -> getAdj()) {
-            if (e->getDriveWeight() == -1) continue; // as arestas com -1 sao ignoradas
-            if (!e->getDest() -> isVisited()) {
-                if (relax(e)) {
-                    pqueue.insert(e -> getDest());
+        v->setVisited(true);
+
+        for (Edge<T> *e : v->getAdj()) {
+            if (!e->getDest()->isVisited()) {
+                if (relax(e, walkingMode)) {
+                    pqueue.insert(e->getDest());
                 }
             }
         }
     }
 }
+
+
 
 template <class T>
 pair<vector<Vertex<T>*>, double> getShortestPath(Graph<T>* g, const Location& destination) {
@@ -85,12 +87,88 @@ pair<vector<Vertex<T>*>, double> getAlternativeRoute(Graph<T>* g, const Location
     }
 
     // correr dijkstra outra vez e obter o segundo melhor caminho
-    dijkstra(g, orig);
+    dijkstra(g, orig, false);
     pair<vector<Vertex<T>*>, double> alternativePath = getShortestPath(g, dest);
 
     // Retornar o caminho alternativo ou {} se não existir
     return alternativePath.first.size() >= 2 ? alternativePath : make_pair(vector<Vertex<T>*>(), -1.0);
 }
+
+template <class T>
+tuple<vector<Vertex<T>*>, double, Location, vector<Vertex<T>*>, double, double>
+eco_friendly_route(Graph<T>* g, const Location& orig, const Location& dest, double maxWalkTime) {
+    auto start = g->findVertex(orig);
+    auto end = g->findVertex(dest);
+
+    if (!start || !end) {
+        cerr << "Error: Origin or destination not found in graph.\n";
+        return {};
+    }
+
+    for (auto e : start->getAdj()) {
+        if (e->getDest() == end) {
+            cerr << "Error: Origin and destination cannot be adjacent nodes.\n";
+            return {};
+        }
+    }
+
+    if (orig.parking && dest.parking) { // Ambos são parques
+        cerr << "Error: Origin and destination cannot be parking nodes.\n";
+        return {};
+    }
+
+
+    vector<Vertex<T>*> bestDrivingPath;
+    double bestDrivingTime = numeric_limits<double>::max();
+    Location bestParking;
+    vector<Vertex<T>*> bestWalkingPath;
+    double bestWalkingTime = numeric_limits<double>::max();
+    double bestTotalTime = numeric_limits<double>::max();
+
+    // Identificar todos os locais de estacionamento
+    vector<Location> parkingLocations;
+    for (auto v : g->getVertexSet()) {
+        if (v->getInfo().parking) {
+            parkingLocations.push_back(v->getInfo());
+        }
+    }
+
+    if (parkingLocations.empty()) {
+        cerr << "Error: No parking nodes available.\n";
+        return {};
+    }
+
+    // Testar todas as opções de estacionamento
+    for (const auto& parking : parkingLocations) {
+        dijkstra(g, orig, false); // Executa Dijkstra no modo de condução
+        auto [drivingPath, drivingTime] = getShortestPath(g, parking);
+
+        if (drivingPath.empty()) continue;
+
+        dijkstra(g, parking, true); // Executa Dijkstra no modo de caminhada
+        auto [walkingPath, walkingTime] = getShortestPath(g, dest);
+
+        if (walkingPath.empty() || walkingTime > maxWalkTime) continue;
+
+        double totalTime = drivingTime + walkingTime;
+        if (totalTime < bestTotalTime || (totalTime == bestTotalTime && walkingTime > bestWalkingTime)) {
+            bestTotalTime = totalTime;
+            bestDrivingPath = drivingPath;
+            bestDrivingTime = drivingTime;
+            bestParking = parking;
+            bestWalkingPath = walkingPath;
+            bestWalkingTime = walkingTime;
+        }
+    }
+
+    if (bestDrivingPath.empty() || bestWalkingPath.empty()) {
+        cerr << "Error: No suitable route found within constraints.\n";
+        return {};
+    }
+
+    return {bestDrivingPath, bestDrivingTime, bestParking, bestWalkingPath, bestWalkingTime, bestTotalTime};
+}
+
 
 
 

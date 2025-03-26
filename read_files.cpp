@@ -12,28 +12,34 @@ void read_locations(const string& filename, unordered_map<string, Location>& loc
         exit(1);
     }
 
-    getline(infile, line);
+    getline(infile, line); // Ignorar cabeçalho
 
     while (getline(infile, line)) {
         stringstream ss(line);
         Location loc;
-        string parkingStr;
+        string idStr, parkingStr;
 
         getline(ss, loc.name, ',');
-        ss >> loc.id;
-        ss.ignore();
+        getline(ss, idStr, ',');
         getline(ss, loc.code, ',');
         getline(ss, parkingStr, ',');
 
-        loc.parking = (parkingStr == "1");
+        // Converter para int e garantir que espaços extras não afetam a leitura
+        try {
+            loc.id = stoi(idStr);
+            loc.parking = (stoi(parkingStr) == 1);
+        } catch (exception& e) {
+            cerr << "Error parsing line: " << line << " | " << e.what() << endl;
+            continue;
+        }
 
         map->addVertex(loc);
         location_map[loc.code] = loc;
     }
 
-
     infile.close();
 }
+
 
 void add_edge(const Distance& info, unordered_map<string, Location>& location_map, Graph<Location>* map) {
     const auto it1 = location_map.find(info.start_node);
@@ -323,15 +329,15 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
         //se houver solução:
         outfile << "DrivingRoute: ";
         for (int node : outputData.DrivingRoute) {
-            outfile << node << " ";
+            outfile << node << ",";
         }
-        outfile << outputData.time_DrivingRoute << endl;
+        outfile << "(" << outputData.time_DrivingRoute << ")" << endl;
         outfile << "ParkingNode: " << outputData.ParkingNode << endl;
         outfile << "Walking Route: ";
         for (int node : outputData.WalkingRoute) {
-            outfile << node << " ";
+            outfile << node << ",";
         }
-        outfile << endl;
+        outfile << "(" << outputData.time_WalkingRoute << ")" << endl;
         outfile << "TotalTime: " << outputData.total_time << endl;
         // se nao houver soluçao colocar tudo a none com a message a dizer
         // uma sugestao para que haja soluçao

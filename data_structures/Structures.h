@@ -52,10 +52,10 @@ struct OutputData {
     // FOR DRIVE-WALKING MODE //
     vector<int> DrivingRoute;
     int time_DrivingRoute = 0;
-    int ParkingNode;
+    int ParkingNode = 0;
     vector<int> WalkingRoute;
     int time_WalkingRoute = 0;
-    int total_time = time_DrivingRoute + time_WalkingRoute;
+    int total_time = 0;
     string message;
 
 

@@ -13,7 +13,7 @@ bool relax(Edge<T> *edge);
 
 /* Dijkstra to compute the shortest paths */
 template <class T>
-void dijkstra(Graph<T> * g, const Location &origin);
+void dijkstra(Graph<T> * g, const Location &origin, bool walkingMode);
 
 /* Traces the best path back starting with dest node */
 template <class T>
