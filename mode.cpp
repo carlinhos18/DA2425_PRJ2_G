@@ -1,7 +1,9 @@
 //
 // Created by carlo on 26/03/2025.
 //
-#include "read_files.h"
+#include "mode.h"
+#include "read_files.cpp"
+
 string getMode() {
     string mode;
     while (true) {
@@ -91,6 +93,31 @@ int getMaxWalk() {
     return getMaxWalk();
 }
 
+
+int getValidInteger(const string &prompt) {
+    string input;
+    int value;
+
+    while (true) {
+        cout << prompt;
+        getline(std::cin, input);
+
+        try {
+            size_t pos;
+            value = stoi(input, &pos);
+
+            if (pos == input.size() && is_valid_integer(input)) {
+                break;
+            }
+        } catch (...) {
+
+        }
+
+        cout << "Invalid input. Please enter a valid integer.\n";
+    }
+
+    return value;
+}
 
 
 InputData HandleUserInput() {

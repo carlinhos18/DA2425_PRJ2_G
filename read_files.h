@@ -7,21 +7,15 @@
 
 #include "data_structures/Structures.h"
 #include <unordered_map>
+#include <sstream>
+#include <fstream>
+#include <iostream>
 
 /* Creates Vertexes */
 void read_locations(const string& filename, unordered_map<string, Location>& location_map, Graph<Location>* map);
 
-/* Union between two Vertexes */
-void add_edge(const Distance& info, unordered_map<string, Location>& location_map, Graph<Location>* map);
-
 /* Creates Edges and adds them */
 void read_distances(const string& filename, unordered_map<string, Location>& location_map, Graph<Location>* map);
-
-/* Check if number in file is valid */
-bool is_valid_integer(const string& str);
-
-/* If valid number gets it */
-int getValidInteger(const string &prompt);
 
 /* Reads file */
 InputData read_input_file(const string& filename);

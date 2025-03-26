@@ -1,7 +1,5 @@
 #include "read_files.h"
-#include <sstream>
-#include <fstream>
-#include <iostream>
+#include "read_files_utils.cpp"
 
 void read_locations(const string& filename, unordered_map<string, Location>& location_map, Graph<Location>* map) {
     ifstream infile(filename);
@@ -41,18 +39,7 @@ void read_locations(const string& filename, unordered_map<string, Location>& loc
 }
 
 
-void add_edge(const Distance& info, unordered_map<string, Location>& location_map, Graph<Location>* map) {
-    const auto it1 = location_map.find(info.start_node);
-    const auto it2 = location_map.find(info.dest_node);
 
-    if (it1 == location_map.end() || it2 == location_map.end()) {
-        cerr << "Could not add edge between " << info.start_node << " and "
-        << info.dest_node << endl;
-    }
-    Location loc1 = it1->second;
-    Location loc2 = it2->second;
-    map->addBidirectionalEdge(loc1, loc2, info.drive_dist, info.walk_dist);
-}
 
 void read_distances(const string& filename, unordered_map<string, Location>& location_map, Graph<Location>* map) {
     ifstream infile(filename);
@@ -75,35 +62,6 @@ void read_distances(const string& filename, unordered_map<string, Location>& loc
         add_edge(info,location_map,map);
     }
     infile.close();
-}
-
-bool is_valid_integer(const string& str) {
-    return !str.empty() && all_of(str.begin(), str.end(), ::isdigit);
-}
-
-int getValidInteger(const string &prompt) {
-    string input;
-    int value;
-
-    while (true) {
-        cout << prompt;
-        getline(std::cin, input);
-
-        try {
-            size_t pos;
-            value = stoi(input, &pos);
-
-            if (pos == input.size() && is_valid_integer(input)) {
-                break;
-            }
-        } catch (...) {
-
-        }
-
-        cout << "Invalid input. Please enter a valid integer.\n";
-    }
-
-    return value;
 }
 
 InputData read_input_file(const string& filename) {

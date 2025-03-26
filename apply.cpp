@@ -1,6 +1,7 @@
 #include "algorithms.cpp"
 #include "data_structures/Graph.h"
 
+
 void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & output){
   //Since Graph is Graph<Location>
   Location source;
