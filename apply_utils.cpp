@@ -61,6 +61,21 @@ void SetDriveWalkRoute(OutputData &output, const vector<Vertex<Location>*> &path
     output.total_time = total_t;
 }
 
+void SetDriveWalkRoute2(OutputData &output, const vector<Vertex<Location>*> &path_d,
+    const double time_d,const Location& parkingNode, const vector<Vertex<Location>*> &path_w,
+    const double time_w, const double total_t ) {
+
+    for (auto v : path_d) {
+        output.DrivingRoute2.push_back(v->getInfo().id);
+    }
+    output.time_DrivingRoute2 = time_d;
+    output.ParkingNode2 = parkingNode.id;
+    for (auto v : path_w) {
+        output.WalkingRoute2.push_back(v->getInfo().id);
+    }
+    output.time_WalkingRoute2= time_w;
+    output.total_time2 = total_t;
+}
 
 
 

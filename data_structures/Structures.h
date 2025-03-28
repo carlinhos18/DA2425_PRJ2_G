@@ -56,9 +56,24 @@ struct OutputData {
     vector<int> WalkingRoute;
     int time_WalkingRoute = 0;
     int total_time = 0;
-    string message;
+    string message = "";
 
-
+    // FOR APPROXIMATE SOLUTION //
+    vector<int> DrivingRoute2;
+    int time_DrivingRoute2 = 0;
+    int ParkingNode2 = 0;
+    vector<int> WalkingRoute2;
+    int time_WalkingRoute2 = 0;
+    int total_time2 = 0;
 };
 
+struct RouteInfo {
+    vector<int> DrivingRoute;
+    int time_DrivingRoute;
+    int ParkingNode;
+    vector<int> WalkingRoute;
+    int time_WalkingRoute;
+    int total_time;
+};
 #endif //STRUCTURES_H
+

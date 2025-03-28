@@ -9,7 +9,7 @@
 
 /* Helper function for Dijkstra */
 template <class T>
-bool relax(Edge<T> *edge);
+bool relax(Edge<T> *edge, bool walkingMode);
 
 /* Dijkstra to compute the shortest paths */
 template <class T>

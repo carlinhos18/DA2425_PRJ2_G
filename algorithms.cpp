@@ -111,11 +111,9 @@ eco_friendly_route(Graph<T>* g, const Location& orig, const Location& dest, doub
             exit(EXIT_FAILURE);
         }
     }
-    cout << orig.parking << " -> " << dest.parking << endl;
     if (orig.parking && dest.parking) { // Ambos são parques
         cerr << "Error: Origin and destination cannot be parking nodes.\n";
         exit(EXIT_FAILURE);
-
     }
 
 
@@ -170,8 +168,74 @@ eco_friendly_route(Graph<T>* g, const Location& orig, const Location& dest, doub
     return {bestDrivingPath, bestDrivingTime, bestParking, bestWalkingPath, bestWalkingTime, bestTotalTime};
 }
 
+template <class T>
+vector<RouteInfo> eco_friendly_routes(Graph<T>* g, const Location& orig, const Location& dest, double maxWalkTime) {
+    auto start = g->findVertex(orig);
+    auto end = g->findVertex(dest);
 
+    if (!start || !end) {
+        cerr << "Error: Origin or destination not found in graph.\n";
+        exit(EXIT_FAILURE);
+    }
 
+    for (auto e : start->getAdj()) {
+        if (e->getDest() == end) {
+            cerr << "Error: Origin and destination cannot be adjacent nodes.\n";
+            exit(EXIT_FAILURE);
+        }
+    }
 
+    if (orig.parking && dest.parking) {
+        cerr << "Error: Origin and destination cannot be parking nodes.\n";
+        exit(EXIT_FAILURE);
+    }
 
+    vector<RouteInfo> validRoutes;
 
+    vector<Location> parkingLocations;
+    for (auto v : g->getVertexSet()) {
+        if (v->getInfo().parking) {
+            parkingLocations.push_back(v->getInfo());
+        }
+    }
+
+    if (parkingLocations.empty()) {
+        cerr << "Error: No parking nodes available.\n";
+        exit(EXIT_FAILURE);
+    }
+
+    for (const auto& parking : parkingLocations) {
+        dijkstra(g, orig, false);
+        auto [drivingPath, drivingTime] = getShortestPath(g, parking);
+
+        if (drivingPath.empty()) continue;
+
+        dijkstra(g, parking, true);
+        auto [walkingPath, walkingTime] = getShortestPath(g, dest);
+
+        if (walkingPath.empty() || walkingTime > maxWalkTime) continue;
+
+        double totalTime = drivingTime + walkingTime;
+
+        RouteInfo routeInfo;
+
+        for (const auto& loc : drivingPath) {
+            routeInfo.DrivingRoute.push_back(loc->getInfo().id);
+        }
+        routeInfo.time_DrivingRoute = drivingTime;
+        routeInfo.ParkingNode = parking.id;
+        for (const auto& loc : walkingPath) {
+            routeInfo.WalkingRoute.push_back(loc->getInfo().id);
+        }
+        routeInfo.time_WalkingRoute = walkingTime;
+        routeInfo.total_time = totalTime;
+
+        validRoutes.push_back(routeInfo);
+    }
+
+    sort(validRoutes.begin(), validRoutes.end(), [](auto& a, auto& b) {
+        return a.total_time < b.total_time;
+    });
+
+    return validRoutes;
+}

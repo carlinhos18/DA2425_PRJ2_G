@@ -72,13 +72,91 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
         if (BestDriveRoute.empty() || BestWalkRoute.empty()) {
             output.message = "No possible route with max. walking time of " + to_string(inputData.MaxWalkTime) + " minutes.";
 
-            // Fazer aqui as rotas alternativas
+            double walkTimeLimit = 0;
+            for (auto v : g -> getVertexSet()) {
+                for (auto e : v -> getAdj()) {
+                    walkTimeLimit += e-> getWalkWeight();
+                }
+            }
 
+            auto routes = eco_friendly_routes(g, source, dest, walkTimeLimit);
 
+            if (routes.empty()) {
+                cerr << "ERROR: No routes found" << endl;
+                exit(EXIT_FAILURE);
+            }
 
-        } else {
-            SetDriveWalkRoute(output, BestDriveRoute, time_d, parkingNode, BestWalkRoute, time_w, total_time);
+            RouteInfo bestRoute = routes.front();
+
+            vector<int> BestDriveRouteIDs = bestRoute.DrivingRoute;
+            vector<int> BestWalkRouteIDs = bestRoute.WalkingRoute;
+
+            vector<Vertex<Location>*> BestDriveRouteTemp;
+            for (int id : BestDriveRouteIDs) {
+                Vertex<Location>* vertex = g->findVertex({"",id,"",false});
+                if (vertex != nullptr) {
+                    BestDriveRouteTemp.push_back(vertex);
+                } else {
+                    cerr << "ERROR: Vertex with ID " << id << " not found in graph.\n";
+                    exit(EXIT_FAILURE);
+                }
+            }
+
+            vector<Vertex<Location>*> BestWalkRouteTemp;
+            for (int id : BestWalkRouteIDs) {
+                Vertex<Location>* vertex = g->findVertex({"",id,"",false});
+                if (vertex != nullptr) {
+                    BestWalkRouteTemp.push_back(vertex);
+                } else {
+                    cerr << "ERROR: Vertex with ID " << id << " not found in graph.\n";
+                    exit(EXIT_FAILURE);
+                }
+            }
+
+            BestDriveRoute = BestDriveRouteTemp;
+            BestWalkRoute = BestWalkRouteTemp;
+
+            time_d = bestRoute.time_DrivingRoute;
+            time_w = bestRoute.time_WalkingRoute;
+            parkingNode.id = bestRoute.ParkingNode;
+            total_time = bestRoute.total_time;
+
+            if (routes.size() > 1) {
+                RouteInfo secondBestRoute = routes[1];
+
+                BestDriveRouteIDs = secondBestRoute.DrivingRoute;
+                BestWalkRouteIDs = secondBestRoute.WalkingRoute;
+
+                BestDriveRouteTemp = {};
+                for (int id : BestDriveRouteIDs) {
+                    Vertex<Location>* vertex = g->findVertex({"",id,"",false});
+                    if (vertex != nullptr) {
+                        BestDriveRouteTemp.push_back(vertex);
+                    } else {
+                        cerr << "ERROR: Vertex with ID " << id << " not found in graph.\n";
+                        exit(EXIT_FAILURE);
+                    }
+                }
+
+                BestWalkRouteTemp = {};
+                for (int id : BestWalkRouteIDs) {
+                    Vertex<Location>* vertex = g->findVertex({"",id,"",false});
+                    if (vertex != nullptr) {
+                        BestWalkRouteTemp.push_back(vertex);
+                    } else {
+                        cerr << "ERROR: Vertex with ID " << id << " not found in graph.\n";
+                        exit(EXIT_FAILURE);
+                    }
+                }
+
+                SetDriveWalkRoute2(output, BestDriveRouteTemp, secondBestRoute.time_DrivingRoute,
+                                   {"",secondBestRoute.ParkingNode,"",false}, BestWalkRouteTemp,
+                                   secondBestRoute.time_WalkingRoute, secondBestRoute.total_time);
+            }
+
         }
+
+        SetDriveWalkRoute(output, BestDriveRoute, time_d, parkingNode, BestWalkRoute, time_w, total_time);
     }
 
 }
