@@ -1,13 +1,6 @@
-<<<<<<< Updated upstream
-Mode:driving-walking
-Source:8
-Destination:5
-MaxWalkTime:5
-=======
 Mode:driving
 Source:8
 Destination:3
 MaxWalkTime:150
->>>>>>> Stashed changes
 AvoidNodes:
 AvoidSegments:
