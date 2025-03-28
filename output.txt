@@ -1,4 +1,5 @@
 Source: 8
+<<<<<<< Updated upstream
 Destination: 5
 Message: No possible route with max. walking time of 5 minutes.
 Approximate Solutions
@@ -10,3 +11,8 @@ DrivingRoute2:8,4,6(21)
 ParkingNode2:6
 WalkingRoute2:6,5(10)
 TotalTime2:31
+=======
+Destination: 3
+BestDrivingRoute: 8,4,2,3 (19)
+AlternativeDrivingRoute: 8,7,3 (34)
+>>>>>>> Stashed changes
