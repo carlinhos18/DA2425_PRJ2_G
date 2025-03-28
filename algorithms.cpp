@@ -163,7 +163,7 @@ eco_friendly_route(Graph<T>* g, const Location& orig, const Location& dest, doub
 
     if (bestDrivingPath.empty() || bestWalkingPath.empty()) {
         cerr << "Error: No suitable route found within constraints.\n";
-        return {};
+        exit(EXIT_FAILURE);
     }
 
     return {bestDrivingPath, bestDrivingTime, bestParking, bestWalkingPath, bestWalkingTime, bestTotalTime};

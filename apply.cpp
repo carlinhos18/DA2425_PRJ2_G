@@ -1,5 +1,4 @@
-#include "algorithms.cpp"
-#include "data_structures/Graph.h"
+#include "apply_utils.cpp"
 
 
 void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & output){
@@ -9,44 +8,28 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
   source.id = inputData.source;
   dest.id = inputData.destination;
   if(inputData.mode == "driving"){
-
-      if (inputData.includeNode == -1 && inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
+        //* NO RESTRICTIONS DRIVING *//
+      if (!HasDriveRestriction(inputData)){
          dijkstra(g,source, false);
+
           auto [path, weight] = getShortestPath(g, dest);
-          for (auto v : path) {
-              output.BestDrivingRoute.push_back(v->getInfo().id);
-          }
-          output.best_time = weight;
+          SetBestDriveRoute(output, path, weight);
+
           //dijkstra already done so we set the distance of the nodes we just used to infinity and then perform dijsktra again
           auto[alt_path, alt_weight] = getAlternativeRoute(g, source, dest,path);
 
-          for (auto v : alt_path) {
-              output.AlternativeDrivingRoute.push_back(v->getInfo().id);
-          }
-          output.time_alternative = alt_weight;
+          SetAlternativeDriveRoute(output, alt_path, alt_weight);
 
       }
       else {
-          for (int node : inputData.avoidNodes) {
-              Location temp;
-              temp.id = node;
+          RemoveNodes(g, inputData); // we dont need to check if it has avoid Nodes
 
-              g -> removeVertex(temp);
-          }
-
-        for (auto [first, second] : inputData.avoidSegments) {
-              Location temp1;
-              Location temp2;
-              temp1.id = first;
-              temp2.id = second;
-              g -> removeEdge(temp1, temp2);
-              g -> removeEdge(temp2, temp1);
-        }
+          RemoveEdges(g, inputData); // same thing
 
           dijkstra(g,source, false);
           auto [path,weight] = getShortestPath(g, dest);
 
-          if (inputData.includeNode != -1) {
+          if (HasIncludeNode(inputData)) {
               Location includeNode;
               includeNode.id = inputData.includeNode;
 
@@ -71,28 +54,20 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
               weight = weight1 + weight2;
           }
 
-          for (auto v : path) {
-              output.RestrictedDrivingRoute.push_back(v->getInfo().id);
-          }
-
-          output.time_restricted = weight;
+          SetRestrictedDriveRoute(output,path,weight);
       }
   }
     if (inputData.mode == "driving-walking") {
-        //Existe sempre a restriçao de MaxWalkDist
-        if (inputData.avoidNodes.empty() && inputData.avoidSegments.empty()) {
-            auto[BestDriveRoute, time_d, parkingNode, BestWalkRoute, time_w, total_time] = eco_friendly_route(g, source, dest,inputData.MaxWalkTime);
-            for (auto v : BestDriveRoute) {
-                output.DrivingRoute.push_back(v->getInfo().id);
-            }
-            output.time_DrivingRoute = time_d;
-            output.ParkingNode = parkingNode.id;
-            for (auto v : BestWalkRoute) {
-                output.WalkingRoute.push_back(v->getInfo().id);
-            }
-            output.time_WalkingRoute= time_w;
-            output.total_time = total_time;
-        }
-        //retirar nodes ou arestas e aplicar a mesma funçao de cima;
+        RemoveNodes(g, inputData);
+
+        RemoveEdges(g, inputData);
+
+
+        auto[BestDriveRoute, time_d, parkingNode,
+        BestWalkRoute, time_w,
+        total_time] = eco_friendly_route(g, source, dest,inputData.MaxWalkTime);
+
+        SetDriveWalkRoute(output,BestDriveRoute, time_d, parkingNode, BestWalkRoute, time_w, total_time);
     }
+
 }
