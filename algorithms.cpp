@@ -28,8 +28,8 @@ void dijkstra(Graph<T> * g, const Location &origin, bool walkingMode) {
 
     Vertex<T> *s = g->findVertex(origin);
     if (!s) {
-        std::cerr << "Error: Origin vertex not found in graph!" << std::endl;
-        return;
+        cerr << "Error: Origin vertex not found in graph!" << endl;
+        exit(EXIT_FAILURE);
     }
 
     s->setDist(0);
@@ -58,7 +58,7 @@ pair<vector<Vertex<T>*>, double> getShortestPath(Graph<T>* g, const Location& de
 
     if (!v) {
         std::cerr << "Error: Destination vertex not found in graph!" << std::endl;
-        return {path, -1};
+        exit(EXIT_FAILURE);
     }
 
     if (v->getDist() == numeric_limits<double>::infinity())
@@ -102,19 +102,20 @@ eco_friendly_route(Graph<T>* g, const Location& orig, const Location& dest, doub
 
     if (!start || !end) {
         cerr << "Error: Origin or destination not found in graph.\n";
-        return {};
+        exit(EXIT_FAILURE);
     }
 
     for (auto e : start->getAdj()) {
         if (e->getDest() == end) {
             cerr << "Error: Origin and destination cannot be adjacent nodes.\n";
-            return {};
+            exit(EXIT_FAILURE);
         }
     }
-
+    cout << orig.parking << " -> " << dest.parking << endl;
     if (orig.parking && dest.parking) { // Ambos são parques
         cerr << "Error: Origin and destination cannot be parking nodes.\n";
-        return {};
+        exit(EXIT_FAILURE);
+
     }
 
 
@@ -135,7 +136,8 @@ eco_friendly_route(Graph<T>* g, const Location& orig, const Location& dest, doub
 
     if (parkingLocations.empty()) {
         cerr << "Error: No parking nodes available.\n";
-        return {};
+        exit(EXIT_FAILURE);
+
     }
 
     // Testar todas as opções de estacionamento
@@ -162,8 +164,7 @@ eco_friendly_route(Graph<T>* g, const Location& orig, const Location& dest, doub
     }
 
     if (bestDrivingPath.empty() || bestWalkingPath.empty()) {
-        cerr << "Error: No suitable route found within constraints.\n";
-        exit(EXIT_FAILURE);
+        return {};
     }
 
     return {bestDrivingPath, bestDrivingTime, bestParking, bestWalkingPath, bestWalkingTime, bestTotalTime};

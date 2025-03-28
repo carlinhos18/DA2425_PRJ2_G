@@ -46,8 +46,8 @@ void SetRestrictedDriveRoute(OutputData &output, const vector<Vertex<Location>*>
 }
 
 void SetDriveWalkRoute(OutputData &output, const vector<Vertex<Location>*> &path_d,
-    double time_d,const Location parkingNode, const vector<Vertex<Location>*> &path_w,
-    double time_w, double total_t ) {
+    const double time_d,const Location& parkingNode, const vector<Vertex<Location>*> &path_w,
+    const double time_w, const double total_t ) {
 
     for (auto v : path_d) {
         output.DrivingRoute.push_back(v->getInfo().id);
@@ -74,7 +74,7 @@ void SetDriveWalkRoute(OutputData &output, const vector<Vertex<Location>*> &path
 
 
 //* REMOVE NODES *//
-void RemoveNodes(Graph<Location> *g, const InputData inputData) {
+void RemoveNodes(Graph<Location> *g, const InputData& inputData) {
     for (int node : inputData.avoidNodes) {
         Location temp;
         temp.id = node;
@@ -84,7 +84,7 @@ void RemoveNodes(Graph<Location> *g, const InputData inputData) {
 }
 
 //* REMOVE EDGES *//
-void RemoveEdges(Graph<Location> *g, const InputData inputData) {
+void RemoveEdges(Graph<Location> *g, const InputData& inputData) {
     for (auto [first, second] : inputData.avoidSegments) {
         Location temp1;
         Location temp2;
@@ -95,4 +95,7 @@ void RemoveEdges(Graph<Location> *g, const InputData inputData) {
     }
 }
 
-
+// GET PARKING VALUE
+bool GetParking(const Graph<Location>* g, const Location& l) {
+    return g -> findVertex(l) -> getInfo().parking;
+}

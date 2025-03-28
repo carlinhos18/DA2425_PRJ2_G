@@ -7,7 +7,7 @@ void read_locations(const string& filename, unordered_map<string, Location>& loc
 
     if (!infile.is_open()) {
         cerr << "Could not open file " << filename << endl;
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     getline(infile, line); // Ignorar cabeçalho
@@ -46,7 +46,8 @@ void read_distances(const string& filename, unordered_map<string, Location>& loc
     string line;
     if (!infile.is_open()) {
         cerr << "Could not open file " << filename << endl;
-        exit(1);
+        exit(EXIT_FAILURE);
+
     }
     getline(infile, line);
     while (getline(infile, line)) {
@@ -70,7 +71,8 @@ InputData read_input_file(const string& filename) {
     ifstream infile(filename);
     if (!infile.is_open()) {
         cerr << "Error: Could not open file " << filename << endl;
-        return {};
+        exit(EXIT_FAILURE);
+
     }
 
     bool hasMode = false, hasSource = false, hasDestination = false;
@@ -86,7 +88,8 @@ InputData read_input_file(const string& filename) {
         if (key == "Mode") {
             if (value != "driving" && value != "driving-walking") {
                 cerr << "Invalid mode: " << value << endl;
-                return {};
+                exit(EXIT_FAILURE);
+
             }
             inputData.mode = value;
             hasMode = true;
@@ -125,6 +128,7 @@ InputData read_input_file(const string& filename) {
                     inputData.avoidNodes.insert(stoi(node));
                 } else {
                     cerr << "Invalid AvoidNode: " << node << endl;
+                    exit(EXIT_FAILURE);
                 }
             }
         }
@@ -138,7 +142,7 @@ InputData read_input_file(const string& filename) {
                 size_t endPos = value.find(')', pos);
                 if (endPos == string::npos) {
                     cerr << "Invalid AvoidSegment format: " << value << endl;
-                    break;
+                    exit(EXIT_FAILURE);
                 }
 
                 string segment = value.substr(pos + 1, endPos - pos - 1);
@@ -158,37 +162,39 @@ InputData read_input_file(const string& filename) {
                             inputData.avoidSegments.emplace_back(firstInt, secondInt);
                         } else {
                             cerr << "Invalid AvoidSegment values: " << segment << endl;
+                            exit(EXIT_FAILURE);
                         }
                     } else {
                         cerr << "Invalid AvoidSegment format: " << segment << endl;
+                        exit(EXIT_FAILURE);
                     }
                 } else {
                     cerr << "Malformed AvoidSegment pair: " << segment << endl;
+                    exit(EXIT_FAILURE);
                 }
             }
         }
 
         else if (key == "IncludeNode") {
-            //TODO
             if (value.empty()) {
                continue;
             }
 
             if (!is_valid_integer(value) || stoi(value) <= 0) {
                 cerr << "Invalid IncludeNode: " << value << endl;
-                continue;
+                exit(EXIT_FAILURE);
             }
             inputData.includeNode = stoi(value);
         }
         else {
             cerr << "Invalid key: " << key << endl;
-            return {};
+            exit(EXIT_FAILURE);
         }
     }
 
     if (!hasMode || !hasSource || !hasDestination) {
         cerr << "Missing required fields in input file." << endl;
-        return {};
+        exit(EXIT_FAILURE);
     }
 
     infile.close();
@@ -285,30 +291,38 @@ void writeOutput(const InputData& inputData, const OutputData& outputData) {
     }
     else if (inputData.mode == "driving-walking") {
         //se houver solução:
-        outfile << "DrivingRoute: ";
-        for (size_t i = 0; i < outputData.DrivingRoute.size(); i++) {
-            outfile << outputData.DrivingRoute[i];
-            if (i < outputData.DrivingRoute.size() - 1) {
-                outfile << ",";
+        if (!outputData.message.empty()) {
+            outfile << "DrivingRoute: ";
+            for (size_t i = 0; i < outputData.DrivingRoute.size(); i++) {
+                outfile << outputData.DrivingRoute[i];
+                if (i < outputData.DrivingRoute.size() - 1) {
+                    outfile << ",";
+                }
             }
-        }
-        outfile << "(" << outputData.time_DrivingRoute << ")" << endl;
-        outfile << "ParkingNode: " << outputData.ParkingNode << endl;
-        outfile << "Walking Route: ";
-        for (size_t i = 0; i < outputData.WalkingRoute.size(); i++) {
-            outfile << outputData.WalkingRoute[i];
-            if (i < outputData.WalkingRoute.size() - 1) {
-                outfile << ",";
+            outfile << "(" << outputData.time_DrivingRoute << ")" << endl;
+            outfile << "ParkingNode: " << outputData.ParkingNode << endl;
+            outfile << "Walking Route: ";
+            for (size_t i = 0; i < outputData.WalkingRoute.size(); i++) {
+                outfile << outputData.WalkingRoute[i];
+                if (i < outputData.WalkingRoute.size() - 1) {
+                    outfile << ",";
+                }
             }
+            outfile << "(" << outputData.time_WalkingRoute << ")" << endl;
+            outfile << "TotalTime: " << outputData.total_time << endl;
         }
-        outfile << "(" << outputData.time_WalkingRoute << ")" << endl;
-        outfile << "TotalTime: " << outputData.total_time << endl;
-        // se nao houver soluçao colocar tudo a none com a message a dizer
-        // uma sugestao para que haja soluçao
-        // ou entao dar possiveis rotas que se aproximem com o que
-        // o utilizador pediu
+        else{
+            outfile << "DrivingRoute: none" << endl;
+            outfile << "ParkingNode: none" << endl;
+            outfile << "Walking Route: none" << endl;
+            outfile << "TotalTime: none" << endl;
+            // se nao houver soluçao colocar tudo a none com a message a dizer
+            // uma sugestao para que haja soluçao
+            // ou entao dar possiveis rotas que se aproximem com o que
+            // o utilizador pediu
+            outfile << "Message: " << outputData.message << endl;
+        }
     }
-
     ifstream infile("output.txt");
     if (infile) {
         cout << "\nOutput File Content:\n";

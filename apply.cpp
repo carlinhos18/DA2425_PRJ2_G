@@ -62,12 +62,23 @@ void apply_func(Graph<Location>* g, const InputData & inputData, OutputData & ou
 
         RemoveEdges(g, inputData);
 
+        source.parking = GetParking(g, source);
+        dest.parking = GetParking(g, dest);
 
         auto[BestDriveRoute, time_d, parkingNode,
         BestWalkRoute, time_w,
         total_time] = eco_friendly_route(g, source, dest,inputData.MaxWalkTime);
 
-        SetDriveWalkRoute(output,BestDriveRoute, time_d, parkingNode, BestWalkRoute, time_w, total_time);
+        if (BestDriveRoute.empty() || BestWalkRoute.empty()) {
+            output.message = "No possible route with max. walking time of " + to_string(inputData.MaxWalkTime) + " minutes.";
+
+            // Fazer aqui as rotas alternativas
+
+
+
+        } else {
+            SetDriveWalkRoute(output, BestDriveRoute, time_d, parkingNode, BestWalkRoute, time_w, total_time);
+        }
     }
 
 }

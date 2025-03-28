@@ -10,6 +10,7 @@ void add_edge(const Distance& info, unordered_map<string, Location>& location_ma
     if (it1 == location_map.end() || it2 == location_map.end()) {
         cerr << "Could not add edge between " << info.start_node << " and "
         << info.dest_node << endl;
+        exit(EXIT_FAILURE);
     }
     Location loc1 = it1->second;
     Location loc2 = it2->second;
