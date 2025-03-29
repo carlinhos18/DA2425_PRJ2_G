@@ -1,4 +1,4 @@
-Mode:driving
+Mode:driving-walking
 Source:8
 Destination:3
 MaxWalkTime:150

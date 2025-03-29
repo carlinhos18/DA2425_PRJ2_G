@@ -111,7 +111,7 @@ eco_friendly_route(Graph<T>* g, const Location& orig, const Location& dest, doub
             exit(EXIT_FAILURE);
         }
     }
-    if (orig.parking && dest.parking) { // Ambos são parques
+    if (orig.parking || dest.parking) { // São parques
         cerr << "Error: Origin and destination cannot be parking nodes.\n";
         exit(EXIT_FAILURE);
     }
