@@ -7,19 +7,17 @@ bool is_valid_integer(const string& str) {
     return !str.empty() && all_of(str.begin(), str.end(), ::isdigit);
 }
 
+#include <string>
+#include <iostream>
+
 string get_truck_id(const string& filename) {
-    char number[3]; // 2 digits + null terminator
+    size_t underscore_pos = filename.rfind('_');
+    size_t dot_pos = filename.rfind('.');
 
-    char *underscore = strrchr(filename, '_');
-    if (underscore != NULL && strlen(underscore) >= 3) {
-        strncpy(number, underscore + 1, 2); // copy 2 characters after '_'
-        number[2] = '\0'; // null-terminate the string
-
-        printf("Extracted number: %s\n", number);
+    if (underscore_pos != string::npos && dot_pos != string::npos && dot_pos > underscore_pos) {
+        string id = filename.substr(underscore_pos + 1, dot_pos - underscore_pos - 1);
+        return id;
     } else {
-        printf("Could not extract number.\n");
+        return "";
     }
-
-    return 0;
-}
 }

@@ -15,8 +15,13 @@ void read_truck_file(const string& filename, vector<Pallet>* pallets) {
     stringstream ss(line);
     Truck truck;
 
-    getline(ss, truck.capacity, ',');
-    getline(ss, truck.n_pallets, ',');
+    string capacity_str, n_pallets_str;
+    getline(ss, capacity_str, ',');
+    getline(ss, n_pallets_str, ',');
+
+    truck.capacity = stoi(capacity_str);
+    truck.n_pallets = stoi(n_pallets_str);
+
     truck.truck_id = get_truck_id(filename);
 
     string pallets_file = "Pallets_" + truck.truck_id + ".csv";
@@ -41,11 +46,15 @@ void read_pallets_file(const string& filename, vector<Pallet>* pallets){
     while (getline(infile, line)) {
         stringstream ss(line);
         Pallet pallet;
-        string idStr, parkingStr;
+        string idStr, weightStr, profitStr;
 
-        getline(ss, pallet.id, ',');
-        getline(ss, pallet.weight, ',');
-        getline(ss, pallet.profit, ',');
+        getline(ss, idStr, ',');
+        getline(ss, weightStr, ',');
+        getline(ss, profitStr, ',');
+
+        pallet.id = stoi(idStr);
+        pallet.weight = stoi(weightStr);
+        pallet.profit = stoi(profitStr);
 
         pallets -> push_back(pallet);
     }

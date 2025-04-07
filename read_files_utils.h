@@ -6,11 +6,10 @@
 #define READ_FILES_UTILS_H
 
 #include <sstream>
-#include <fstream>
 #include <iostream>
-#include "data_structures/Structures.h"
-#include <unordered_map>
+#include "data_structures/structures.h"
 #include <string>
+#include <algorithm>
 using namespace std;
 
 /* Check if number in file is valid */
