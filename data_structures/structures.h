@@ -14,24 +14,24 @@ struct Pallet{
     int id;
     int weight;
     int profit;
-}
+};
 
 struct Truck{
   int capacity;
   int n_pallets;
   string truck_id;
-}
+};
 
 struct InputData{
     string algorithm;
-    string fileName;
-}
+    string filename;
+};
 
 struct OutputData{
     int totalProfit;
     int totalWeight;
     vector<Pallet> pallets;
-}
+};
 
 #endif //STRUCTURES_H
 
