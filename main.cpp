@@ -1,33 +1,11 @@
+#include "mode.cpp"
 #include <iostream>
 
-
 using namespace std;
-int main(){
-    std::cout << "entry point" << std::endl;
-}
 
+int main() {
+    InputData inputData = HandleUserInput();
+    //now we call the map_Function to apply the correct algorithm that the user chose to the file
 
-#include "apply.cpp"
-#include "mode.cpp"
-
-/*int main(){
-    read_locations("./For Students/Locations.csv", location_map, map);
-    read_distances("./For Students/Distances.csv", location_map, map);
-    read_locations("./Example/Locations.csv", location_map, map);
-    read_distances("./Example/Distances.csv", location_map, map);
-
-
-    InputData inputData;
-
-    inputData = HandleUserInput();
-
-    OutputData outputData;
-
-    apply_func(map, inputData, outputData);
-
-    writeOutput(inputData, outputData);
-
-
-    delete map;
     return 0;
-}*/
+}

@@ -3,6 +3,7 @@
 //
 #include "mode.h"
 #include "read_files.cpp"
+#include "mode_utils.cpp"
 
 string getMode() {
     string mode;
@@ -43,7 +44,7 @@ int getValidInteger(const string &prompt) {
 
 InputData HandleUserInput() {
     InputData inputData;
-
+    inputData.algorithm = getMode();
     string filename;
     const string prefix = "TruckAndPallets_";
     const string suffix = ".csv";
@@ -52,17 +53,13 @@ InputData HandleUserInput() {
         cout << "Enter filename (format: TruckAndPallets_<X>.csv): ";
         getline(cin, filename);
 
-        bool valid = filename.size() > prefix.size() + suffix.size() &&
-                     filename.substr(0, prefix.size()) == prefix &&
-                     filename.substr(filename.size() - suffix.size()) == suffix;
+        bool valid = isFileValid(filename, prefix, suffix);
 
         string id_part = filename.substr(prefix.size(), filename.size() - prefix.size() - suffix.size());
 
         if (valid && !id_part.empty()) {
                 inputData.filename = filename;
-                inputData.algorithm = getMode();
                 return inputData;
-
         } else {
             cout << "Invalid filename format. Expected: TruckAndPallets_<X>.csv\n";
         }
