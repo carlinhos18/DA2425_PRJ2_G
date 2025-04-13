@@ -5,7 +5,7 @@
 #include "algorithms.cpp"
 
 
-void apply(OutputData &output, Algorithm &data, const InputData input){
+void apply(OutputData &output, Algorithm &data, const InputData& input){
     string algorithm = input.algorithm;
     if (algorithm == "exhaustive") {
         exhaustive(output, data);
