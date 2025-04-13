@@ -10,9 +10,9 @@
 #include <string>
 using namespace std;
 
-void read_truck_file(const string& filename, vector<Pallet>* pallets);
+void read_truck_file(const string& filename, Algorithm& data);
 
-void read_pallets_file(const string& filename, vector<Pallet>* pallets);
+void read_pallets_file(const string& filename, Algorithm& data);
 
 
 

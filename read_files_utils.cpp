@@ -14,7 +14,6 @@ string get_truck_id(const string& filename) {
     if (underscore_pos != string::npos && dot_pos != string::npos && dot_pos > underscore_pos) {
         string id = filename.substr(underscore_pos + 1, dot_pos - underscore_pos - 1);
         return id;
-    } else {
-        return "";
     }
+    return "";
 }

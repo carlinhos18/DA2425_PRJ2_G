@@ -3,7 +3,7 @@
 #include <fstream>
 
 
-void read_truck_file(const string& filename, vector<Pallet>* pallets) {
+void read_truck_file(const string& filename, Algorithm& data) {
     ifstream infile(filename);
     string line;
 
@@ -14,27 +14,30 @@ void read_truck_file(const string& filename, vector<Pallet>* pallets) {
 
     getline(infile, line); // Ignorar cabeçalho
 
-    stringstream ss(line);
-    Truck truck;
+    if (!getline(infile, line)) {
+        cerr << "Erro: Ficheiro não tem dados após o cabeçalho!" << endl;
+        exit(EXIT_FAILURE);
+    }
 
+    stringstream ss(line);
     string capacity_str, n_pallets_str;
     getline(ss, capacity_str, ',');
     getline(ss, n_pallets_str, ',');
 
+    Truck truck;
     truck.capacity = stoi(capacity_str);
+    data.TotalWeight = truck.capacity;
     truck.n_pallets = stoi(n_pallets_str);
-
     truck.truck_id = get_truck_id(filename);
 
     string pallets_file = "Pallets_" + truck.truck_id + ".csv";
-
-    read_pallets_file(pallets_file, pallets);
+    read_pallets_file(pallets_file, data);
 
     infile.close();
 }
 
 
-void read_pallets_file(const string& filename, vector<Pallet>* pallets){
+void read_pallets_file(const string& filename, Algorithm& data){
     ifstream infile(filename);
     string line;
 
@@ -58,7 +61,7 @@ void read_pallets_file(const string& filename, vector<Pallet>* pallets){
         pallet.weight = stoi(weightStr);
         pallet.profit = stoi(profitStr);
 
-        pallets -> push_back(pallet);
+        data.pallets.push_back(pallet);
     }
 
     infile.close();

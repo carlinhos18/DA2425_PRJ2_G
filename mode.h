@@ -9,7 +9,7 @@
 #include "data_structures/structures.h"
 
 
-std::string getMode();
+std::string getAlgorithm();
 
 
 int getValidInteger(const std::string &prompt);

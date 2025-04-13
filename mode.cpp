@@ -5,13 +5,13 @@
 #include "read_files.cpp"
 #include "mode_utils.cpp"
 
-string getMode() {
-    string mode;
+string getAlgorithm() {
+    string Algorithm;
     while (true) {
         cout << "Algorithm <exhaustive/dynamic programming/approximation/integer linear programming>: ";
-        getline(cin, mode);
-        if (mode == "exhaustive" || mode == "dynamic programming" || mode == "integer linear programming" || mode == "approximation") {
-            return mode;
+        getline(cin, Algorithm);
+        if (Algorithm == "exhaustive" || Algorithm == "dynamic programming" || Algorithm == "integer linear programming" || Algorithm == "approximation") {
+            return Algorithm;
         }
         cout << "Invalid mode! Please enter 'exhaustive', 'dynamic programming', 'approximation' or 'integer linear programming'.\n";
     }
@@ -44,7 +44,7 @@ int getValidInteger(const string &prompt) {
 
 InputData HandleUserInput() {
     InputData inputData;
-    inputData.algorithm = getMode();
+    inputData.algorithm = getAlgorithm();
     string filename;
     const string prefix = "TruckAndPallets_";
     const string suffix = ".csv";
@@ -60,8 +60,7 @@ InputData HandleUserInput() {
         if (valid && !id_part.empty()) {
                 inputData.filename = filename;
                 return inputData;
-        } else {
-            cout << "Invalid filename format. Expected: TruckAndPallets_<X>.csv\n";
         }
+        cout << "Invalid filename format. Expected: TruckAndPallets_<X>.csv\n";
     }
 }
