@@ -12,10 +12,10 @@ void apply(OutputData &output, Algorithm &data, const InputData& input){
         exhaustive(output, data);
     }
     if (algorithm == "dynamic programming") {
-
+        knapsackDP(output, data);
     }
     if (algorithm == "approximation") {
-
+        knapsackGR(output, data);
     }
     if (algorithm == "integer linear programming") {
 

@@ -76,32 +76,30 @@ void knapsackDP(OutputData &output, const Algorithm &data) {
     }
 }
 
-double fractionalKnapsackGR(const unsigned int values[], const unsigned int weights[], unsigned int n, unsigned int maxWeight, double usedItems[]) {
-    vector<Item> items(n);
+void knapsackGR(OutputData &output, const Algorithm &data) {
+    const int maxWeight = data.TotalWeight;
+    const int n = data.pallets.size();
+
+    vector<pair<Pallet, double>> palletsRatio(n);
 
     for (unsigned int i = 0; i < n; i++) {
-        items[i] = {i, values[i], weights[i], static_cast<double>(values[i]) / weights[i]};
-        usedItems[i] = 0.0;
+        palletsRatio[i] = {data.pallets[i], static_cast<double>(data.pallets[i].profit / data.pallets[i].weight)};
     }
 
-    sort(items.begin(), items.end(), compareItems);
+    sort(palletsRatio.begin(), palletsRatio.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
+        return a.second > b.second;
+    });
 
     unsigned int currentWeight = 0;
-    double totalValue = 0.0;
 
-    for (unsigned int i = 0; i < n && currentWeight < maxWeight; i++) {
-        unsigned int og_id = items[i].index;
-        if (currentWeight + items[i].weight <= maxWeight) {
-            usedItems[og_id] = 1.0;
-            currentWeight += items[i].weight;
-            totalValue += items[i].value;
-        } else {
-            double fraction = static_cast<double>(maxWeight - currentWeight) / items[i].weight;
-            usedItems[og_id] = fraction;
-            totalValue += items[i].value * fraction;
-            currentWeight = maxWeight;
+    for (unsigned int i = 0; i < n && currentWeight <= maxWeight; i++) {
+        const Pallet cur_pallet = palletsRatio[i].first;
+        if (currentWeight + cur_pallet.weight <= maxWeight) {
+            output.pallets.push_back(cur_pallet);
+            currentWeight += cur_pallet.weight;
+            output.totalProfit += cur_pallet.profit;
         }
     }
 
-    return totalValue;
+    output.totalWeight = currentWeight;
 }
