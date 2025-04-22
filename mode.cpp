@@ -50,7 +50,7 @@ InputData HandleUserInput() {
     const string suffix = ".csv";
 
     while (true) {
-        cout << "Enter filename (format: TruckAndPallets_<X>.csv): ";
+        cout << "Filename (TruckAndPallets_<X>.csv): ";
         getline(cin, filename);
 
         bool valid = isFileValid(filename, prefix, suffix);

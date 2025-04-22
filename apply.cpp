@@ -6,7 +6,8 @@
 
 
 void apply(OutputData &output, Algorithm &data, const InputData& input){
-    string algorithm = input.algorithm;
+    const string algorithm = input.algorithm;
+
     if (algorithm == "exhaustive") {
         exhaustive(output, data);
     }

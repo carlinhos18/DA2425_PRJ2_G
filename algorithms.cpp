@@ -6,7 +6,6 @@ void exhaustive(OutputData &output, Algorithm &data) {
     int n = data.pallets.size();
     int maxProfit = 0;
     vector<Pallet> bestCombination;
-    int totalChecked = 0;
 
     for (int mask = 0; mask < (1 << n); ++mask) {
         int totalWeight = 0;
@@ -27,7 +26,6 @@ void exhaustive(OutputData &output, Algorithm &data) {
             bestCombination = currentCombination;
         }
 
-        totalChecked++;
     }
 
 
