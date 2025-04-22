@@ -20,4 +20,5 @@ void apply(OutputData &output, Algorithm &data, const InputData& input){
     if (algorithm == "integer linear programming") {
 
     }
+    weight_used(output);
 }

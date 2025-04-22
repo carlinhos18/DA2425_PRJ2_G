@@ -17,7 +17,7 @@ int main() {
     apply(output, data, inputData);
 
     //write the output
-    write_output(output);
+    write_output(output, data);
 
     return 0;
 }

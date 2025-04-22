@@ -2,6 +2,12 @@
 // Created by carlo on 13/04/2025.
 //
 
+void weight_used(OutputData &output) {
+    for (auto p : output.pallets) {
+       output.totalWeight += p.weight;
+    }
+}
+
 void exhaustive(OutputData &output, Algorithm &data) {
     int n = data.pallets.size();
     int maxProfit = 0;
