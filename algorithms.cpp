@@ -40,4 +40,68 @@ void exhaustive(OutputData &output, Algorithm &data) {
 
 }
 
+void knapsackDP(OutputData &output, const Algorithm &data) {
+    const int maxWeight = data.TotalWeight;
+    const int n = data.pallets.size();
 
+    vector<int> prev(maxWeight + 1, 0);
+    vector<int> cur(maxWeight + 1, 0);
+
+    for (unsigned int i = 1; i < n + 1; i++) {
+        const int weight = data.pallets[i - 1].weight;
+        const int profit = data.pallets[i - 1].profit;
+
+        for (unsigned int j = 0; j <= maxWeight; j++) {
+            if (weight <= j && prev[j - weight] + profit > prev[j]) {
+                cur[j] = prev[j - weight] + profit;
+            } else {
+                cur[j] = prev[j];
+            }
+        }
+
+        if (i != n) {
+            prev = cur;
+        }
+    }
+
+    int j = maxWeight;
+    for (int i = n; i > 0 && j >= 0; i--) {
+        if (cur[j] != prev[j]) {
+            const Pallet &p = data.pallets[i - 1];
+            output.pallets.push_back(p);
+            output.totalWeight += p.weight;
+            output.totalProfit += p.profit;
+            j -= p.weight;
+        }
+    }
+}
+
+double fractionalKnapsackGR(const unsigned int values[], const unsigned int weights[], unsigned int n, unsigned int maxWeight, double usedItems[]) {
+    vector<Item> items(n);
+
+    for (unsigned int i = 0; i < n; i++) {
+        items[i] = {i, values[i], weights[i], static_cast<double>(values[i]) / weights[i]};
+        usedItems[i] = 0.0;
+    }
+
+    sort(items.begin(), items.end(), compareItems);
+
+    unsigned int currentWeight = 0;
+    double totalValue = 0.0;
+
+    for (unsigned int i = 0; i < n && currentWeight < maxWeight; i++) {
+        unsigned int og_id = items[i].index;
+        if (currentWeight + items[i].weight <= maxWeight) {
+            usedItems[og_id] = 1.0;
+            currentWeight += items[i].weight;
+            totalValue += items[i].value;
+        } else {
+            double fraction = static_cast<double>(maxWeight - currentWeight) / items[i].weight;
+            usedItems[og_id] = fraction;
+            totalValue += items[i].value * fraction;
+            currentWeight = maxWeight;
+        }
+    }
+
+    return totalValue;
+}
