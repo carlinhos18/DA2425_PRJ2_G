@@ -86,7 +86,7 @@ void knapsackGR(OutputData &output, const Algorithm &data) {
         palletsRatio[i] = {data.pallets[i], static_cast<double>(data.pallets[i].profit / data.pallets[i].weight)};
     }
 
-    sort(palletsRatio.begin(), palletsRatio.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
+    sort(palletsRatio.begin(), palletsRatio.end(), [](const pair<Pallet,double> &a, const pair<Pallet,double> &b) {
         return a.second > b.second;
     });
 

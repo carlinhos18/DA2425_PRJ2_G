@@ -45,22 +45,33 @@ int getValidInteger(const string &prompt) {
 InputData HandleUserInput() {
     InputData inputData;
     inputData.algorithm = getAlgorithm();
-    string filename;
+
+    int datasetNumber;
+    while (true) {
+        cout << "Choose a dataset number (1 to 10): ";
+        string input;
+        getline(cin, input);
+
+        try {
+            datasetNumber = stoi(input);
+            if (datasetNumber >= 1 && datasetNumber <= 10) {
+                break;
+            } else {
+                cout << "Please enter a number between 1 and 10.\n";
+            }
+        } catch (...) {
+            cout << "Invalid input. Please enter a valid number.\n";
+        }
+    }
+
     const string prefix = "TruckAndPallets_";
     const string suffix = ".csv";
 
-    while (true) {
-        cout << "Filename (TruckAndPallets_<X>.csv): ";
-        getline(cin, filename);
+    stringstream ss;
+    ss << prefix << std::setw(2) << std::setfill('0') << datasetNumber << suffix;
+    string filename = ss.str();
 
-        bool valid = isFileValid(filename, prefix, suffix);
 
-        string id_part = filename.substr(prefix.size(), filename.size() - prefix.size() - suffix.size());
-
-        if (valid && !id_part.empty()) {
-                inputData.filename = filename;
-                return inputData;
-        }
-        cout << "Invalid filename format. Expected: TruckAndPallets_<X>.csv\n";
-    }
+    inputData.filename = filename;
+    return inputData;
 }
