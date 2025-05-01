@@ -44,37 +44,34 @@ void knapsackDP(OutputData &output, const Algorithm &data) {
     const int maxWeight = data.TotalWeight;
     const int n = data.pallets.size();
 
-    vector<int> prev(maxWeight + 1, 0);
-    vector<int> cur(maxWeight + 1, 0);
+    vector<vector<int>> dp(n + 1, vector<int>(maxWeight + 1, 0));
 
-    for (unsigned int i = 1; i < n + 1; i++) {
-        const int weight = data.pallets[i - 1].weight;
-        const int profit = data.pallets[i - 1].profit;
+    for (int i = 1; i <= n; ++i) {
+        int w = data.pallets[i - 1].weight;
+        int p = data.pallets[i - 1].profit;
 
-        for (unsigned int j = 0; j <= maxWeight; j++) {
-            if (weight <= j && prev[j - weight] + profit > prev[j]) {
-                cur[j] = prev[j - weight] + profit;
+        for (int j = 0; j <= maxWeight; ++j) {
+            if (w <= j) {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w] + p);
             } else {
-                cur[j] = prev[j];
+                dp[i][j] = dp[i - 1][j];
             }
-        }
-
-        if (i != n) {
-            prev = cur;
         }
     }
 
     int j = maxWeight;
-    for (int i = n; i > 0 && j >= 0; i--) {
-        if (cur[j] != prev[j]) {
+    for (int i = n; i > 0; --i) {
+        if (dp[i][j] != dp[i - 1][j]) {
             const Pallet &p = data.pallets[i - 1];
             output.pallets.push_back(p);
-            output.totalWeight += p.weight;
             output.totalProfit += p.profit;
             j -= p.weight;
         }
     }
+
+    reverse(output.pallets.begin(), output.pallets.end());
 }
+
 
 void knapsackGR(OutputData &output, const Algorithm &data) {
     const int maxWeight = data.TotalWeight;
@@ -101,5 +98,4 @@ void knapsackGR(OutputData &output, const Algorithm &data) {
         }
     }
 
-    output.totalWeight = currentWeight;
 }

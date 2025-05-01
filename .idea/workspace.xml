@@ -20,37 +20,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5747435f-9593-4061-ad91-169bead7e3d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/OptimalSolution_05.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/OptimalSolution_06.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/OptimalSolution_07.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/OptimalSolution_08.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/OptimalSolution_09.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/OptimalSolution_10.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/Pallets_05.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/Pallets_06.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/Pallets_07.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/Pallets_08.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/Pallets_09.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/Pallets_10.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/TruckAndPallets_05.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/TruckAndPallets_06.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/TruckAndPallets_07.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/TruckAndPallets_08.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/TruckAndPallets_09.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets-extra/TruckAndPallets_10.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets/Pallets_01.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets/Pallets_02.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets/Pallets_03.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets/Pallets_04.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets/TruckAndPallets_01.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets/TruckAndPallets_02.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets/TruckAndPallets_03.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets_Project2/datasets/TruckAndPallets_04.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/algorithms.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/mode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mode.h" beforeDir="false" afterPath="$PROJECT_DIR$/mode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/read_files.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/read_files.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,27 +42,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C/C++ File.main.cpp (1).executor": "Run",
-    "C/C++ File.main.cpp.executor": "Run",
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/ceraizi/Documentos/DA/Lecture TP5 - Dynamic Programming-20250324/da2324_p05_student",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C/C++ File.main.cpp (1).executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ File.main.cpp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ceraizi/Documentos/DA/Lecture TP5 - Dynamic Programming-20250324/da2324_p05_student&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -131,7 +102,8 @@
       <workItem from="1744562693466" duration="4150000" />
       <workItem from="1744715535416" duration="2979000" />
       <workItem from="1745314876911" duration="973000" />
-      <workItem from="1746101367836" duration="1683000" />
+      <workItem from="1746101367836" duration="2599000" />
+      <workItem from="1746106087359" duration="1100000" />
     </task>
     <servers />
   </component>
