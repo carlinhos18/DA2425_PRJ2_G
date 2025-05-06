@@ -8,12 +8,12 @@
 string getAlgorithm() {
     string Algorithm;
     while (true) {
-        cout << "Algorithm <exhaustive/dynamic programming/approximation/integer linear programming>: ";
+        cout << "Algorithm <exhaustive/dynamic programming/approximation/integer linear programming/benchmark>: ";
         getline(cin, Algorithm);
-        if (Algorithm == "exhaustive" || Algorithm == "dynamic programming" || Algorithm == "integer linear programming" || Algorithm == "approximation") {
+        if (Algorithm == "exhaustive" || Algorithm == "dynamic programming" || Algorithm == "integer linear programming" || Algorithm == "approximation" || Algorithm == "benchmark") {
             return Algorithm;
         }
-        cout << "Invalid mode! Please enter 'exhaustive', 'dynamic programming', 'approximation' or 'integer linear programming'.\n";
+        cout << "Invalid mode! Please enter 'exhaustive', 'dynamic programming', 'approximation', 'integer linear programming' or 'benchmark'.\n";
     }
 }
 
@@ -45,6 +45,10 @@ int getValidInteger(const string &prompt) {
 InputData HandleUserInput() {
     InputData inputData;
     inputData.algorithm = getAlgorithm();
+
+    if (inputData.algorithm == "benchmark") {
+        return inputData;
+    }
 
     int datasetNumber;
     while (true) {

@@ -1,7 +1,6 @@
 //
 // Created by carlo on 13/04/2025.
 //
-
 void weight_used(OutputData &output) {
     for (auto p : output.pallets) {
        output.totalWeight += p.weight;

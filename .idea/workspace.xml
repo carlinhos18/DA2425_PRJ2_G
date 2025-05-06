@@ -21,7 +21,11 @@
     <list default="true" id="5747435f-9593-4061-ad91-169bead7e3d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/algorithms.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apply.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apply.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/mode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/read_files.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/read_files.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +107,8 @@
       <workItem from="1744715535416" duration="2979000" />
       <workItem from="1745314876911" duration="973000" />
       <workItem from="1746101367836" duration="2599000" />
-      <workItem from="1746106087359" duration="1100000" />
+      <workItem from="1746106087359" duration="2136000" />
+      <workItem from="1746548229443" duration="3710000" />
     </task>
     <servers />
   </component>

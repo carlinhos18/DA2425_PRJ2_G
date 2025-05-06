@@ -10,14 +10,19 @@ int main() {
     //handle user input
     InputData inputData = HandleUserInput();
 
-    //read file depending on the user input
-    read_truck_file(inputData.filename, data);
+    if (inputData.algorithm != "benchmark") {
+        //read file depending on the user input
+        read_truck_file(inputData.filename, data);
 
-    //apply specific algorithm to the dataset
-    apply(output, data, inputData);
 
-    //write the output
-    write_output(output, data);
+        //apply specific algorithm to the dataset
+        apply(output, data, inputData);
 
+        //write the output
+        write_output(output, data);
+    }
+    else {
+        benchmarkMode();
+    }
     return 0;
 }

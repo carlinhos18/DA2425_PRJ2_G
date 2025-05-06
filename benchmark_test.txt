@@ -1,0 +1,20 @@
+Running benchmark for dataset: TruckAndPallets_01.csv
+Algorithm exhaustive took 769 microseconds.
+Algorithm dynamic programming took 37 microseconds.
+Algorithm approximation took 8 microseconds.
+Running benchmark for dataset: TruckAndPallets_02.csv
+Algorithm exhaustive took 28364 microseconds.
+Algorithm dynamic programming took 51 microseconds.
+Algorithm approximation took 7 microseconds.
+Running benchmark for dataset: TruckAndPallets_03.csv
+Algorithm exhaustive took 540 microseconds.
+Algorithm dynamic programming took 33 microseconds.
+Algorithm approximation took 3 microseconds.
+Running benchmark for dataset: TruckAndPallets_04.csv
+Algorithm exhaustive took 2 microseconds.
+Algorithm dynamic programming took 621 microseconds.
+Algorithm approximation took 14 microseconds.
+Running benchmark for dataset: TruckAndPallets_05.csv
+Algorithm exhaustive took 1407168570 microseconds.
+Algorithm dynamic programming took 25 microseconds.
+Algorithm approximation took 9 microseconds.

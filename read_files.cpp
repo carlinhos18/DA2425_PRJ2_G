@@ -6,7 +6,7 @@
 void read_truck_file(const string& filename, Algorithm& data) {
 
     string correct = "Datasets_Project2/" + filename;
-    cout <<"TruckFileDirectory: " << correct << endl;
+    //cout <<"TruckFileDirectory: " << correct << endl;
     ifstream infile(correct);
     string line;
 
@@ -42,7 +42,7 @@ void read_truck_file(const string& filename, Algorithm& data) {
 
 void read_pallets_file(const string& filename, Algorithm& data){
     string correct = "Datasets_Project2/" + filename;
-    cout << "PalletsFileDirectory: " << correct << endl;
+    //cout << "PalletsFileDirectory: " << correct << endl;
     ifstream infile(correct);
     string line;
 
