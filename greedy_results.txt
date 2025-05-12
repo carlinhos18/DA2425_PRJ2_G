@@ -1,0 +1,59 @@
+1) - Wrong 29 vs 22
+Initial Weight available: 100
+Total Weight Used: 91
+
+Total Profit: 22
+
+2) - Wrong 32 vs 10
+Initial Weight available: 100
+Total Weight Used: 99
+
+Total Profit: 10
+
+3) - Wrong 40 vs 20
+Initial Weight available: 100
+Total Weight Used: 90
+
+Total Profit: 20
+
+4) - Wrong 161 vs 125
+Initial Weight available: 524
+Total Weight Used: 509
+
+Total Profit: 125
+
+5) - Correct
+Initial Weight available: 15
+Total Weight Used: 15
+
+Total Profit: 15
+
+6) - Correct
+Initial Weight available: 2047
+Total Weight Used: 2047
+
+Total Profit: 2047
+
+7) - Wrong 987 vs 985
+Initial Weight available: 610
+Total Weight Used: 609
+
+Total Profit: 985
+
+8) - Correct
+Initial Weight available: 376
+Total Weight Used: 376
+
+Total Profit: 608
+
+9) - Correct
+Initial Weight available: 64
+Total Weight Used: 15
+
+Total Profit: 945
+
+10) - Wrong 15 vs 1
+Initial Weight available: 16
+Total Weight Used: 1
+
+Total Profit: 1
