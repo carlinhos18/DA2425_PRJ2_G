@@ -20,6 +20,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5747435f-9593-4061-ad91-169bead7e3d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithms.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +54,7 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/ceraizi/Documentos/DA/Lecture TP5 - Dynamic Programming-20250324/da2324_p05_student&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ceraizi/Documentos/DA/DA2425_PRJ2_G/Datasets_Project2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -62,6 +64,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Datasets_Project2" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\carlo\OneDrive\Ambiente de Trabalho\Cenas importantes\Desenho Algoritmos\DA2425_PRJ2_T06\DA2425_PRJ2_G" />
@@ -104,7 +109,8 @@
       <workItem from="1746106087359" duration="2136000" />
       <workItem from="1746548229443" duration="4191000" />
       <workItem from="1747062889001" duration="41000" />
-      <workItem from="1747062946401" duration="1329000" />
+      <workItem from="1747062946401" duration="5424000" />
+      <workItem from="1747073034251" duration="2528000" />
     </task>
     <servers />
   </component>

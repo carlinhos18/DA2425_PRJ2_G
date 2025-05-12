@@ -1,3 +1,4 @@
+#include <cstdint>
 //
 // Created by carlo on 13/04/2025.
 //
@@ -11,33 +12,44 @@ void exhaustive(OutputData &output, Algorithm &data) {
     int n = data.pallets.size();
     int maxProfit = 0;
     vector<Pallet> bestCombination;
+    vector<bool> usedItems(n, false);
 
-    for (int mask = 0; mask < (1 << n); ++mask) {
-        int totalWeight = 0;
-        int totalProfit = 0;
-        vector<Pallet> currentCombination;
+    bool done = false;
+    while (!done) {
+        int weight = 0, profit = 0;
+        vector<Pallet> current;
 
         for (int i = 0; i < n; ++i) {
-            if (mask & (1 << i)) {
-                totalWeight += data.pallets[i].weight;
-                totalProfit += data.pallets[i].profit;
-                currentCombination.push_back(data.pallets[i]);
+            if (usedItems[i]) {
+                weight += data.pallets[i].weight;
+                profit += data.pallets[i].profit;
+                if (weight > data.TotalWeight) break;
+                current.push_back(data.pallets[i]);
             }
         }
 
-
-        if (totalWeight <= data.TotalWeight && totalProfit > maxProfit) {
-            maxProfit = totalProfit;
-            bestCombination = currentCombination;
+        if (weight <= data.TotalWeight && profit > maxProfit) {
+            maxProfit = profit;
+            bestCombination = current;
         }
 
+        int i = 0;
+        while (i < n) {
+            if (!usedItems[i]) {
+                usedItems[i] = true;
+                break;
+            } else {
+                usedItems[i] = false;
+                ++i;
+            }
+        }
+        if (i == n) done = true;
     }
-
 
     output.totalProfit = maxProfit;
     output.pallets = bestCombination;
-
 }
+
 
 void knapsackDP(OutputData &output, const Algorithm &data) {
     const int maxWeight = data.TotalWeight;
