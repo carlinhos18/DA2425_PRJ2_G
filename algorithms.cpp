@@ -83,8 +83,7 @@ void knapsackDP(OutputData &output, const Algorithm &data) {
     reverse(output.pallets.begin(), output.pallets.end());
 }
 
-
-void knapsackGR(OutputData &output, const Algorithm &data) {
+void knapsackGR_A(OutputData &output, const Algorithm &data) {
     const int maxWeight = data.TotalWeight;
     const int n = data.pallets.size();
 
@@ -109,4 +108,45 @@ void knapsackGR(OutputData &output, const Algorithm &data) {
         }
     }
 
+}
+
+
+void knapsackGR_B(OutputData &output, const Algorithm &data) {
+    const int maxWeight = data.TotalWeight;
+    const int n = data.pallets.size();
+
+    vector<pair<Pallet, double>> palletsRatio(n);
+
+    for (unsigned int i = 0; i < n; i++) {
+        palletsRatio[i] = {data.pallets[i], static_cast<double>(data.pallets[i].profit)};
+    }
+
+    sort(palletsRatio.begin(), palletsRatio.end(), [](const pair<Pallet,double> &a, const pair<Pallet,double> &b) {
+        return a.second > b.second;
+    });
+
+    unsigned int currentWeight = 0;
+
+    for (unsigned int i = 0; i < n && currentWeight <= maxWeight; i++) {
+        const Pallet cur_pallet = palletsRatio[i].first;
+        if (currentWeight + cur_pallet.weight <= maxWeight) {
+            output.pallets.push_back(cur_pallet);
+            currentWeight += cur_pallet.weight;
+            output.totalProfit += cur_pallet.profit;
+        }
+    }
+}
+
+void knapsackGR(OutputData &output, const Algorithm &data) {
+    OutputData outputA;
+    OutputData outputB;
+
+    knapsackGR_A(outputA, data);
+    knapsackGR_B(outputB, data);
+
+    if (outputA.totalProfit >= outputB.totalProfit) {
+        output = outputA;
+    } else {
+        output = outputB;
+    }
 }

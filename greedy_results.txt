@@ -4,11 +4,11 @@ Total Weight Used: 91
 
 Total Profit: 22
 
-2) - Wrong 32 vs 10
+2) - Correct
 Initial Weight available: 100
-Total Weight Used: 99
+Total Weight Used: 98
 
-Total Profit: 10
+Total Profit: 32
 
 3) - Wrong 40 vs 20
 Initial Weight available: 100
@@ -34,11 +34,11 @@ Total Weight Used: 2047
 
 Total Profit: 2047
 
-7) - Wrong 987 vs 985
+7) - Correct
 Initial Weight available: 610
-Total Weight Used: 609
+Total Weight Used: 610
 
-Total Profit: 985
+Total Profit: 987
 
 8) - Correct
 Initial Weight available: 376
@@ -52,8 +52,8 @@ Total Weight Used: 15
 
 Total Profit: 945
 
-10) - Wrong 15 vs 1
+10) - Correct
 Initial Weight available: 16
-Total Weight Used: 1
+Total Weight Used: 16
 
-Total Profit: 1
+Total Profit: 15
