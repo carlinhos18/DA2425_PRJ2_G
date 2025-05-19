@@ -8,12 +8,12 @@
 string getAlgorithm() {
     string Algorithm;
     while (true) {
-        cout << "Algorithm <exhaustive/dynamic programming/approximation/integer linear programming/benchmark>: ";
+        cout << "Algorithm <exhaustive/dynamic programming/approximation/genetic/benchmark>: ";
         getline(cin, Algorithm);
-        if (Algorithm == "exhaustive" || Algorithm == "dynamic programming" || Algorithm == "integer linear programming" || Algorithm == "approximation" || Algorithm == "benchmark") {
+        if (Algorithm == "exhaustive" || Algorithm == "dynamic programming" || Algorithm == "genetic" || Algorithm == "approximation" || Algorithm == "benchmark") {
             return Algorithm;
         }
-        cout << "Invalid mode! Please enter 'exhaustive', 'dynamic programming', 'approximation', 'integer linear programming' or 'benchmark'.\n";
+        cout << "Invalid mode! Please enter 'exhaustive', 'dynamic programming', 'approximation', 'genetic' or 'benchmark'.\n";
     }
 }
 

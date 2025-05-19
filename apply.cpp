@@ -18,8 +18,8 @@ void apply(OutputData &output, Algorithm &data, const InputData& input){
     if (algorithm == "approximation") {
         knapsackGR(output, data);
     }
-    if (algorithm == "integer linear programming") {
-
+    if (algorithm == "genetic") {
+        knapsackGA(output, data);
     }
 
     weight_used(output);
@@ -42,7 +42,8 @@ void benchmarkMode(bool skipLong) {
         vector<string> algorithms = {
             "exhaustive",
             "dynamic programming",
-            "approximation"
+            "approximation",
+            "genetic"
         };
 
         for (const auto& algorithm_name : algorithms) {
@@ -64,6 +65,9 @@ void benchmarkMode(bool skipLong) {
                 knapsackDP(output, data);
             } else if (algorithm_name == "approximation") {
                 knapsackGR(output, data);
+            }
+            else if (algorithm_name == "genetic") {
+                knapsackGA(output, data);
             }
 
 
