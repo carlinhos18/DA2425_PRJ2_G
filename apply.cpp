@@ -25,7 +25,7 @@ void apply(OutputData &output, Algorithm &data, const InputData& input){
     weight_used(output);
 }
 
-void benchmarkMode() {
+void benchmarkMode(bool skipLong) {
     for (int i = 1; i <= 10; i++) {
         const string prefix = "TruckAndPallets_";
         const string suffix = ".csv";
@@ -46,6 +46,11 @@ void benchmarkMode() {
         };
 
         for (const auto& algorithm_name : algorithms) {
+            if (skipLong && algorithm_name == "exhaustive" && (i == 4 || i == 5 || i == 6)) {
+                cout << "Skipping " << algorithm_name << " for dataset " << dataset << " due to expected long runtime.\n";
+                continue;
+            }
+
             OutputData output;
             InputData inputData;
             inputData.filename = dataset;
@@ -60,6 +65,7 @@ void benchmarkMode() {
             } else if (algorithm_name == "approximation") {
                 knapsackGR(output, data);
             }
+
 
             auto end = chrono::high_resolution_clock::now();
 

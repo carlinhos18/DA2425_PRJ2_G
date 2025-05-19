@@ -22,7 +22,8 @@ int main() {
         write_output(output, data);
     }
     else {
-        benchmarkMode();
+        bool skipLong = askSkipLongAlgorithms();
+        benchmarkMode(skipLong);
     }
     return 0;
 }

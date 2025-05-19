@@ -79,3 +79,22 @@ InputData HandleUserInput() {
     inputData.filename = filename;
     return inputData;
 }
+
+bool askSkipLongAlgorithms() {
+    while (true) {
+        cout << "Skip long-running algorithms (for instance, exhaustive for large datasets)? (yes/no): ";
+        string input;
+        getline(cin, input);
+
+        transform(input.begin(), input.end(), input.begin(), ::tolower);
+
+        if (input == "yes" || input == "y") {
+            return true;
+        } else if (input == "no" || input == "n") {
+            return false;
+        } else {
+            cout << "Invalid input. Please type 'yes' or 'no'.\n";
+        }
+    }
+}
+

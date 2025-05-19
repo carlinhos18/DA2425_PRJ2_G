@@ -14,7 +14,8 @@ std::string getAlgorithm();
 
 int getValidInteger(const std::string &prompt);
 
-
 InputData HandleUserInput();
+
+bool askSkipLongAlgorithms();
 
 #endif //MODE_H
