@@ -34,10 +34,14 @@ void benchmarkMode(bool skipLong) {
         ss << prefix << setw(2) << setfill('0') << i << suffix;
         string dataset = ss.str();
 
-        cout << "Running benchmark for dataset: " << dataset << endl;
-
         Algorithm data;
         read_truck_file(dataset, data);
+
+        // Get number of pallets
+        int numPallets = data.pallets.size();  // Assuming `data.pallets` exists and holds all pallets
+
+        cout << "File: " << dataset << " - Pallets: " << numPallets << "\n";
+        cout << "Times:\n";
 
         vector<string> algorithms = {
             "exhaustive",
@@ -48,7 +52,7 @@ void benchmarkMode(bool skipLong) {
 
         for (const auto& algorithm_name : algorithms) {
             if (skipLong && algorithm_name == "exhaustive" && (i == 4 || i == 5 || i == 6)) {
-                cout << "Skipping " << algorithm_name << " for dataset " << dataset << " due to expected long runtime.\n";
+                cout << algorithm_name << ": skipped\n";
                 continue;
             }
 
@@ -65,17 +69,23 @@ void benchmarkMode(bool skipLong) {
                 knapsackDP(output, data);
             } else if (algorithm_name == "approximation") {
                 knapsackGR(output, data);
-            }
-            else if (algorithm_name == "genetic") {
+            } else if (algorithm_name == "genetic") {
                 knapsackGA(output, data);
             }
 
-
             auto end = chrono::high_resolution_clock::now();
+            auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
 
-            auto duration = std::chrono::duration_cast<chrono::microseconds>(end - start);
-            std::cout << "Algorithm " << algorithm_name << " took "
-                      << duration.count() << " microseconds." << std::endl;
+            // Capitalize for output
+            string label = algorithm_name;
+            if (label == "dynamic programming") label = "Dynamic Programming";
+            else if (label == "approximation") label = "Approximation";
+            else if (label == "genetic") label = "Genetic";
+            else label = "Exhaustive";
+
+            cout << label << ": " << duration.count() << "\n";
         }
+
+        cout << "\n"; // Separate each file’s results
     }
 }

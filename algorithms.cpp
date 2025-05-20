@@ -19,6 +19,7 @@ void exhaustive(OutputData &output, Algorithm &data) {
 
     bool done = false;
     while (!done) {
+
         int weight = 0, profit = 0;
         vector<Pallet> current;
 
@@ -51,6 +52,7 @@ void exhaustive(OutputData &output, Algorithm &data) {
 
     output.totalProfit = maxProfit;
     output.pallets = bestCombination;
+
 }
 
 
