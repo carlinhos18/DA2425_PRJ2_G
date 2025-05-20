@@ -1,6 +1,7 @@
 //
 // Created by carlo on 11/04/2025.
 //
+#include <fstream>
 #include "data_structures/structures.h"
 #include "algorithms.cpp"
 #include <chrono>
@@ -25,7 +26,12 @@ void apply(OutputData &output, Algorithm &data, const InputData& input){
     weight_used(output);
 }
 
+#include <fstream>
+#include <iomanip>  // for std::fixed and std::setprecision
+
 void benchmarkMode(bool skipLong) {
+    std::ofstream outfile("benchmark_test.txt");
+
     for (int i = 1; i <= 10; i++) {
         const string prefix = "TruckAndPallets_";
         const string suffix = ".csv";
@@ -36,12 +42,13 @@ void benchmarkMode(bool skipLong) {
 
         Algorithm data;
         read_truck_file(dataset, data);
+        int numPallets = data.pallets.size();
 
-        // Get number of pallets
-        int numPallets = data.pallets.size();  // Assuming `data.pallets` exists and holds all pallets
-
+        // Output header
         cout << "File: " << dataset << " - Pallets: " << numPallets << "\n";
+        outfile << "File: " << dataset << " - Pallets: " << numPallets << "\n";
         cout << "Times:\n";
+        outfile << "Times:\n";
 
         vector<string> algorithms = {
             "exhaustive",
@@ -53,6 +60,7 @@ void benchmarkMode(bool skipLong) {
         for (const auto& algorithm_name : algorithms) {
             if (skipLong && algorithm_name == "exhaustive" && (i == 4 || i == 5 || i == 6)) {
                 cout << algorithm_name << ": skipped\n";
+                outfile << algorithm_name << ": skipped\n";
                 continue;
             }
 
@@ -75,17 +83,29 @@ void benchmarkMode(bool skipLong) {
 
             auto end = chrono::high_resolution_clock::now();
             auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+            long long microseconds = duration.count();
 
-            // Capitalize for output
             string label = algorithm_name;
             if (label == "dynamic programming") label = "Dynamic Programming";
             else if (label == "approximation") label = "Approximation";
             else if (label == "genetic") label = "Genetic";
             else label = "Exhaustive";
 
-            cout << label << ": " << duration.count() << "\n";
+            cout << label << ": " << microseconds << "\n";
+
+            outfile << label << ": ";
+            if (microseconds >= 62500) {
+                double seconds = microseconds / 1'000'000.0;
+                outfile << std::fixed << std::setprecision(6) << seconds << " s\n";
+            } else {
+                outfile << microseconds << " µs\n";
+            }
         }
 
-        cout << "\n"; // Separate each file’s results
+        cout << "\n";
+        outfile << "\n";
     }
+
+    outfile.close();
 }
+

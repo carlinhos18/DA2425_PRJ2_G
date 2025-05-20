@@ -1,20 +1,70 @@
-Running benchmark for dataset: TruckAndPallets_01.csv
-Algorithm exhaustive took 769 microseconds.
-Algorithm dynamic programming took 37 microseconds.
-Algorithm approximation took 8 microseconds.
-Running benchmark for dataset: TruckAndPallets_02.csv
-Algorithm exhaustive took 28364 microseconds.
-Algorithm dynamic programming took 51 microseconds.
-Algorithm approximation took 7 microseconds.
-Running benchmark for dataset: TruckAndPallets_03.csv
-Algorithm exhaustive took 540 microseconds.
-Algorithm dynamic programming took 33 microseconds.
-Algorithm approximation took 3 microseconds.
-Running benchmark for dataset: TruckAndPallets_04.csv
-Algorithm exhaustive took 2 microseconds.
-Algorithm dynamic programming took 621 microseconds.
-Algorithm approximation took 14 microseconds.
-Running benchmark for dataset: TruckAndPallets_05.csv
-Algorithm exhaustive took 1407168570 microseconds.
-Algorithm dynamic programming took 25 microseconds.
-Algorithm approximation took 9 microseconds.
+File: TruckAndPallets_01.csv - Pallets: 9
+Times:
+Exhaustive: 461 µs
+Dynamic Programming: 51 µs
+Approximation: 32 µs
+Genetic: 61505 µs
+
+File: TruckAndPallets_02.csv - Pallets: 14
+Times:
+Exhaustive: 7359 µs
+Dynamic Programming: 57 µs
+Approximation: 15 µs
+Genetic: 0.085361 s
+
+File: TruckAndPallets_03.csv - Pallets: 9
+Times:
+Exhaustive: 457 µs
+Dynamic Programming: 21 µs
+Approximation: 13 µs
+Genetic: 0.068310 s
+
+File: TruckAndPallets_04.csv - Pallets: 33
+Times:
+exhaustive: skipped
+Dynamic Programming: 295 µs
+Approximation: 23 µs
+Genetic: 0.138717 s
+
+File: TruckAndPallets_05.csv - Pallets: 30
+Times:
+exhaustive: skipped
+Dynamic Programming: 41 µs
+Approximation: 15 µs
+Genetic: 0.148319 s
+
+File: TruckAndPallets_06.csv - Pallets: 4094
+Times:
+exhaustive: skipped
+Dynamic Programming: 0.115469 s
+Approximation: 1851 µs
+Genetic: 11.515999 s
+
+File: TruckAndPallets_07.csv - Pallets: 14
+Times:
+Exhaustive: 22336 µs
+Dynamic Programming: 159 µs
+Approximation: 16 µs
+Genetic: 0.076739 s
+
+File: TruckAndPallets_08.csv - Pallets: 14
+Times:
+Exhaustive: 23062 µs
+Dynamic Programming: 98 µs
+Approximation: 11 µs
+Genetic: 0.077266 s
+
+File: TruckAndPallets_09.csv - Pallets: 16
+Times:
+Exhaustive: 0.069565 s
+Dynamic Programming: 54 µs
+Approximation: 19 µs
+Genetic: 0.086689 s
+
+File: TruckAndPallets_10.csv - Pallets: 2
+Times:
+Exhaustive: 5 µs
+Dynamic Programming: 6 µs
+Approximation: 6 µs
+Genetic: 36525 µs
+
