@@ -1,70 +1,70 @@
 File: TruckAndPallets_01.csv - Pallets: 9
 Times:
-Exhaustive: 461 µs
-Dynamic Programming: 51 µs
-Approximation: 32 µs
-Genetic: 61505 µs
+Exhaustive: 694 µs
+Dynamic Programming: 79 µs
+Approximation: 50 µs
+Genetic: 0.123537 s
 
 File: TruckAndPallets_02.csv - Pallets: 14
 Times:
-Exhaustive: 7359 µs
-Dynamic Programming: 57 µs
-Approximation: 15 µs
-Genetic: 0.085361 s
+Exhaustive: 14196 µs
+Dynamic Programming: 72 µs
+Approximation: 20 µs
+Genetic: 0.187374 s
 
 File: TruckAndPallets_03.csv - Pallets: 9
 Times:
-Exhaustive: 457 µs
-Dynamic Programming: 21 µs
-Approximation: 13 µs
-Genetic: 0.068310 s
+Exhaustive: 693 µs
+Dynamic Programming: 37 µs
+Approximation: 18 µs
+Genetic: 0.125553 s
 
 File: TruckAndPallets_04.csv - Pallets: 33
 Times:
 exhaustive: skipped
-Dynamic Programming: 295 µs
-Approximation: 23 µs
-Genetic: 0.138717 s
+Dynamic Programming: 442 µs
+Approximation: 49 µs
+Genetic: 0.264338 s
 
 File: TruckAndPallets_05.csv - Pallets: 30
 Times:
 exhaustive: skipped
-Dynamic Programming: 41 µs
-Approximation: 15 µs
-Genetic: 0.148319 s
+Dynamic Programming: 53 µs
+Approximation: 175 µs
+Genetic: 0.274104 s
 
 File: TruckAndPallets_06.csv - Pallets: 4094
 Times:
 exhaustive: skipped
-Dynamic Programming: 0.115469 s
-Approximation: 1851 µs
-Genetic: 11.515999 s
+Dynamic Programming: 0.238169 s
+Approximation: 3684 µs
+Genetic: 22.816286 s
 
 File: TruckAndPallets_07.csv - Pallets: 14
 Times:
-Exhaustive: 22336 µs
-Dynamic Programming: 159 µs
-Approximation: 16 µs
-Genetic: 0.076739 s
+Exhaustive: 58395 µs
+Dynamic Programming: 266 µs
+Approximation: 22 µs
+Genetic: 0.195010 s
 
 File: TruckAndPallets_08.csv - Pallets: 14
 Times:
-Exhaustive: 23062 µs
-Dynamic Programming: 98 µs
-Approximation: 11 µs
-Genetic: 0.077266 s
+Exhaustive: 50200 µs
+Dynamic Programming: 143 µs
+Approximation: 35 µs
+Genetic: 0.164525 s
 
 File: TruckAndPallets_09.csv - Pallets: 16
 Times:
-Exhaustive: 0.069565 s
-Dynamic Programming: 54 µs
-Approximation: 19 µs
-Genetic: 0.086689 s
+Exhaustive: 0.123600 s
+Dynamic Programming: 66 µs
+Approximation: 29 µs
+Genetic: 0.182216 s
 
 File: TruckAndPallets_10.csv - Pallets: 2
 Times:
-Exhaustive: 5 µs
-Dynamic Programming: 6 µs
-Approximation: 6 µs
-Genetic: 36525 µs
+Exhaustive: 13 µs
+Dynamic Programming: 13 µs
+Approximation: 17 µs
+Genetic: 0.068552 s
 
