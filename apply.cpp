@@ -47,8 +47,8 @@ void benchmarkMode(bool skipLong) {
         // Output header
         cout << "File: " << dataset << " - Pallets: " << numPallets << "\n";
         outfile << "File: " << dataset << " - Pallets: " << numPallets << "\n";
-        cout << "Times:\n";
-        outfile << "Times:\n";
+        cout << "----Times----\n";
+        outfile << "----Times----\n";
 
         vector<string> algorithms = {
             "exhaustive",
@@ -91,14 +91,16 @@ void benchmarkMode(bool skipLong) {
             else if (label == "genetic") label = "Genetic";
             else label = "Exhaustive";
 
-            cout << label << ": " << microseconds << "\n";
+            cout << label << ": ";
 
             outfile << label << ": ";
             if (microseconds >= 62500) {
                 double seconds = microseconds / 1'000'000.0;
                 outfile << std::fixed << std::setprecision(6) << seconds << " s\n";
+                cout << std::fixed << std::setprecision(6) << seconds << " s\n";
             } else {
                 outfile << microseconds << " µs\n";
+                cout << microseconds << " microseconds\n";
             }
         }
 
