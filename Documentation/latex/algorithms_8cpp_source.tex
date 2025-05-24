@@ -1,0 +1,289 @@
+\doxysection{algorithms.\+cpp}
+\hypertarget{algorithms_8cpp_source}{}\label{algorithms_8cpp_source}\mbox{\hyperlink{algorithms_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00004\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{algorithms_8cpp_a026e4573be83b019a2f866c625e3795d}{weight\_used}}(OutputData\ \&output)\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ p\ :\ output.pallets)\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ output.totalWeight\ +=\ p.weight;}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{algorithms_8cpp_a3d4da2e15c6de1786f200f6407b48efe}{exhaustive}}(OutputData\ \&output,\ Algorithm\ \&data)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ data.pallets.size();}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{int}\ maxProfit\ =\ 0;}
+\DoxyCodeLine{00041\ \ \ \ \ vector<Pallet>\ bestCombination;}
+\DoxyCodeLine{00042\ \ \ \ \ vector<bool>\ usedItems(n,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ done\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{while}\ (!done)\ \{}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ weight\ =\ 0,\ profit\ =\ 0;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ vector<Pallet>\ current;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (usedItems[i])\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weight\ +=\ data.pallets[i].weight;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ profit\ +=\ data.pallets[i].profit;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (weight\ >\ data.TotalWeight)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current.push\_back(data.pallets[i]);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (weight\ <=\ data.TotalWeight\ \&\&\ profit\ >\ maxProfit)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ maxProfit\ =\ profit;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ bestCombination\ =\ current;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (i\ <\ n)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!usedItems[i])\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ usedItems[i]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ usedItems[i]\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++i;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ n)\ done\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ output.totalProfit\ =\ maxProfit;}
+\DoxyCodeLine{00078\ \ \ \ \ output.pallets\ =\ bestCombination;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{algorithms_8cpp_ac857c7991a4beda4abb6cf2cc43a7714}{knapsackDP}}(OutputData\ \&output,\ \textcolor{keyword}{const}\ Algorithm\ \&data)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ maxWeight\ =\ data.TotalWeight;}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ data.pallets.size();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ vector<vector<int>>\ dp(n\ +\ 1,\ vector<int>(maxWeight\ +\ 1,\ 0));}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ n;\ ++i)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ w\ =\ data.pallets[i\ -\/\ 1].weight;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ p\ =\ data.pallets[i\ -\/\ 1].profit;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ maxWeight;\ ++j)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (w\ <=\ j)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dp[i][j]\ =\ max(dp[i\ -\/\ 1][j],\ dp[i\ -\/\ 1][j\ -\/\ w]\ +\ p);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dp[i][j]\ =\ dp[i\ -\/\ 1][j];}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{int}\ j\ =\ maxWeight;}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ n;\ i\ >\ 0;\ -\/-\/i)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dp[i][j]\ !=\ dp[i\ -\/\ 1][j])\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Pallet\ \&p\ =\ data.pallets[i\ -\/\ 1];}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ output.pallets.push\_back(p);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ output.totalProfit\ +=\ p.profit;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ j\ -\/=\ p.weight;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ reverse(output.pallets.begin(),\ output.pallets.end());}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{algorithms_8cpp_a22d1aa6e63c36faa31332bb4557c7e3b}{knapsackGR\_A}}(OutputData\ \&output,\ \textcolor{keyword}{const}\ Algorithm\ \&data)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ maxWeight\ =\ data.TotalWeight;}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ data.pallets.size();}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ vector<pair<Pallet,\ double>>\ palletsRatio(n);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ i++)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ palletsRatio[i]\ =\ \{data.pallets[i],\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(data.pallets[i].profit\ /\ data.pallets[i].weight)\};}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ sort(palletsRatio.begin(),\ palletsRatio.end(),\ [](\textcolor{keyword}{const}\ pair<Pallet,double>\ \&a,\ \textcolor{keyword}{const}\ pair<Pallet,double>\ \&b)\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ return\ a.second\ >\ b.second;}
+\DoxyCodeLine{00155\ \ \ \ \ \});}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ currentWeight\ =\ 0;}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n\ \&\&\ currentWeight\ <=\ maxWeight;\ i++)\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Pallet\ cur\_pallet\ =\ palletsRatio[i].first;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (currentWeight\ +\ cur\_pallet.weight\ <=\ maxWeight)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ output.pallets.push\_back(cur\_pallet);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ currentWeight\ +=\ cur\_pallet.weight;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ output.totalProfit\ +=\ cur\_pallet.profit;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00183\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{algorithms_8cpp_abdd867cb936d878a3aac2f2d4fdfea4a}{knapsackGR\_B}}(OutputData\ \&output,\ \textcolor{keyword}{const}\ Algorithm\ \&data)\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ maxWeight\ =\ data.TotalWeight;}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ data.pallets.size();}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ vector<pair<Pallet,\ double>>\ palletsRatio(n);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ i++)\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ palletsRatio[i]\ =\ \{data.pallets[i],\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(data.pallets[i].profit)\};}
+\DoxyCodeLine{00191\ \ \ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ sort(palletsRatio.begin(),\ palletsRatio.end(),\ [](\textcolor{keyword}{const}\ pair<Pallet,double>\ \&a,\ \textcolor{keyword}{const}\ pair<Pallet,double>\ \&b)\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ return\ a.second\ >\ b.second;}
+\DoxyCodeLine{00195\ \ \ \ \ \});}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ currentWeight\ =\ 0;}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n\ \&\&\ currentWeight\ <=\ maxWeight;\ i++)\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Pallet\ cur\_pallet\ =\ palletsRatio[i].first;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (currentWeight\ +\ cur\_pallet.weight\ <=\ maxWeight)\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ output.pallets.push\_back(cur\_pallet);}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ currentWeight\ +=\ cur\_pallet.weight;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ output.totalProfit\ +=\ cur\_pallet.profit;}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \ \ \}}
+\DoxyCodeLine{00207\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00226\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{algorithms_8cpp_a45d8e5d7cc60a9d577d9f3fff9054faf}{knapsackGR}}(OutputData\ \&output,\ \textcolor{keyword}{const}\ Algorithm\ \&data)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ OutputData\ outputA;}
+\DoxyCodeLine{00228\ \ \ \ \ OutputData\ outputB;}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \mbox{\hyperlink{algorithms_8cpp_a22d1aa6e63c36faa31332bb4557c7e3b}{knapsackGR\_A}}(outputA,\ data);}
+\DoxyCodeLine{00231\ \ \ \ \ \mbox{\hyperlink{algorithms_8cpp_abdd867cb936d878a3aac2f2d4fdfea4a}{knapsackGR\_B}}(outputB,\ data);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{if}\ (outputA.totalProfit\ >=\ outputB.totalProfit)\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ output\ =\ outputA;}
+\DoxyCodeLine{00235\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ output\ =\ outputB;}
+\DoxyCodeLine{00237\ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00258\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{algorithms_8cpp_ad2ba4ee2dde3cf8c4320e6689692ca7e}{fitnessFunction}}(\textcolor{keyword}{const}\ vector<bool>\&\ chrom,\ \textcolor{keyword}{const}\ Algorithm\&\ data,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ maxWeight)\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordtype}{int}\ profit\ =\ 0,\ weight\ =\ 0;}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ static\_cast<int>(chrom.size());\ ++i)\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (chrom[i])\ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ profit\ +=\ data.pallets[i].profit;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ weight\ +=\ data.pallets[i].weight;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \}}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordflow}{return}\ (weight\ >\ maxWeight)\ ?\ 0:\ profit;\ \textcolor{comment}{//\ Make\ the\ profit\ zero,\ to\ penalize\ Chromosomes\ with\ exceeding\ weight}}
+\DoxyCodeLine{00267\ \}}
+\DoxyCodeLine{00286\ vector<bool>\ \mbox{\hyperlink{algorithms_8cpp_a88befae31d4a8ca989d20f675e1daa82}{generateRandomChromosome}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ maxWeight,\ \textcolor{keyword}{const}\ Algorithm\&\ data,\ mt19937\&\ rng)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ vector<bool>\ chrom(n,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordtype}{int}\ totalWeight\ =\ 0;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{comment}{//\ Make\ a\ vector\ with\ the\ pallets\ indices\ and\ shuffle\ them}}
+\DoxyCodeLine{00291\ \ \ \ \ vector<int>\ indices(n);}
+\DoxyCodeLine{00292\ \ \ \ \ iota(indices.begin(),\ indices.end(),\ 0);}
+\DoxyCodeLine{00293\ \ \ \ \ shuffle(indices.begin(),\ indices.end(),\ rng);}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{comment}{//\ Try\ to\ add\ the\ pallets\ to\ the\ truck,\ until\ no\ more\ fit}}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ :\ indices)\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ w\ =\ data.pallets[i].weight;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (totalWeight\ +\ w\ <=\ maxWeight)\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ chrom[i]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ totalWeight\ +=\ w;}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00302\ \ \ \ \ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordflow}{return}\ chrom;\ \textcolor{comment}{//\ Return\ the\ candidate\ solution}}
+\DoxyCodeLine{00305\ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00338\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{algorithms_8cpp_a414327c4c9985398d121352c2b6fba28}{knapsackGA}}(OutputData\ \&output,\ \textcolor{keyword}{const}\ Algorithm\ \&data)\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{if}\ (data.pallets.empty()\ ||\ data.TotalWeight\ <=\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ maxWeight\ =\ data.TotalWeight;}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ data.pallets.size();}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{comment}{//\ These\ values\ can\ be\ changed}}
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ generations\ =\ 200;\ \textcolor{comment}{//\ Number\ of\ cycles}}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ populationSize\ =\ 50;\ \textcolor{comment}{//\ Number\ of\ possible\ solutions\ in\ each\ generation}}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ crossoverRate\ =\ 0.8;\ \textcolor{comment}{//\ Chance\ that\ 2\ solutions\ will\ "{}mix"{}\ into\ a\ new\ solution}}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ mutationRate\ =\ 0.05;\ \textcolor{comment}{//\ Chance\ that\ a\ bit\ in\ a\ solution\ will\ randomly\ flip\ (from\ 0\ to\ 1\ and\ vice\ versa)}}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordflow}{if}\ (populationSize\ <\ 2\ ||\ n\ ==\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{comment}{//\ RNG\ setup}}
+\DoxyCodeLine{00353\ \ \ \ \ random\_device\ rd;\ \textcolor{comment}{//\ Create\ a\ source\ of\ random\ data}}
+\DoxyCodeLine{00354\ \ \ \ \ mt19937\ rng(rd());\ \ \textcolor{comment}{//\ Number\ Generator}}
+\DoxyCodeLine{00355\ \ \ \ \ uniform\_real\_distribution<double>\ probDist(0.0,\ 1.0);\ \textcolor{comment}{//\ Random\ number\ between\ 0\ and\ 1}}
+\DoxyCodeLine{00356\ \ \ \ \ uniform\_int\_distribution<int>\ populationIndexDist(0,\ populationSize\ -\/\ 1);\ \textcolor{comment}{//\ Random\ number\ between\ 0\ and\ the\ population\ size\ -\/\ 1\ (Random\ population\ index)}}
+\DoxyCodeLine{00357\ \ \ \ \ uniform\_int\_distribution<int>\ geneIndexDist(0,\ n\ -\/\ 1);\ \textcolor{comment}{//\ Random\ number\ between\ 0\ and\ the\ number\ of\ genes\ (pallets)\ -\/\ 1\ (Random\ pallet\ index\ in\ a\ candidate\ solution)}}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keyword}{using\ }Chromosome\ =\ vector<bool>;\ \textcolor{comment}{//\ Each\ Chromosome\ (Candidate\ solution)\ is\ a\ vector\ that\ represents\ which\ pallets\ are\ included}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{comment}{//\ Make\ the\ initial\ population}}
+\DoxyCodeLine{00362\ \ \ \ \ vector<Chromosome>\ population(populationSize);}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ chrom\ :\ population)\ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ chrom\ =\ \mbox{\hyperlink{algorithms_8cpp_a88befae31d4a8ca989d20f675e1daa82}{generateRandomChromosome}}(n,\ maxWeight,\ data,\ rng);}
+\DoxyCodeLine{00365\ \ \ \ \ \}}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{comment}{//\ Track\ the\ best\ solution}}
+\DoxyCodeLine{00368\ \ \ \ \ Chromosome\ bestChrom(n,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordtype}{int}\ bestFitness\ =\ 0;}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ gen\ =\ 0;\ gen\ <\ generations;\ ++gen)\ \{}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ vector<pair<int,\ Chromosome>>\ evaluated;}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&chrom\ :\ population)\ \{}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ f\ =\ \mbox{\hyperlink{algorithms_8cpp_ad2ba4ee2dde3cf8c4320e6689692ca7e}{fitnessFunction}}(chrom,\ data,\ maxWeight);}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ evaluated.emplace\_back(f,\ chrom);}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (f\ >\ bestFitness)\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Save\ the\ best\ solution\ so\ far}}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bestFitness\ =\ f;}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bestChrom\ =\ chrom;}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ sort(evaluated.begin(),\ evaluated.end(),\ greater<>());}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (evaluated.size()\ <\ 2)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ 2\ best\ solutions\ to\ be\ guaranteed\ to\ be\ kept\ on\ the\ next\ generation,\ so\ they're\ not\ lost\ to\ rng}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ vector<Chromosome>\ newPopulation\ =\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ evaluated[0].second,}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ evaluated[1].second}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ new\ generation}}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (newPopulation.size()\ <\ populationSize)\ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Randomly\ pick\ 2\ parents}}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Chromosome\ \&parent1\ =\ evaluated[populationIndexDist(rng)].second;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Chromosome\ \&parent2\ =\ evaluated[populationIndexDist(rng)].second;}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Start\ with\ the\ child\ equal\ to\ one\ of\ the\ parents}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ Chromosome\ child\ =\ parent1;}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ There's\ a\ chance\ that\ the\ child\ will\ be\ a\ combination\ of\ the\ 2\ parents,}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ keeping\ the\ first\ 'point'\ (randomly\ generated\ value)\ pallets\ of\ the\ first,\ and\ the\ rest\ of\ the\ pallets\ be\ the\ same\ as\ the\ other\ parent}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (probDist(rng)\ <\ crossoverRate)\ \{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ point\ =\ geneIndexDist(rng);}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ point;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ child[i]\ =\ parent2[i];}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Apply\ the\ mutation\ chance}}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (probDist(rng)\ <\ mutationRate)\ \{}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ child[i]\ =\ !child[i];}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ newPopulation.push\_back(child);\ \textcolor{comment}{//\ Add\ the\ new\ chromosome\ to\ the\ next\ generation}}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ population\ =\ newPopulation;\ \textcolor{comment}{//\ Start\ treating\ the\ new\ generation}}
+\DoxyCodeLine{00423\ \ \ \ \ \}}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ final\ solution's\ value,\ adding\ the\ used\ pallets\ to\ the\ output}}
+\DoxyCodeLine{00426\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bestChrom[i])\ \{}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Pallet\ \&p\ =\ data.pallets[i];}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ output.pallets.push\_back(p);}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ output.totalProfit\ +=\ p.profit;}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00432\ \ \ \ \ \}}
+\DoxyCodeLine{00433\ \}}
+
+\end{DoxyCode}

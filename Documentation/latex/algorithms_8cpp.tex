@@ -1,0 +1,280 @@
+\doxysection{algorithms.\+cpp File Reference}
+\hypertarget{algorithms_8cpp}{}\label{algorithms_8cpp}\index{algorithms.cpp@{algorithms.cpp}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+Include dependency graph for algorithms.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{algorithms_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=169pt]{algorithms_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{algorithms_8cpp_a026e4573be83b019a2f866c625e3795d}{weight\+\_\+used}} (Output\+Data \&output)
+\begin{DoxyCompactList}\small\item\em Calculates the total weight of all pallets in te output. ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{algorithms_8cpp_a3d4da2e15c6de1786f200f6407b48efe}{exhaustive}} (Output\+Data \&output, Algorithm \&data)
+\begin{DoxyCompactList}\small\item\em Exhaustive search algorithm for the knapsack problem. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{algorithms_8cpp_ac857c7991a4beda4abb6cf2cc43a7714}{knapsack\+DP}} (Output\+Data \&output, const Algorithm \&data)
+\begin{DoxyCompactList}\small\item\em Dynamic Programming aproach. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{algorithms_8cpp_a22d1aa6e63c36faa31332bb4557c7e3b}{knapsack\+GR\+\_\+A}} (Output\+Data \&output, const Algorithm \&data)
+\begin{DoxyCompactList}\small\item\em Aproximation algorithm. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{algorithms_8cpp_abdd867cb936d878a3aac2f2d4fdfea4a}{knapsack\+GR\+\_\+B}} (Output\+Data \&output, const Algorithm \&data)
+\begin{DoxyCompactList}\small\item\em Greedy algorithm. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{algorithms_8cpp_a45d8e5d7cc60a9d577d9f3fff9054faf}{knapsack\+GR}} (Output\+Data \&output, const Algorithm \&data)
+\begin{DoxyCompactList}\small\item\em Aproximates a solution by comparing knapsack\+GR\+\_\+A and knapsack\+GR\+\_\+B. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{algorithms_8cpp_ad2ba4ee2dde3cf8c4320e6689692ca7e}{fitness\+Function}} (const vector$<$ bool $>$ \&chrom, const Algorithm \&data, const int max\+Weight)
+\begin{DoxyCompactList}\small\item\em Calculates the fitness of a chromosome. \end{DoxyCompactList}\item 
+vector$<$ bool $>$ \mbox{\hyperlink{algorithms_8cpp_a88befae31d4a8ca989d20f675e1daa82}{generate\+Random\+Chromosome}} (const int n, const int max\+Weight, const Algorithm \&data, mt19937 \&rng)
+\begin{DoxyCompactList}\small\item\em Generates a random chromosome (candidate solution) for the problem. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{algorithms_8cpp_a414327c4c9985398d121352c2b6fba28}{knapsack\+GA}} (Output\+Data \&output, const Algorithm \&data)
+\begin{DoxyCompactList}\small\item\em Approximates a solution for the problem using a Genetic Algorithm(\+GA). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{algorithms_8cpp_a3d4da2e15c6de1786f200f6407b48efe}\label{algorithms_8cpp_a3d4da2e15c6de1786f200f6407b48efe} 
+\index{algorithms.cpp@{algorithms.cpp}!exhaustive@{exhaustive}}
+\index{exhaustive@{exhaustive}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{exhaustive()}{exhaustive()}}
+{\footnotesize\ttfamily void exhaustive (\begin{DoxyParamCaption}\item[{Output\+Data \&}]{output,  }\item[{Algorithm \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Exhaustive search algorithm for the knapsack problem. 
+
+This algorithm generates all possible combinations of pallets, calculates their total weight and profit, and finds the best combination
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & The Output\+Data object where the result will be stored.
+\begin{DoxyItemize}
+\item \textquotesingle{}output.\+total\+Profit\textquotesingle{} will contain the maximum profit found.
+\item \textquotesingle{}output.\+pallets\textquotesingle{} will contain the pallets that make up the best combination.
+\end{DoxyItemize}\\
+\hline
+{\em data} & The Algorithm object containing the pallets and total weight limit. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{algorithms_8cpp_ad2ba4ee2dde3cf8c4320e6689692ca7e}\label{algorithms_8cpp_ad2ba4ee2dde3cf8c4320e6689692ca7e} 
+\index{algorithms.cpp@{algorithms.cpp}!fitnessFunction@{fitnessFunction}}
+\index{fitnessFunction@{fitnessFunction}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{fitnessFunction()}{fitnessFunction()}}
+{\footnotesize\ttfamily int fitness\+Function (\begin{DoxyParamCaption}\item[{const vector$<$ bool $>$ \&}]{chrom,  }\item[{const Algorithm \&}]{data,  }\item[{const int}]{max\+Weight }\end{DoxyParamCaption})}
+
+
+
+Calculates the fitness of a chromosome. 
+
+This function evaluates a binary chromosome (vector of bools), where each element represents wether a pallet is included (true) or not (false). It computes the total profit and weight of the selected pallets and returns the profit as the fitness value. If the total weight exceeds {\ttfamily max\+Weight}, the fitness is penalized by returning 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em chrom} & A vector of booleans representing the chromosome. Each element corresponds to a pallet. \\
+\hline
+{\em data} & A constant reference to the Algorithm object containing\+:
+\begin{DoxyItemize}
+\item {\ttfamily data.\+pallets}\+: vector of pallets with associated profit and weight. 
+\end{DoxyItemize}\\
+\hline
+{\em max\+Weight} & The maximum allowed weight for the selection.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total profit of the selected pallets if the total weight is within the limit; otherwise, returns 0 as a penalty. 
+\end{DoxyReturn}
+\Hypertarget{algorithms_8cpp_a88befae31d4a8ca989d20f675e1daa82}\label{algorithms_8cpp_a88befae31d4a8ca989d20f675e1daa82} 
+\index{algorithms.cpp@{algorithms.cpp}!generateRandomChromosome@{generateRandomChromosome}}
+\index{generateRandomChromosome@{generateRandomChromosome}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{generateRandomChromosome()}{generateRandomChromosome()}}
+{\footnotesize\ttfamily vector$<$ bool $>$ generate\+Random\+Chromosome (\begin{DoxyParamCaption}\item[{const int}]{n,  }\item[{const int}]{max\+Weight,  }\item[{const Algorithm \&}]{data,  }\item[{mt19937 \&}]{rng }\end{DoxyParamCaption})}
+
+
+
+Generates a random chromosome (candidate solution) for the problem. 
+
+This function creates a random binary chromosome representing a selection of pallets such that the total weight does not exceed \textquotesingle{}max\+Weight\textquotesingle{}. Pallets are shuffled randomly, and then added greedily until the weight limit is reached.
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & The number of pallets (size of the chromosome). \\
+\hline
+{\em max\+Weight} & The maximum total allowed weight for the chromosome. \\
+\hline
+{\em data} & Constant reference to an Algorithm object containing\+:
+\begin{DoxyItemize}
+\item {\ttfamily data.\+pallets}\+: vector of pallets, each with weight and profit. 
+\end{DoxyItemize}\\
+\hline
+{\em rng} & Reference to a Mersenne Twister random number generator for reproducibility.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A binary vector (chromosome) of size {\ttfamily n}, where each {\ttfamily true} indicates the corresponding pallet is selected. 
+\end{DoxyReturn}
+\Hypertarget{algorithms_8cpp_ac857c7991a4beda4abb6cf2cc43a7714}\label{algorithms_8cpp_ac857c7991a4beda4abb6cf2cc43a7714} 
+\index{algorithms.cpp@{algorithms.cpp}!knapsackDP@{knapsackDP}}
+\index{knapsackDP@{knapsackDP}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{knapsackDP()}{knapsackDP()}}
+{\footnotesize\ttfamily void knapsack\+DP (\begin{DoxyParamCaption}\item[{Output\+Data \&}]{output,  }\item[{const Algorithm \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Dynamic Programming aproach. 
+
+This algorithm uses the dynamic programming technique by selecting a subset of pallets that that does not exeed the allowed limit (\textquotesingle{}data.\+Total\+Weight\textquotesingle{}). It uses a bottom-\/up DP to build a table of maximum profits for each weight limit and number of pallets.
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & The Output\+Data object where the result will be stored.
+\begin{DoxyItemize}
+\item \textquotesingle{}output.\+total\+Profit\textquotesingle{} will contain the maximum profit found.
+\item \textquotesingle{}output.\+pallets\textquotesingle{} will contain the pallets that make up the best combination.
+\end{DoxyItemize}\\
+\hline
+{\em data} & The Algorithm object containing the pallets and total weight limit. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{algorithms_8cpp_a414327c4c9985398d121352c2b6fba28}\label{algorithms_8cpp_a414327c4c9985398d121352c2b6fba28} 
+\index{algorithms.cpp@{algorithms.cpp}!knapsackGA@{knapsackGA}}
+\index{knapsackGA@{knapsackGA}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{knapsackGA()}{knapsackGA()}}
+{\footnotesize\ttfamily void knapsack\+GA (\begin{DoxyParamCaption}\item[{Output\+Data \&}]{output,  }\item[{const Algorithm \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Approximates a solution for the problem using a Genetic Algorithm(\+GA). 
+
+This function uses a population-\/based stochastic search to find a near-\/optimal set of pallets that maximizes total profit without exceeding the total weight limit. It simulates the process of natural selection through reproduction, crossover, and mutation.
+
+The genetic algorithm proceeds as follows\+:
+\begin{DoxyItemize}
+\item Initialize a random population of valid chromosomes.
+\item Evaluate each chromosome using a fitness function.
+\item Select the best individuals as parents.
+\item Generate offspring through crossover and mutation.
+\item Repeat the process for a fixed number of generations.
+\item Output the best solution found.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & The Output\+Data object where the result will be stored.
+\begin{DoxyItemize}
+\item \textquotesingle{}output.\+total\+Profit\textquotesingle{} will contain the maximum profit found.
+\item \textquotesingle{}output.\+pallets\textquotesingle{} will contain the pallets that make up the best combination.
+\end{DoxyItemize}\\
+\hline
+{\em data} & The Algorithm object containing the pallets and total weight limit.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+
+\begin{DoxyItemize}
+\item Uses fixed parameters\+: 200 generations, population size of 50, crossover rate 0.\+8, and mutation rate 0.\+05.
+\item Ensures feasibility of chromosomes during initialization; infeasible offspring may arise during mutation. Penalization is applied via the fitness function (fitness = 0 if overweight).
+\item The best two individuals from each generation are preserved to maintain elite solutions. 
+\end{DoxyItemize}
+\end{DoxyNote}
+\Hypertarget{algorithms_8cpp_a45d8e5d7cc60a9d577d9f3fff9054faf}\label{algorithms_8cpp_a45d8e5d7cc60a9d577d9f3fff9054faf} 
+\index{algorithms.cpp@{algorithms.cpp}!knapsackGR@{knapsackGR}}
+\index{knapsackGR@{knapsackGR}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{knapsackGR()}{knapsackGR()}}
+{\footnotesize\ttfamily void knapsack\+GR (\begin{DoxyParamCaption}\item[{Output\+Data \&}]{output,  }\item[{const Algorithm \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Aproximates a solution by comparing knapsack\+GR\+\_\+A and knapsack\+GR\+\_\+B. 
+
+This function evaluates two different greedy heuristics\+:
+\begin{DoxyItemize}
+\item {\ttfamily knapsack\+GR\+\_\+A}\+: selects pallets based on highest profit-\/to-\/weight ratio.
+\item {\ttfamily knapsack\+GR\+\_\+B}\+: selects pallets based on highest absolute profit.
+\end{DoxyItemize}
+
+It executes both strategies and chooses the one that yields the higher total profit.
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & The Output\+Data object where the result will be stored.
+\begin{DoxyItemize}
+\item \textquotesingle{}output.\+total\+Profit\textquotesingle{} will contain the maximum profit found.
+\item \textquotesingle{}output.\+pallets\textquotesingle{} will contain the pallets that make up the best combination.
+\end{DoxyItemize}\\
+\hline
+{\em data} & The Algorithm object containing the pallets and total weight limit. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{algorithms_8cpp_a22d1aa6e63c36faa31332bb4557c7e3b}\label{algorithms_8cpp_a22d1aa6e63c36faa31332bb4557c7e3b} 
+\index{algorithms.cpp@{algorithms.cpp}!knapsackGR\_A@{knapsackGR\_A}}
+\index{knapsackGR\_A@{knapsackGR\_A}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{knapsackGR\_A()}{knapsackGR\_A()}}
+{\footnotesize\ttfamily void knapsack\+GR\+\_\+A (\begin{DoxyParamCaption}\item[{Output\+Data \&}]{output,  }\item[{const Algorithm \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Aproximation algorithm. 
+
+This function selects pallets to maximize total profit without exceeding the total weight limit ({\ttfamily data.\+Total\+Weight}). It uses a greedy heuristic that prioritizes pallets with the highest profit-\/to-\/weight ratio.
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & The Output\+Data object where the result will be stored.
+\begin{DoxyItemize}
+\item \textquotesingle{}output.\+total\+Profit\textquotesingle{} will contain the maximum profit found.
+\item \textquotesingle{}output.\+pallets\textquotesingle{} will contain the pallets that make up the best combination.
+\end{DoxyItemize}\\
+\hline
+{\em data} & The Algorithm object containing the pallets and total weight limit. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{algorithms_8cpp_abdd867cb936d878a3aac2f2d4fdfea4a}\label{algorithms_8cpp_abdd867cb936d878a3aac2f2d4fdfea4a} 
+\index{algorithms.cpp@{algorithms.cpp}!knapsackGR\_B@{knapsackGR\_B}}
+\index{knapsackGR\_B@{knapsackGR\_B}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{knapsackGR\_B()}{knapsackGR\_B()}}
+{\footnotesize\ttfamily void knapsack\+GR\+\_\+B (\begin{DoxyParamCaption}\item[{Output\+Data \&}]{output,  }\item[{const Algorithm \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Greedy algorithm. 
+
+This function selects pallets to maximize total profit without exceeding the total weight limit ({\ttfamily data.\+Total\+Weight}). It uses a greedy heuristic that prioritizes pallets with the highest {\bfseries{absolute profit}}, regardless of weight.
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & The Output\+Data object where the result will be stored.
+\begin{DoxyItemize}
+\item \textquotesingle{}output.\+total\+Profit\textquotesingle{} will contain the maximum profit found.
+\item \textquotesingle{}output.\+pallets\textquotesingle{} will contain the pallets that make up the best combination.
+\end{DoxyItemize}\\
+\hline
+{\em data} & The Algorithm object containing the pallets and total weight limit. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{algorithms_8cpp_a026e4573be83b019a2f866c625e3795d}\label{algorithms_8cpp_a026e4573be83b019a2f866c625e3795d} 
+\index{algorithms.cpp@{algorithms.cpp}!weight\_used@{weight\_used}}
+\index{weight\_used@{weight\_used}!algorithms.cpp@{algorithms.cpp}}
+\doxysubsubsection{\texorpdfstring{weight\_used()}{weight\_used()}}
+{\footnotesize\ttfamily void weight\+\_\+used (\begin{DoxyParamCaption}\item[{Output\+Data \&}]{output }\end{DoxyParamCaption})}
+
+
+
+Calculates the total weight of all pallets in te output. ~\newline
+ 
+
+Iterates through the list of pallets in the output and sums their weights, storing the result in output.\+total\+Weight.
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & The Output\+Data object that contains the pallets and where the computed total weight will be stored. \\
+\hline
+\end{DoxyParams}

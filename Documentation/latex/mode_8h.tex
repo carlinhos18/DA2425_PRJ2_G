@@ -1,0 +1,109 @@
+\doxysection{mode.\+h File Reference}
+\hypertarget{mode_8h}{}\label{mode_8h}\index{mode.h@{mode.h}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}data\+\_\+structures/structures.\+h"{}}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+Include dependency graph for mode.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mode_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=145pt]{mode_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{mode_8h_afe1a662c1d91f836b26445498f7d99d3}{get\+Algorithm}} ()
+\begin{DoxyCompactList}\small\item\em Prompts the user to seelct a valid algorithm. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{mode_8h_a6a55ab1eeb1d81257b9341ca712b0967}{get\+Valid\+Integer}} (const std\+::string \&prompt)
+\begin{DoxyCompactList}\small\item\em Prompts the user for a valid integer input. \end{DoxyCompactList}\item 
+Input\+Data \mbox{\hyperlink{mode_8h_aca2ee75de803712265afe33aac433655}{Handle\+User\+Input}} ()
+\begin{DoxyCompactList}\small\item\em Handles user input for selecting the algorithm and dataset.\+ADJ\+\_\+\+FREQUENCY. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{mode_8h_a1b217cc1bf8b170e01eeab798ce2e721}{ask\+Skip\+Long\+Algorithms}} ()
+\begin{DoxyCompactList}\small\item\em Asks the user whether to skip long-\/running algorithms. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mode_8h_a1b217cc1bf8b170e01eeab798ce2e721}\label{mode_8h_a1b217cc1bf8b170e01eeab798ce2e721} 
+\index{mode.h@{mode.h}!askSkipLongAlgorithms@{askSkipLongAlgorithms}}
+\index{askSkipLongAlgorithms@{askSkipLongAlgorithms}!mode.h@{mode.h}}
+\doxysubsubsection{\texorpdfstring{askSkipLongAlgorithms()}{askSkipLongAlgorithms()}}
+{\footnotesize\ttfamily bool ask\+Skip\+Long\+Algorithms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Asks the user whether to skip long-\/running algorithms. 
+
+This function prompts the user with a yes/no question about skipping time-\/consuming algorithms (e.\+g., exhaustive search on large datasets). It continues to prompt until a valid input is provided.
+
+Acceptable inputs (case-\/insensitive)\+:
+\begin{DoxyItemize}
+\item "{}yes"{}, "{}y"{}\+: returns true
+\item "{}no"{}, "{}n"{}\+: returns false
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+true If the user chooses to skip long-\/running algorithms. 
+
+false If the user chooses to include all algorithms. 
+\end{DoxyReturn}
+\Hypertarget{mode_8h_afe1a662c1d91f836b26445498f7d99d3}\label{mode_8h_afe1a662c1d91f836b26445498f7d99d3} 
+\index{mode.h@{mode.h}!getAlgorithm@{getAlgorithm}}
+\index{getAlgorithm@{getAlgorithm}!mode.h@{mode.h}}
+\doxysubsubsection{\texorpdfstring{getAlgorithm()}{getAlgorithm()}}
+{\footnotesize\ttfamily std\+::string get\+Algorithm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prompts the user to seelct a valid algorithm. 
+
+This function continuously prompts the user via standard input until a valid algorithm is entered. Valid algorithms include\+: "{}exhaustive"{}, "{}dynamic programming"{}, "{}approximation"{}, "{}genetic"{}, and "{}benchmark"{}.
+
+\begin{DoxyReturn}{Returns}
+A string representing the selected algorithm.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+the function will not return until a valid input is provided. 
+\end{DoxyNote}
+\Hypertarget{mode_8h_a6a55ab1eeb1d81257b9341ca712b0967}\label{mode_8h_a6a55ab1eeb1d81257b9341ca712b0967} 
+\index{mode.h@{mode.h}!getValidInteger@{getValidInteger}}
+\index{getValidInteger@{getValidInteger}!mode.h@{mode.h}}
+\doxysubsubsection{\texorpdfstring{getValidInteger()}{getValidInteger()}}
+{\footnotesize\ttfamily int get\+Valid\+Integer (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{prompt }\end{DoxyParamCaption})}
+
+
+
+Prompts the user for a valid integer input. 
+
+This function prompts the user with a given message until a valid integer is entered. It handles invalid inputs gracefully and continues to prompt until a valid integer is provided.
+
+
+\begin{DoxyParams}{Parameters}
+{\em prompt} & The message to display to the user when asking for input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The valid integer input from the user. 
+\end{DoxyReturn}
+\Hypertarget{mode_8h_aca2ee75de803712265afe33aac433655}\label{mode_8h_aca2ee75de803712265afe33aac433655} 
+\index{mode.h@{mode.h}!HandleUserInput@{HandleUserInput}}
+\index{HandleUserInput@{HandleUserInput}!mode.h@{mode.h}}
+\doxysubsubsection{\texorpdfstring{HandleUserInput()}{HandleUserInput()}}
+{\footnotesize\ttfamily Input\+Data Handle\+User\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Handles user input for selecting the algorithm and dataset.\+ADJ\+\_\+\+FREQUENCY. 
+
+This function prompts the user to select an algorithm and a dataset.
+
+\begin{DoxyReturn}{Returns}
+Input\+Data A structure containing the selected algorithm and dataset filename. 
+\end{DoxyReturn}

@@ -1,0 +1,76 @@
+\doxysection{read\+\_\+files\+\_\+utils.\+cpp File Reference}
+\hypertarget{read__files__utils_8cpp}{}\label{read__files__utils_8cpp}\index{read\_files\_utils.cpp@{read\_files\_utils.cpp}}
+{\ttfamily \#include "{}read\+\_\+files\+\_\+utils.\+h"{}}\newline
+Include dependency graph for read\+\_\+files\+\_\+utils.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{read__files__utils_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{read__files__utils_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{read__files__utils_8cpp_a4e2d38b1591b4484653bbe37925a9db9}{is\+\_\+valid\+\_\+integer}} (const string \&str)
+\begin{DoxyCompactList}\small\item\em Checks if a given string represents a valid non-\/negative integer. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{read__files__utils_8cpp_a621f6ea129d3a961054a72590ce4f786}{get\+\_\+truck\+\_\+id}} (const string \&filename)
+\begin{DoxyCompactList}\small\item\em Extracts the truck ID from a given filename. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{read__files__utils_8cpp_a621f6ea129d3a961054a72590ce4f786}\label{read__files__utils_8cpp_a621f6ea129d3a961054a72590ce4f786} 
+\index{read\_files\_utils.cpp@{read\_files\_utils.cpp}!get\_truck\_id@{get\_truck\_id}}
+\index{get\_truck\_id@{get\_truck\_id}!read\_files\_utils.cpp@{read\_files\_utils.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_truck\_id()}{get\_truck\_id()}}
+{\footnotesize\ttfamily string get\+\_\+truck\+\_\+id (\begin{DoxyParamCaption}\item[{const string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Extracts the truck ID from a given filename. 
+
+This function parses a filename of the format "{}prefix\+\_\+\+ID.\+suffix"{} and extracts the ID portion, which is the substring between the last underscore (\textquotesingle{}\+\_\+\textquotesingle{}) and the last dot (\textquotesingle{}.\textquotesingle{}).
+
+For example, given the input {\ttfamily "{}\+Truck\+And\+Pallets\+\_\+05.\+csv"{}}, the function will return {\ttfamily "{}05"{}}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file to extract the truck ID from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string The extracted truck ID, or an empty string if the format is invalid. ~\newline
+ 
+\end{DoxyReturn}
+\Hypertarget{read__files__utils_8cpp_a4e2d38b1591b4484653bbe37925a9db9}\label{read__files__utils_8cpp_a4e2d38b1591b4484653bbe37925a9db9} 
+\index{read\_files\_utils.cpp@{read\_files\_utils.cpp}!is\_valid\_integer@{is\_valid\_integer}}
+\index{is\_valid\_integer@{is\_valid\_integer}!read\_files\_utils.cpp@{read\_files\_utils.cpp}}
+\doxysubsubsection{\texorpdfstring{is\_valid\_integer()}{is\_valid\_integer()}}
+{\footnotesize\ttfamily bool is\+\_\+valid\+\_\+integer (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})}
+
+
+
+Checks if a given string represents a valid non-\/negative integer. 
+
+This function verifies whether the input string consists entirely of digit characters. It ensures that the string is not empty and contains only numeric characters (0-\/9).
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & The input string to validate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the string represents a valid non-\/negative integer, otherwise {\ttfamily false}.
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item The function uses {\ttfamily std\+::all\+\_\+of} to check if all characters in the string are digits.
+\item An empty string is considered invalid.
+\item Negative numbers or numbers with non-\/digit characters are not considered valid. 
+\end{DoxyItemize}

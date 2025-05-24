@@ -29,6 +29,20 @@ using namespace std;
  */
 bool is_valid_integer(const string& str);
 
+
+/**
+ * 
+ * @brief Extracts the truck ID from a given filename.
+ * 
+ * This function parses a filename of the format "prefix_ID.suffix" and extracts the ID portion,
+ * which is the substring between the last underscore ('_') and the last dot ('.').
+ * 
+ * For example, given the input `"TruckAndPallets_05.csv"`, the function will return `"05"`.
+ *
+ * @param filename The name of the file to extract the truck ID from.
+ * @return string The extracted truck ID, or an empty string if the format is invalid.  
+ * 
+ */
 string get_truck_id(const string& filename);
 
 

@@ -1,0 +1,81 @@
+\doxysection{read\+\_\+files.\+cpp File Reference}
+\hypertarget{read__files_8cpp}{}\label{read__files_8cpp}\index{read\_files.cpp@{read\_files.cpp}}
+{\ttfamily \#include "{}read\+\_\+files.\+h"{}}\newline
+{\ttfamily \#include "{}read\+\_\+files\+\_\+utils.\+cpp"{}}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for read\+\_\+files.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{read__files_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{read__files_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{read__files_8cpp_a2eb151bbd542dbedafe96464ab1995aa}{read\+\_\+truck\+\_\+file}} (const string \&filename, Algorithm \&data)
+\begin{DoxyCompactList}\small\item\em Reads the truck data from a CSV file and loads it into the provided Algoritm structure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{read__files_8cpp_a8084813c0331a76810352914b9204ea2}{read\+\_\+pallets\+\_\+file}} (const string \&filename, Algorithm \&data)
+\begin{DoxyCompactList}\small\item\em Reads the pallets data from a CSV file and loads it into the provided Algorithm structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{read__files_8cpp_a8084813c0331a76810352914b9204ea2}\label{read__files_8cpp_a8084813c0331a76810352914b9204ea2} 
+\index{read\_files.cpp@{read\_files.cpp}!read\_pallets\_file@{read\_pallets\_file}}
+\index{read\_pallets\_file@{read\_pallets\_file}!read\_files.cpp@{read\_files.cpp}}
+\doxysubsubsection{\texorpdfstring{read\_pallets\_file()}{read\_pallets\_file()}}
+{\footnotesize\ttfamily void read\+\_\+pallets\+\_\+file (\begin{DoxyParamCaption}\item[{const string \&}]{filename,  }\item[{Algorithm \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Reads the pallets data from a CSV file and loads it into the provided Algorithm structure. 
+
+This function opens a pallets data file, parses its content to retrieve each pallet\textquotesingle{}s ID, weight, and profit, and stores them in the {\ttfamily pallets} vector of the {\ttfamily Algorithm} object.
+
+The filename should be in the format "{}\+Pallets\+\_\+\+ID.\+csv"{}, where ID corresponds to the truck ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the pallets data file to read. \\
+\hline
+{\em data} & The {\ttfamily Algorithm} structure where the pallets data will be stored.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & If the file cannot be opened or if the file format is incorrect. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{read__files_8cpp_a2eb151bbd542dbedafe96464ab1995aa}\label{read__files_8cpp_a2eb151bbd542dbedafe96464ab1995aa} 
+\index{read\_files.cpp@{read\_files.cpp}!read\_truck\_file@{read\_truck\_file}}
+\index{read\_truck\_file@{read\_truck\_file}!read\_files.cpp@{read\_files.cpp}}
+\doxysubsubsection{\texorpdfstring{read\_truck\_file()}{read\_truck\_file()}}
+{\footnotesize\ttfamily void read\+\_\+truck\+\_\+file (\begin{DoxyParamCaption}\item[{const string \&}]{filename,  }\item[{Algorithm \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Reads the truck data from a CSV file and loads it into the provided Algoritm structure. 
+
+This function opens a truck data file, parses its content to retrieve the truck\textquotesingle{}s capacity and number of pallets, and sets the {\ttfamily Total\+Weight} in the {\ttfamily Algorithm} object. It also determines the corresponding pallets file based on the truck ID and reads its data.
+
+The filename should be in the format "{}\+Truck\+And\+Pallets\+\_\+\+ID.\+csv"{}, where ID is the truck identifier. The pallets file should be named "{}\+Pallets\+\_\+\+ID.\+csv"{} where ID matches the truck ID.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the truck data file to read. \\
+\hline
+{\em data} & The {\ttfamily Algorithm} structure where the truck and pallets data will be stored.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & If the file cannot be opened or if the file format is incorrect. \\
+\hline
+\end{DoxyExceptions}

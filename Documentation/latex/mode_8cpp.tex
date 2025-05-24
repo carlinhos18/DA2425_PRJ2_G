@@ -1,0 +1,95 @@
+\doxysection{mode.\+cpp File Reference}
+\hypertarget{mode_8cpp}{}\label{mode_8cpp}\index{mode.cpp@{mode.cpp}}
+{\ttfamily \#include "{}mode.\+h"{}}\newline
+{\ttfamily \#include "{}read\+\_\+files.\+cpp"{}}\newline
+{\ttfamily \#include "{}mode\+\_\+utils.\+cpp"{}}\newline
+Include dependency graph for mode.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mode_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=145pt]{mode_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{mode_8cpp_a813b477a8f194a43f92f95c82e1715ae}{get\+Algorithm}} ()
+\begin{DoxyCompactList}\small\item\em Prompts the user to seelct a valid algorithm. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{mode_8cpp_ae5553e4e7b8697cc821ea9945a89f69e}{get\+Valid\+Integer}} (const string \&prompt)
+\item 
+Input\+Data \mbox{\hyperlink{mode_8cpp_aca2ee75de803712265afe33aac433655}{Handle\+User\+Input}} ()
+\begin{DoxyCompactList}\small\item\em Handles user input for selecting the algorithm and dataset.\+ADJ\+\_\+\+FREQUENCY. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{mode_8cpp_a1b217cc1bf8b170e01eeab798ce2e721}{ask\+Skip\+Long\+Algorithms}} ()
+\begin{DoxyCompactList}\small\item\em Asks the user whether to skip long-\/running algorithms. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mode_8cpp_a1b217cc1bf8b170e01eeab798ce2e721}\label{mode_8cpp_a1b217cc1bf8b170e01eeab798ce2e721} 
+\index{mode.cpp@{mode.cpp}!askSkipLongAlgorithms@{askSkipLongAlgorithms}}
+\index{askSkipLongAlgorithms@{askSkipLongAlgorithms}!mode.cpp@{mode.cpp}}
+\doxysubsubsection{\texorpdfstring{askSkipLongAlgorithms()}{askSkipLongAlgorithms()}}
+{\footnotesize\ttfamily bool ask\+Skip\+Long\+Algorithms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Asks the user whether to skip long-\/running algorithms. 
+
+This function prompts the user with a yes/no question about skipping time-\/consuming algorithms (e.\+g., exhaustive search on large datasets). It continues to prompt until a valid input is provided.
+
+Acceptable inputs (case-\/insensitive)\+:
+\begin{DoxyItemize}
+\item "{}yes"{}, "{}y"{}\+: returns true
+\item "{}no"{}, "{}n"{}\+: returns false
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+true If the user chooses to skip long-\/running algorithms. 
+
+false If the user chooses to include all algorithms. 
+\end{DoxyReturn}
+\Hypertarget{mode_8cpp_a813b477a8f194a43f92f95c82e1715ae}\label{mode_8cpp_a813b477a8f194a43f92f95c82e1715ae} 
+\index{mode.cpp@{mode.cpp}!getAlgorithm@{getAlgorithm}}
+\index{getAlgorithm@{getAlgorithm}!mode.cpp@{mode.cpp}}
+\doxysubsubsection{\texorpdfstring{getAlgorithm()}{getAlgorithm()}}
+{\footnotesize\ttfamily string get\+Algorithm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prompts the user to seelct a valid algorithm. 
+
+This function continuously prompts the user via standard input until a valid algorithm is entered. Valid algorithms include\+: "{}exhaustive"{}, "{}dynamic programming"{}, "{}approximation"{}, "{}genetic"{}, and "{}benchmark"{}.
+
+\begin{DoxyReturn}{Returns}
+A string representing the selected algorithm.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+the function will not return until a valid input is provided. 
+\end{DoxyNote}
+\Hypertarget{mode_8cpp_ae5553e4e7b8697cc821ea9945a89f69e}\label{mode_8cpp_ae5553e4e7b8697cc821ea9945a89f69e} 
+\index{mode.cpp@{mode.cpp}!getValidInteger@{getValidInteger}}
+\index{getValidInteger@{getValidInteger}!mode.cpp@{mode.cpp}}
+\doxysubsubsection{\texorpdfstring{getValidInteger()}{getValidInteger()}}
+{\footnotesize\ttfamily int get\+Valid\+Integer (\begin{DoxyParamCaption}\item[{const string \&}]{prompt }\end{DoxyParamCaption})}
+
+\Hypertarget{mode_8cpp_aca2ee75de803712265afe33aac433655}\label{mode_8cpp_aca2ee75de803712265afe33aac433655} 
+\index{mode.cpp@{mode.cpp}!HandleUserInput@{HandleUserInput}}
+\index{HandleUserInput@{HandleUserInput}!mode.cpp@{mode.cpp}}
+\doxysubsubsection{\texorpdfstring{HandleUserInput()}{HandleUserInput()}}
+{\footnotesize\ttfamily Input\+Data Handle\+User\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Handles user input for selecting the algorithm and dataset.\+ADJ\+\_\+\+FREQUENCY. 
+
+This function prompts the user to select an algorithm and a dataset.
+
+\begin{DoxyReturn}{Returns}
+Input\+Data A structure containing the selected algorithm and dataset filename. 
+\end{DoxyReturn}

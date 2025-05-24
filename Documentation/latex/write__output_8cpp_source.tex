@@ -1,0 +1,24 @@
+\doxysection{write\+\_\+output.\+cpp}
+\hypertarget{write__output_8cpp_source}{}\label{write__output_8cpp_source}\mbox{\hyperlink{write__output_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ carlo\ on\ 13/04/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}data\_structures/structures.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{write__output_8cpp_a63585fb45fefde14d9c0cffd3962e919}{write\_output}}(OutputData\ \&output,\ Algorithm\ \&data)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Pallets\ used:\ \(\backslash\)n\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ pallet:\ output.pallets)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Pallet:\ "{}}\ <<\ pallet.id\ <<\ endl\ <<}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Weight:\ "{}}\ <<\ \ pallet.weight\ <<\ endl\ <<}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Profit:\ "{}}\ <<\ pallet.profit\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Initial\ Weight\ available:\ "{}}\ <<\ data.TotalWeight\ <<\ endl;}
+\DoxyCodeLine{00030\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Total\ Weight\ Used:\ "{}}\ <<\ output.totalWeight\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00031\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Total\ Profit:\ "{}}\ <<\ output.totalProfit\ <<\ endl;}
+\DoxyCodeLine{00032\ \}}
+
+\end{DoxyCode}

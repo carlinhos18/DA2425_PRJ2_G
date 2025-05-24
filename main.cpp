@@ -3,6 +3,29 @@
 #include "write_output.cpp"
 using namespace std;
 
+
+/**
+ * @mainpage Projeto Desenho de Algoritmos
+ *
+ * @section about About the Project:
+ * This project is the optimization of a real-world variation of the knapsack problem,
+ * where the goal is to maximize the profit of pallets loaded onto a truck without exceeding its weight capacity.
+ * 
+ *
+ * @section authors Authors:
+ *  - Carlos Cristelo, up202307628
+ *  - Martim Neves, up202305501
+ *  - Tomás Salgueiro, up202305511
+ */
+
+/**
+ * @brief Entry point of the program.
+ *
+ * Handles user input, loads truck data, selects and applies the chosen algorithm,
+ * and writes the output. If the user selects benchmark mode, runs benchmark tests instead.
+ *
+ * @return 0
+ */
 int main() {
     Algorithm data;
     OutputData output;

@@ -1,0 +1,51 @@
+\doxysection{mode\+\_\+utils.\+cpp File Reference}
+\hypertarget{mode__utils_8cpp}{}\label{mode__utils_8cpp}\index{mode\_utils.cpp@{mode\_utils.cpp}}
+{\ttfamily \#include "{}mode\+\_\+utils.\+h"{}}\newline
+Include dependency graph for mode\+\_\+utils.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{mode__utils_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{mode__utils_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{mode__utils_8cpp_a81a4b59e271a1ed3898b74e108118bd5}{is\+File\+Valid}} (const std\+::string \&filename, const std\+::string \&prefix, const std\+::string \&suffix)
+\begin{DoxyCompactList}\small\item\em Checks if a filename matches a given prefix and suffix pattern. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mode__utils_8cpp_a81a4b59e271a1ed3898b74e108118bd5}\label{mode__utils_8cpp_a81a4b59e271a1ed3898b74e108118bd5} 
+\index{mode\_utils.cpp@{mode\_utils.cpp}!isFileValid@{isFileValid}}
+\index{isFileValid@{isFileValid}!mode\_utils.cpp@{mode\_utils.cpp}}
+\doxysubsubsection{\texorpdfstring{isFileValid()}{isFileValid()}}
+{\footnotesize\ttfamily bool is\+File\+Valid (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{const std\+::string \&}]{prefix,  }\item[{const std\+::string \&}]{extension }\end{DoxyParamCaption})}
+
+
+
+Checks if a filename matches a given prefix and suffix pattern. 
+
+This utility function verifies if the input {\ttfamily filename} starts with the specified {\ttfamily prefix} and ends with the specified {\ttfamily suffix}. It is typically used to validate file naming conventions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file to check. \\
+\hline
+{\em prefix} & The prefix that the filename should start with. \\
+\hline
+{\em suffix} & The suffix that the filename should end with.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the filename starts with the given prefix and ends with the given suffix. 
+
+false Otherwise. 
+\end{DoxyReturn}

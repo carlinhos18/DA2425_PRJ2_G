@@ -1,0 +1,81 @@
+\doxysection{read\+\_\+files.\+cpp}
+\hypertarget{read__files_8cpp_source}{}\label{read__files_8cpp_source}\mbox{\hyperlink{read__files_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{read__files_8h}{read\_files.h}}"{}}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{read__files__utils_8cpp}{read\_files\_utils.cpp}}"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{read__files_8cpp_a2eb151bbd542dbedafe96464ab1995aa}{read\_truck\_file}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename,\ Algorithm\&\ data)\ \{}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{string}\ correct\ =\ \textcolor{stringliteral}{"{}Datasets\_Project2/"{}}\ +\ filename;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//cout\ <<"{}TruckFileDirectory:\ "{}\ <<\ correct\ <<\ endl;}}
+\DoxyCodeLine{00010\ \ \ \ \ ifstream\ infile(correct);}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{string}\ line;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{if}\ (!infile.is\_open())\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ endl;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ getline(infile,\ line);\ \textcolor{comment}{//\ Ignorar\ cabeçalho}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{if}\ (!getline(infile,\ line))\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Erro:\ Ficheiro\ não\ tem\ dados\ após\ o\ cabeçalho!"{}}\ <<\ endl;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ stringstream\ ss(line);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{string}\ capacity\_str,\ n\_pallets\_str;}
+\DoxyCodeLine{00027\ \ \ \ \ getline(ss,\ capacity\_str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00028\ \ \ \ \ getline(ss,\ n\_pallets\_str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ Truck\ truck;}
+\DoxyCodeLine{00031\ \ \ \ \ truck.capacity\ =\ stoi(capacity\_str);}
+\DoxyCodeLine{00032\ \ \ \ \ data.TotalWeight\ =\ truck.capacity;}
+\DoxyCodeLine{00033\ \ \ \ \ truck.n\_pallets\ =\ stoi(n\_pallets\_str);}
+\DoxyCodeLine{00034\ \ \ \ \ truck.truck\_id\ =\ \mbox{\hyperlink{read__files__utils_8cpp_a621f6ea129d3a961054a72590ce4f786}{get\_truck\_id}}(filename);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{string}\ pallets\_file\ =\ \textcolor{stringliteral}{"{}Pallets\_"{}}\ +\ truck.truck\_id\ +\ \textcolor{stringliteral}{"{}.csv"{}};}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{read__files_8cpp_a8084813c0331a76810352914b9204ea2}{read\_pallets\_file}}(pallets\_file,\ data);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ infile.close();}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{read__files_8cpp_a8084813c0331a76810352914b9204ea2}{read\_pallets\_file}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename,\ Algorithm\&\ data)\{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{string}\ correct\ =\ \textcolor{stringliteral}{"{}Datasets\_Project2/"{}}\ +\ filename;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//cout\ <<\ "{}PalletsFileDirectory:\ "{}\ <<\ correct\ <<\ endl;}}
+\DoxyCodeLine{00046\ \ \ \ \ ifstream\ infile(correct);}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{string}\ line;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}\ (!infile.is\_open())\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ endl;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ getline(infile,\ line);\ \textcolor{comment}{//\ Ignorar\ cabeçalho}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{while}\ (getline(infile,\ line))\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ stringstream\ ss(line);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ Pallet\ pallet;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ idStr,\ weightStr,\ profitStr;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ getline(ss,\ idStr,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ getline(ss,\ weightStr,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ getline(ss,\ profitStr,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ pallet.id\ =\ stoi(idStr);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ pallet.weight\ =\ stoi(weightStr);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ pallet.profit\ =\ stoi(profitStr);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ data.pallets.push\_back(pallet);}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ infile.close();}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+
+\end{DoxyCode}

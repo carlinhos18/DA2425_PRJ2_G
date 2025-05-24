@@ -1,0 +1,105 @@
+\doxysection{mode.\+cpp}
+\hypertarget{mode_8cpp_source}{}\label{mode_8cpp_source}\mbox{\hyperlink{mode_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ carlo\ on\ 26/03/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mode_8h}{mode.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{read__files_8cpp}{read\_files.cpp}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mode__utils_8cpp}{mode\_utils.cpp}}"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{mode_8cpp_a813b477a8f194a43f92f95c82e1715ae}{getAlgorithm}}()\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{string}\ Algorithm;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Algorithm\ <exhaustive/dynamic\ programming/approximation/genetic/benchmark>:\ "{}};}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ getline(cin,\ Algorithm);}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Algorithm\ ==\ \textcolor{stringliteral}{"{}exhaustive"{}}\ ||\ Algorithm\ ==\ \textcolor{stringliteral}{"{}dynamic\ programming"{}}\ ||\ Algorithm\ ==\ \textcolor{stringliteral}{"{}genetic"{}}\ ||\ Algorithm\ ==\ \textcolor{stringliteral}{"{}approximation"{}}\ ||\ Algorithm\ ==\ \textcolor{stringliteral}{"{}benchmark"{}})\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Algorithm;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ mode!\ Please\ enter\ 'exhaustive',\ 'dynamic\ programming',\ 'approximation',\ 'genetic'\ or\ 'benchmark'.\(\backslash\)n"{}};}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
+\DoxyCodeLine{00018\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{mode_8cpp_ae5553e4e7b8697cc821ea9945a89f69e}{getValidInteger}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&prompt)\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{string}\ input;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ value;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ cout\ <<\ prompt;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ getline(std::cin,\ input);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ pos;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ stoi(input,\ \&pos);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ ==\ input.size()\ \&\&\ \mbox{\hyperlink{read__files__utils_8cpp_a4e2d38b1591b4484653bbe37925a9db9}{is\_valid\_integer}}(input))\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (...)\ \{}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ input.\ Please\ enter\ a\ valid\ integer.\(\backslash\)n"{}};}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ InputData\ \mbox{\hyperlink{mode_8cpp_aca2ee75de803712265afe33aac433655}{HandleUserInput}}()\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ InputData\ inputData;}
+\DoxyCodeLine{00047\ \ \ \ \ inputData.algorithm\ =\ \mbox{\hyperlink{mode_8cpp_a813b477a8f194a43f92f95c82e1715ae}{getAlgorithm}}();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{if}\ (inputData.algorithm\ ==\ \textcolor{stringliteral}{"{}benchmark"{}})\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inputData;}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{int}\ datasetNumber;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Choose\ a\ dataset\ number\ (1\ to\ 10):\ "{}};}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ input;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ getline(cin,\ input);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ datasetNumber\ =\ stoi(input);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (datasetNumber\ >=\ 1\ \&\&\ datasetNumber\ <=\ 10)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Please\ enter\ a\ number\ between\ 1\ and\ 10.\(\backslash\)n"{}};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (...)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ input.\ Please\ enter\ a\ valid\ number.\(\backslash\)n"{}};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ prefix\ =\ \textcolor{stringliteral}{"{}TruckAndPallets\_"{}};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ suffix\ =\ \textcolor{stringliteral}{"{}.csv"{}};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ stringstream\ ss;}
+\DoxyCodeLine{00075\ \ \ \ \ ss\ <<\ prefix\ <<\ std::setw(2)\ <<\ std::setfill(\textcolor{charliteral}{'0'})\ <<\ datasetNumber\ <<\ suffix;}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{string}\ filename\ =\ ss.str();}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ inputData.filename\ =\ filename;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ inputData;}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{mode_8cpp_a1b217cc1bf8b170e01eeab798ce2e721}{askSkipLongAlgorithms}}()\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Skip\ long-\/running\ algorithms\ (for\ instance,\ exhaustive\ for\ large\ datasets)?\ (yes/no):\ "{}};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ input;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ getline(cin,\ input);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ transform(input.begin(),\ input.end(),\ input.begin(),\ ::tolower);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (input\ ==\ \textcolor{stringliteral}{"{}yes"{}}\ ||\ input\ ==\ \textcolor{stringliteral}{"{}y"{}})\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (input\ ==\ \textcolor{stringliteral}{"{}no"{}}\ ||\ input\ ==\ \textcolor{stringliteral}{"{}n"{}})\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ input.\ Please\ type\ 'yes'\ or\ 'no'.\(\backslash\)n"{}};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \}}
+\DoxyCodeLine{00100\ }
+
+\end{DoxyCode}

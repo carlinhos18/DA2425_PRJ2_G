@@ -1,0 +1,24 @@
+\doxysection{read\+\_\+files\+\_\+utils.\+cpp}
+\hypertarget{read__files__utils_8cpp_source}{}\label{read__files__utils_8cpp_source}\mbox{\hyperlink{read__files__utils_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ ceraizi\ on\ 26-\/03-\/2025.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{read__files__utils_8h}{read\_files\_utils.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{read__files__utils_8cpp_a4e2d38b1591b4484653bbe37925a9db9}{is\_valid\_integer}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ str)\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{return}\ !str.empty()\ \&\&\ all\_of(str.begin(),\ str.end(),\ ::isdigit);}
+\DoxyCodeLine{00008\ \}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{read__files__utils_8cpp_a621f6ea129d3a961054a72590ce4f786}{get\_truck\_id}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename)\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ underscore\_pos\ =\ filename.rfind(\textcolor{charliteral}{'\_'});}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dot\_pos\ =\ filename.rfind(\textcolor{charliteral}{'.'});}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{if}\ (underscore\_pos\ !=\ string::npos\ \&\&\ dot\_pos\ !=\ string::npos\ \&\&\ dot\_pos\ >\ underscore\_pos)\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \textcolor{keywordtype}{id}\ =\ filename.substr(underscore\_pos\ +\ 1,\ dot\_pos\ -\/\ underscore\_pos\ -\/\ 1);}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ id;}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00019\ \}}
+
+\end{DoxyCode}
