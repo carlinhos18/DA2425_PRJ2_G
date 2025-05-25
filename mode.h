@@ -1,7 +1,3 @@
-//
-// Created by ceraizi on 26-03-2025.
-//
-
 #ifndef MODE_H
 #define MODE_H
 

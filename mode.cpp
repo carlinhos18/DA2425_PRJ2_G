@@ -1,6 +1,3 @@
-//
-// Created by carlo on 26/03/2025.
-//
 #include "mode.h"
 #include "read_files.cpp"
 #include "mode_utils.cpp"
